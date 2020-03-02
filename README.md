@@ -1,7 +1,13 @@
 # new-linux-setup
 
-add [commit verification](https://help.github.com/en/articles/managing-commit-signature-verification)
+setup [gitmoji](https://github.com/carloscuesta/gitmoji-cli)
+```bash
+sudo apt install npm
+sudo npm i -g gitmoji-cli
+```
 
+
+add [commit verification](https://help.github.com/en/articles/managing-commit-signature-verification)
 ```bash
 sudo apt install gpg
 gpg --full-generate-key  # default settings except key length use 4096
