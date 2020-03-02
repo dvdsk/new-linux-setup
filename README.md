@@ -6,6 +6,13 @@ sudo apt install npm
 sudo npm i -g gitmoji-cli
 ```
 
+setup git
+populate git hooks with the content of the folder in this repo
+```bash
+git config --global user.name "dkleingeld"
+git config --global user.email "kleingeld@users.noreply.github.com"
+git config --global core.hooksPath /home/kleingeld/bin/githooks
+```
 
 add [commit verification](https://help.github.com/en/articles/managing-commit-signature-verification)
 ```bash
