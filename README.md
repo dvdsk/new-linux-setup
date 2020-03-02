@@ -1,5 +1,10 @@
 # new-linux-setup
 
+install programs
+```bash
+sudo apt install zsh git make g++ gcc python3 python3-pip
+```
+
 setup [gitmoji](https://github.com/carloscuesta/gitmoji-cli)
 ```bash
 sudo apt install npm
