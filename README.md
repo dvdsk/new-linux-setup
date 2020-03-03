@@ -25,6 +25,12 @@ sudo apt install npm
 sudo npm i -g gitmoji-cli
 ```
 
+setup keyfiles
+```bash
+ssh-keygen #click enter for all options
+cat /home/{username}/.ssh/id_rsa.pub #copy the output and save it to github
+```
+
 setup git
 populate git hooks with the content of the folder in this repo
 ```bash
