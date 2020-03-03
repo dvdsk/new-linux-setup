@@ -5,6 +5,20 @@ install programs
 sudo apt install zsh git make g++ gcc python3 python3-pip
 ```
 
+latest rustup
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+cargo install ripgrep
+```
+
+
+latex
+```bash
+sudo apt-get install libfontconfig1-dev libgraphite2-dev libharfbuzz-dev libicu-dev libssl-dev zlib1g-dev
+cargo install tectonic
+```
+
+
 setup [gitmoji](https://github.com/carloscuesta/gitmoji-cli)
 ```bash
 sudo apt install npm
