@@ -34,15 +34,16 @@ cat /home/{username}/.ssh/id_rsa.pub #copy the output and save it to github
 setup git
 populate git hooks with the content of the folder in this repo
 ```bash
-git config --global user.name "dskleingeld"
-git config --global user.email "some@email.com" #for example use private mail offerd by github
+git config --global user.name "github username"
+git config --global user.email "github email" #for example use private mail offerd by github
 git config --global core.hooksPath /home/kleingeld/bin/githooks
 ```
 
 add [commit verification](https://help.github.com/en/articles/managing-commit-signature-verification)
 ```bash
 sudo apt install gpg
-# if the private key by git is being used as commit mail, use its address during key generation
+# as we are setting up for use with github use your github username and 
+# github email for Real Name and email during key generation
 gpg --full-generate-key  # default settings except key length use 4096
 gpg --list-secret-keys --keyid-format LONG  # copy the bit after 'sec rsa4096/' call it A
 gpg --armor --export <A>  # paste this key at github.com/settings/keys
