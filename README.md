@@ -8,9 +8,23 @@ sudo apt install zsh git make g++ gcc python3 python3-pip
 latest rustup
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-cargo install ripgrep
 ```
 
+install rust cmd tools
+```bash
+cargo install exa #ls replacement
+cargo install bat #cat replacement
+cargo install ripgrep #use: rg
+cargo install fd-find #find like, used: fd
+cargo install du-dust #folder disk space, use: dust
+```
+
+configure tools (in $home/.zshrc)
+```bash
+alias bat="bat --theme ansi-light"
+alias ls="exa"
+alias la="exa -la"
+```
 
 latex
 ```bash
