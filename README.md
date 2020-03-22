@@ -5,6 +5,13 @@ install programs
 sudo apt install zsh git make g++ gcc python3 python3-pip
 ```
 
+configure zsh 
+install plugin manager (https://github.com/zdharma/zinit)
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+```
+add: `zinit ice depth=1; zinit light romkatv/powerlevel10k` to .zshrc
+
 latest rustup
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
