@@ -10,11 +10,7 @@ install plugin manager (https://github.com/zdharma/zinit)
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 ```
-configure zsh:
-```bash
-autoload -Uz zsh-newuser-install && zsh-newuser-install -f
-```
-add: `zinit ice depth=1; zinit light romkatv/powerlevel10k` to .zshrc
+configure zsh by copying the .zshrc in this repository to your home folder
 
 latest rustup
 ```bash
