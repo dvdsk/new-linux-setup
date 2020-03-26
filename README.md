@@ -74,6 +74,14 @@ git config --global commit.gpgsign true
 # sign tags using git tag -s
 ```
 
+### Gnome desktop envirement setup
+- install tweak tool en pomodoro
+  ```bash
+  apt install gnome-tweak-tool gnome-shell-pomodoro
+  ```
+- go to https://extensions.gnome.org/
+- install extensions: 
+
 ### Code editor setup
 - install vscode 
 - add extension `TabNine` for code complition
