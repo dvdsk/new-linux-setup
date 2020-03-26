@@ -5,6 +5,11 @@ install programs
 sudo apt install zsh git make g++ gcc python3 python3-pip
 ```
 
+latest rustup
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
 install rust cmd tools
 ```bash
 cargo install exa #ls replacement
@@ -28,10 +33,6 @@ configure zsh
    ```
 - set zsh settings by copying the .zshrc and .profile in this repository to your home folder
 
-latest rustup
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
 
 latex
 ```bash
