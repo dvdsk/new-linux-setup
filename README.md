@@ -73,3 +73,7 @@ git config --global user.signingkey <A>
 git config --global commit.gpgsign true
 # sign tags using git tag -s
 ```
+
+Code editor setup
+install vscode 
+add extension `TabNine` for code complition
