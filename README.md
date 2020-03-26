@@ -6,11 +6,11 @@ sudo apt install zsh git make g++ gcc python3 python3-pip
 ```
 
 configure zsh 
-install plugin manager (https://github.com/zdharma/zinit)
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-```
-configure zsh by copying the .zshrc in this repository to your home folder
+- install plugin manager (https://github.com/zdharma/zinit)
+   ```bash
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+   ```
+- set zsh settings by copying the .zshrc and .profile in this repository to your home folder
 
 latest rustup
 ```bash
