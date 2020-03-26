@@ -5,18 +5,6 @@ install programs
 sudo apt install zsh git make g++ gcc python3 python3-pip
 ```
 
-configure zsh 
-- install plugin manager (https://github.com/zdharma/zinit)
-   ```bash
-   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-   ```
-- set zsh settings by copying the .zshrc and .profile in this repository to your home folder
-
-latest rustup
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
 install rust cmd tools
 ```bash
 cargo install exa #ls replacement
@@ -31,6 +19,18 @@ configure tools (in $home/.zshrc)
 alias bat="bat --theme ansi-light"
 alias ls="exa"
 alias la="exa -la"
+```
+
+configure zsh 
+- install plugin manager (https://github.com/zdharma/zinit)
+   ```bash
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+   ```
+- set zsh settings by copying the .zshrc and .profile in this repository to your home folder
+
+latest rustup
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 latex
