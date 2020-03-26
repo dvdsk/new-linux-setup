@@ -77,3 +77,7 @@ git config --global commit.gpgsign true
 ### Code editor setup
 - install vscode 
 - add extension `TabNine` for code complition
+
+### Firefox setup
+- add extension AdGuard
+- [optional, if work account] add extension LeechBlock and configure to block distracting sites
