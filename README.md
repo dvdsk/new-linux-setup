@@ -74,6 +74,6 @@ git config --global commit.gpgsign true
 # sign tags using git tag -s
 ```
 
-Code editor setup
-install vscode 
-add extension `TabNine` for code complition
+### Code editor setup
+- install vscode 
+- add extension `TabNine` for code complition
