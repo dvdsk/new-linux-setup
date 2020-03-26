@@ -80,7 +80,7 @@ git config --global commit.gpgsign true
   apt install gnome-tweak-tool gnome-shell-pomodoro
   ```
 - go to https://extensions.gnome.org/
-- install extensions: 
+- install extensions: [launch-new-instance](https://extensions.gnome.org/extension/600/launch-new-instance/) [put-windows](https://extensions.gnome.org/extension/39/put-windows/)
 
 ### Code editor setup
 - install vscode 
