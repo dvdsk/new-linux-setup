@@ -2,7 +2,7 @@
 
 install programs
 ```bash
-sudo apt install zsh git make g++ gcc python3 python3-pip
+sudo apt install zsh git make g++ gcc python3 python3-pip sshfs
 ```
 
 latest rustup
