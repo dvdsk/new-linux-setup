@@ -89,3 +89,6 @@ git config --global commit.gpgsign true
 ### Firefox setup
 - add extension AdGuard
 - [optional, if work account] add extension LeechBlock and configure to block distracting sites
+
+### Print to paper tablet
+- follow: https://github.com/peerdavid/send-to-remarkable
