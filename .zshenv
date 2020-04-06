@@ -12,3 +12,4 @@ export PATH
 alias bat="bat --theme ansi-light"
 alias ls="exa"
 alias la="exa -la"
+alias python="python3" #if you ever need python2 you will have to disable this alias
