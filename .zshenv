@@ -14,3 +14,4 @@ alias ls="exa"
 alias la="exa -la"
 alias mpd="ncmpcpp -h 192.168.1.10"
 alias python="python3" #if you ever need python2 you will have to disable this alias
+alias pip="pip3" #prevents acidentally using pip for python2
