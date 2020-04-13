@@ -19,7 +19,8 @@ cargo install fd-find #find like, used: fd
 cargo install du-dust #folder disk space, use: dust
 ```
 
-configure tools (in $home/.zshrc)
+configure tools and aliases (in $home/.zshenv)
+or better download .zshenv from here
 ```bash
 alias bat="bat --theme ansi-light"
 alias ls="exa"
