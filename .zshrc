@@ -49,8 +49,3 @@ zstyle :compinstall filename '/home/kleingeld/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-
-alias bat="bat --theme ansi-light"
-#alias ls="exa"
-#alias la="exa -la"
-alias python=python3
