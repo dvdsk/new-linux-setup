@@ -34,6 +34,7 @@ zinit ice depth=1; zinit load zdharma/fast-syntax-highlighting
 zinit ice depth=1; zinit load zsh-users/zsh-completions
 zinit ice depth=1; zinit load agkozak/zsh-z
 #zinit ice depth=1; zinit load tymm/zsh-directory-history
+zinit ice depth=1; zinit load mdumitru/fancy-ctrl-z
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -49,3 +50,17 @@ zstyle :compinstall filename '/home/kleingeld/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+# Setup history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt share_history
+setopt extended_history
+
+export HISTSIZE=10000
+export HISTFILE="${HOME}/.zsh_history"
+export SAVEHIST=${HISTSIZE}
+
+# make search up and down work, so partially type and hit up/down to find relevant stuff
+[[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" history-beginning-search-backward
+[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-beginning-search-forward
