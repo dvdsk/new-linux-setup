@@ -82,6 +82,7 @@ git config --global commit.gpgsign true
   ```
 - go to https://extensions.gnome.org/
 - install extensions: [launch-new-instance](https://extensions.gnome.org/extension/600/launch-new-instance/) [put-windows](https://extensions.gnome.org/extension/39/put-windows/)
+- copy the Templates dir to your home folder to allow creating templates from files program
 
 ### Code editor setup
 - install vscode 
