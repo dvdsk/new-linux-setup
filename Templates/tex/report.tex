@@ -1,0 +1,57 @@
+\documentclass[lang=en, hanging-titles=true]{skrapport}
+
+%\usepackage[backend=biber]{biblatex}
+%\addbibresource{References.bib}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx} % allow embedded images
+  \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+  \graphicspath{{../figs/}} % set of paths to search for images
+\usepackage{ragged2e}
+\usepackage{ctable}
+% \usepackage{float}
+% \usepackage{subcaption}
+%   \captionsetup{compatibility=false}
+% \usepackage[toc,page]{appendix} %appendices with sections
+% \usepackage{amsmath}  % extended mathematics
+% \usepackage{booktabs} % book-quality tables
+% \usepackage{units}    % non-stacked fractions and better unit spacing
+% \usepackage{multicol} % multiple column layout facilities
+% \usepackage{lipsum}   % filler text
+% \usepackage{fancyvrb} % extended verbatim environments
+% \usepackage{multicol} % multi column lists
+
+\raggedright
+\colortheme{skdoc}
+\title{A report Title}
+\author[dskleingeld@gmail.com]{David Kleingeld}
+
+
+\begin{document}
+
+%\begin{titlepage}
+\maketitle
+\tableofcontents
+%\end{titlepage}
+
+%\section{Introduction}
+%\input{content/intro}
+%\section{Theory}
+%\input{content/theory}
+%\section{Implementation}
+%\input{content/impl}
+%\section{Results}
+%\input{content/res}
+%\section{Conclusion}
+%\input{content/conclusion}
+
+\clearpage
+\appendix
+%\section{Run Instructions}
+\input{content/run_instructions}
+%\printbibliography
+
+\end{document}
+
+\pagestyle{scrheadings} % Show chapter titles as headings
+\cleardoublepage % Avoids problems with pdfbookmark
