@@ -1,149 +1,66 @@
-" ========================================================================
-" # PLUGINS
-" ========================================================================
-
-" Plugins
-call plug#begin('~/.vim/plugged')
-
-" GUI
-Plug 'machakann/vim-highlightedyank'
-Plug 'https://github.com/lifepillar/vim-solarized8'  
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-" Semantic language support
-Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Syntactic language support
-Plug 'sheerun/vim-polyglot' "language pack (syntax+indents)
-
-" GUI Tools
-Plug 'simnalamburt/vim-mundo'
-Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' } " needs pyvim 
-
-" Tools
-Plug 'scrooloose/nerdcommenter'
-Plug 'conradirwin/vim-bracketed-paste'
-Plug 'airblade/vim-rooter'
-
-call plug#end()
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 
-" ========================================================================
-" # Basic behaviour
-" ========================================================================
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
 
-set backspace=indent,eol,start " backspace over anything
-set autoindent
-nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
-set noerrorbells visualbell t_vb= "disable horrible bell
-set incsearch " Enable searching as you type, rather than waiting till you press enter.
-set ignorecase "ignore case in search
-set smartcase "except when I put a capital in the query
-set incsearch "highlight all matches:
-set mouse+=a "enable mouse support
-set undodir=~/.vimdid "permanent undo
-set undofile "permanent undo
-set nohlsearch "do not keep highlighting search after move
-set spell spelllang=en_gb
-set hidden "allow to hide an unsaved buffer
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-" ========================================================================
-" # Plugin behaviour
-" ========================================================================
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-bin-gem-node
 
-" disables multiple modes in clap which allows escape to always quit clap
-let g:clap_insert_mode_only = v:true
-" let airline display ALE info
-let g:airline#extensions#ale#enabled = 1
-" we use coc for lsp
-let g:ale_disable_lsp = 1
-let g:ale_completion_enabled = 1
-let b:coc_suggest_disable = 1
+### End of Zinit's installer chunk
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit ice depth=1; zinit load djui/alias-tips
+zinit ice depth=1; zinit load zdharma/fast-syntax-highlighting
+#zinit ice depth=1; zinit load marzocchi/zsh-notify
+zinit ice depth=1; zinit load zsh-users/zsh-completions
+zinit ice depth=1; zinit load agkozak/zsh-z
+#zinit ice depth=1; zinit load tymm/zsh-directory-history
+zinit ice depth=1; zinit load mdumitru/fancy-ctrl-z
 
-" ========================================================================
-" # User Interface
-" ========================================================================
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-syntax on
-set number
-set relativenumber
-set laststatus=2 " always show status at buttom even if only one window
-set termguicolors
-set background=light
-highlight Comment cterm=italic gui=italic
+# Skip the not really helping Ubuntu global compinit
+skip_global_compinit=1
 
-let g:solarized_extra_hi_groups = 1
-colorscheme solarized8
-let g:airline_theme='solarized'
-let g:clap_theme = 'nord'
+# The following lines were added by compinstall
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' expand prefix suffix
+zstyle :compinstall filename '/home/kleingeld/.zshrc'
 
-" Change the Solarized background to dark or light depending upon the time of 
-" day (5 refers to 5AM and 17 to 5PM). Change the background only if it is not 
-" already set to the value we want.
-function! SetSolarizedBackground()
-    if strftime("%H") >= 5 && strftime("%H") < 21 
-        if &background != 'light'
-            let g:clap_theme = 'solarized_dark'
-	    let g:airline_solarized_bg='light'
-	    AirlineTheme solarized
-	    set background=light
-        endif
-    else
-        if &background != 'dark'
-            let g:clap_theme = 'solarized_dark'
-	    let g:airline_solarized_bg='dark'
-	    AirlineTheme solarized
-	    set background=dark
-        endif
-    endif
-endfunction
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
 
+# Setup history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt share_history
+setopt extended_history
 
-" Every time you save a file, call the function to check the time and change 
-" the background (if necessary).
-if has("autocmd")
-    autocmd VimEnter * call SetSolarizedBackground()
-    autocmd bufwritepost * call SetSolarizedBackground()
-endif
+export HISTSIZE=10000
+export HISTFILE="${HOME}/.zsh_history"
+export SAVEHIST=${HISTSIZE}
 
-"" ========================================================================
-" # Key (re)Bindings
-" ========================================================================
-
-tnoremap <ESC> <C-w>:q!<CR> "allow escape in terminal mode
-imap <^[[3> <ESC>
-let mapleader="\<SPACE>" "Map the leader key to SPACE
-"toggles between buffers
-nnoremap <leader><leader> <c-^> 
-"search for file to open
-nnoremap <leader>o :Clap files<CR> 
-nnoremap <leader>u :MundoToggle<CR>
-nnoremap <leader>f :CHADopen<CR>
-nnoremap <leader>r :Clap grep<CR>
-"suggestions for misspelled word TODO make this go to next misspelled if not on a misspelled word 
-nnoremap z z= 
-
-"only colomak remap we do, hjkl we hardly use thanks to 
-"ergodox layout (easy left right etc) and better movement 
-"alternatives (think w for next word e to end of word etc)
-"f <-> s "use find character more and s has a comfortable position
-nnoremap f s
-nnoremap s f
-
-"" ========================================================================
-" # Other
-" ========================================================================
-
-
-" 'Smart' navigation
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+# make search up and down work, so partially type and hit up/down to find relevant stuff
+[[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" history-beginning-search-backward
+[[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-beginning-search-forward
