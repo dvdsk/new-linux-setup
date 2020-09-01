@@ -6,11 +6,11 @@ call plug#begin('~/.vim/plugged')
 " GUI
 Plug 'machakann/vim-highlightedyank'
 Plug 'https://github.com/lifepillar/vim-solarized8'  
+Plug 'jnurmine/Zenburn'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
-"Plug 'thaerkh/vim-workspace'
 
 " Semantic language support
 Plug 'dense-analysis/ale'
@@ -56,7 +56,7 @@ set undodir=~/.vimdid "permanent undo
 set undofile "permanent undo
 set nohlsearch "do not keep highlighting search after move
 set spell spelllang=en_gb
-set spellsuggest+=10 "dont take up the entire screen with spell suggestions
+set spellsuggest+=10 "don't take up the entire screen with spell suggestions
 set hidden "allow to hide an unsaved buffer
 set splitbelow "new split goes bottom
 set splitright "new split goes right
@@ -93,33 +93,29 @@ let g:startify_list = [
 syntax on
 set number
 set relativenumber
-set laststatus=2 " always show status at buttom even if only one window
+set laststatus=2 " always show status at bottom even if only one window
 set termguicolors
 set background=light
 highlight Comment cterm=italic gui=italic
 
-let g:solarized_extra_hi_groups = 1
-colorscheme solarized8
-let g:airline_theme='solarized'
-let g:clap_theme = 'nord'
-
-" Change the Solarized background to dark or light depending upon the time of 
+" Change the background to dark or light depending upon the time of 
 " day (5 refers to 5AM and 17 to 5PM). Change the background only if it is not 
 " already set to the value we want.
 function! SetSolarizedBackground()
     if strftime("%H") >= 5 && strftime("%H") < 21 
         if &background != 'light'
-            let g:clap_theme = 'solarized_dark'
-	    let g:airline_solarized_bg='light'
-	    AirlineTheme solarized
-	    set background=light
+            colors solarized8
+			let g:clap_theme = 'solarized_dark'
+			let g:airline_solarized_bg='light'
+			AirlineTheme solarized
+			set background=light
         endif
     else
         if &background != 'dark'
-            let g:clap_theme = 'solarized_dark'
-	    let g:airline_solarized_bg='dark'
-	    AirlineTheme solarized
-	    set background=dark
+            let g:clap_theme = 'nord'
+			colors zenburn
+			set background=dark
+			AirlineTheme zenburn
         endif
     endif
 endfunction
@@ -151,18 +147,8 @@ nnoremap <leader>r :Clap grep<CR>
 "comfy, use : over ; in normal map so map ;->: and :->;
 nnoremap ; :
 nnoremap : ;
-"jump to next misspelled word and open spell menu
-"nnoremap z :call NextSpell()<CR>
 "switch buffers/tabs move windows
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
-"nnoremap <leader>w^[[D <C>wj 
-
-"only colomak remap we do, hjkl we hardly use thanks to 
-"ergodox layout (easy left right etc) and better movement 
-"alternatives (think w for next word e to end of word etc)
-"f <-> s "use find character more and s has a comfortable position
-" nnoremap f s
-" nnoremap s f
 
 "go to definition
 nmap <silent> gd <Plug>(coc-definition)
@@ -173,19 +159,3 @@ nnoremap Y y$
 "" ========================================================================
 " # Other
 " ========================================================================
-
-
-" " 'Smart' navigation
-" " Use tab for trigger completion with characters ahead and navigate.
-" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" " other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-
-function! NextSpell()
-  exec "normal! zt<CR>"
-  exec "normal! ]s"
-  exec "normal! z="
-endfunction
