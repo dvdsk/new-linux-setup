@@ -135,25 +135,31 @@ endif
 tnoremap <ESC> <C-w>:q!<CR> "allow escape in terminal mode
 let mapleader="\<SPACE>" "Map the leader key to SPACE
 
-"toggles between buffers
-nnoremap <leader><leader> <c-^>
-"set current tabs as a workspace
-nnoremap <leader>s :ToggleWorkspace<CR>
+"-----------new functionality-----------
 "search for file to open
 nnoremap <leader>o :Clap files<CR> 
-nnoremap <leader>u :MundoToggle<CR>
 nnoremap <leader>f :CHADopen<CR>
 nnoremap <leader>r :Clap grep<CR>
-"comfy, use : over ; in normal map so map ;->: and :->;
-nnoremap ; :
-nnoremap : ;
-"switch buffers/tabs move windows
-nnoremap <Leader>b :buffers<CR>:buffer<Space>
-
+"view a tree of all undoes
+nnoremap <leader>u :MundoToggle<CR>
+"auto format
+nnoremap <leader>m :Autoformat<CR>
 "go to definition
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> <leader>n <Plug>(coc-diagnostic-next)
 nmap <leader>cr <Plug>(coc-rename)
+
+"------------re mapping for comfort----------
+"toggles between buffers
+nnoremap <leader><leader> <c-^>
+"comfy, use : over ; in normal map so map ;->: and :->;
+nnoremap ; :
+nnoremap : ;
+"comfy spell with <leader>z over z= 
+nnoremap <leader>z :z=
+"switch buffers/tabs move windows
+nnoremap <Leader>b :buffers<CR>:buffer<Space>
+"yank till end of line
 nnoremap Y y$
 
 "" ========================================================================
