@@ -54,6 +54,7 @@ set incsearch "highlight all matches:
 set mouse+=a "enable mouse support
 set undodir=~/.vimdid "permanent undo
 set undofile "permanent undo
+"set backup TODO look into this
 set nohlsearch "do not keep highlighting search after move
 set spell spelllang=en_gb
 set spellsuggest+=10 "don't take up the entire screen with spell suggestions
@@ -95,23 +96,25 @@ set number
 set relativenumber
 set laststatus=2 " always show status at bottom even if only one window
 set termguicolors
-set background=light
 highlight Comment cterm=italic gui=italic
 
 " Change the background to dark or light depending upon the time of 
 " day (5 refers to 5AM and 17 to 5PM). Change the background only if it is not 
 " already set to the value we want.
-function! SetSolarizedBackground()
+let s:themeset = 0
+function! SetTheme()
     if strftime("%H") >= 5 && strftime("%H") < 21 
-        if &background != 'light'
+        if (&background != 'light' || s:themeset != 1)
             colors solarized8
+			let s:themeset = 1
 			let g:clap_theme = 'solarized_dark'
 			let g:airline_solarized_bg='light'
-			AirlineTheme solarized
 			set background=light
+			AirlineTheme solarized
         endif
     else
-        if &background != 'dark'
+        if (&background != 'dark' || s:themeset != 1)
+			let s:themeset = 1
             let g:clap_theme = 'nord'
 			colors zenburn
 			set background=dark
@@ -121,11 +124,11 @@ function! SetSolarizedBackground()
 endfunction
 
 
-" Every time you save a file, call the function to check the time and change 
+" Every time you save a file,call the function to check the time and change 
 " the background (if necessary).
 if has("autocmd")
-    autocmd VimEnter * call SetSolarizedBackground()
-    autocmd bufwritepost * call SetSolarizedBackground()
+    autocmd VimEnter * call SetTheme()
+    autocmd bufwritepost * call SetTheme()
 endif
 
 "" ========================================================================
@@ -164,4 +167,4 @@ nnoremap Y y$
 
 "" ========================================================================
 " # Other
-" ========================================================================
+" ======================================================================== 
