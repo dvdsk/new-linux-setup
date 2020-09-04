@@ -54,6 +54,7 @@ set incsearch "highlight all matches:
 set mouse+=a "enable mouse support
 set undodir=~/.vimdid "permanent undo
 set undofile "permanent undo
+"set backup TODO look into this
 set nohlsearch "do not keep highlighting search after move
 set spell spelllang=en_gb
 set spellsuggest+=10 "don't take up the entire screen with spell suggestions
@@ -95,23 +96,25 @@ set number
 set relativenumber
 set laststatus=2 " always show status at bottom even if only one window
 set termguicolors
-set background=light
 highlight Comment cterm=italic gui=italic
 
 " Change the background to dark or light depending upon the time of 
 " day (5 refers to 5AM and 17 to 5PM). Change the background only if it is not 
 " already set to the value we want.
-function! SetSolarizedBackground()
+let s:themeset = 0
+function! SetTheme()
     if strftime("%H") >= 5 && strftime("%H") < 21 
-        if &background != 'light'
+        if (&background != 'light' || s:themeset != 1)
             colors solarized8
+			let s:themeset = 1
 			let g:clap_theme = 'solarized_dark'
 			let g:airline_solarized_bg='light'
-			AirlineTheme solarized
 			set background=light
+			AirlineTheme solarized
         endif
     else
-        if &background != 'dark'
+        if (&background != 'dark' || s:themeset != 1)
+			let s:themeset = 1
             let g:clap_theme = 'nord'
 			colors zenburn
 			set background=dark
@@ -121,11 +124,11 @@ function! SetSolarizedBackground()
 endfunction
 
 
-" Every time you save a file, call the function to check the time and change 
+" Every time you save a file,call the function to check the time and change 
 " the background (if necessary).
 if has("autocmd")
-    autocmd VimEnter * call SetSolarizedBackground()
-    autocmd bufwritepost * call SetSolarizedBackground()
+    autocmd VimEnter * call SetTheme()
+    autocmd bufwritepost * call SetTheme()
 endif
 
 "" ========================================================================
@@ -135,27 +138,33 @@ endif
 tnoremap <ESC> <C-w>:q!<CR> "allow escape in terminal mode
 let mapleader="\<SPACE>" "Map the leader key to SPACE
 
-"toggles between buffers
-nnoremap <leader><leader> <c-^>
-"set current tabs as a workspace
-nnoremap <leader>s :ToggleWorkspace<CR>
+"-----------new functionality-----------
 "search for file to open
 nnoremap <leader>o :Clap files<CR> 
-nnoremap <leader>u :MundoToggle<CR>
 nnoremap <leader>f :CHADopen<CR>
 nnoremap <leader>r :Clap grep<CR>
-"comfy, use : over ; in normal map so map ;->: and :->;
-nnoremap ; :
-nnoremap : ;
-"switch buffers/tabs move windows
-nnoremap <Leader>b :buffers<CR>:buffer<Space>
-
+"view a tree of all undoes
+nnoremap <leader>u :MundoToggle<CR>
+"auto format
+nnoremap <leader>m :Autoformat<CR>
 "go to definition
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> <leader>n <Plug>(coc-diagnostic-next)
 nmap <leader>cr <Plug>(coc-rename)
+
+"------------re mapping for comfort----------
+"toggles between buffers
+nnoremap <leader><leader> <c-^>
+"comfy, use : over ; in normal map so map ;->: and :->;
+nnoremap ; :
+nnoremap : ;
+"comfy spell with <leader>z over z= 
+nnoremap <leader>z :z=
+"switch buffers/tabs move windows
+nnoremap <Leader>b :buffers<CR>:buffer<Space>
+"yank till end of line
 nnoremap Y y$
 
 "" ========================================================================
 " # Other
-" ========================================================================
+" ======================================================================== 
