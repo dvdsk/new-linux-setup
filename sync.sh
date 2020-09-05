@@ -4,7 +4,7 @@ function modified_in_repo() {
     blame=$(git blame $1 | head -1)
     fulldate=$(echo ${blame} | cut -d " " -f 3-4)
     ts=$(date --date="${fulldate}" +"%s")
-    return $ts
+    echo $ts
 }
 
 function modified_on_disk() {
@@ -16,37 +16,43 @@ function modified_on_disk() {
 }
 
 files=( 
-    "README.md, ~/Downloads" 
-    "LICENSE, ~/Documents" 
+    "vim/init.vim, ~/.config/nvim" 
+    ".zshenv, ~"
+    ".zshrc, ~"
 )
 
 updated_in_repo=()
 updated_on_disk=()
 for paths in "${files[@]}"; do
-    in_repo=$(echo ${paths} | cut -d "," -f 1 | tr -d '[:space:]')
-    on_disk=$(echo ${paths} | cut -d "," -f 2 | tr -d '[:space:]')/$(basename $in_repo)
-    on_disk=${on_disk/#\~/$HOME} #replace tilde with current home folder
+    repo_path=$(echo ${paths} | cut -d "," -f 1 | tr -d '[:space:]')
+    disk_path=$(echo ${paths} | cut -d "," -f 2 | tr -d '[:space:]')/$(basename $repo_path)
+    disk_path=${disk_path/#\~/$HOME} #replace tilde with current home folder
 
-    echo file $in_repo
-    echo repo $(modified_in_repo $in_repo)
-    echo disk $(modified_on_disk $on_disk)
-
-    if [ $(modified_in_repo $in_repo) -gt $(modified_on_disk $on_disk) ] 
+    if cmp --silent $repo_path $disk_path ;
     then
-        cp $in_repo $on_disk
-        updated_on_disk+=$on_disk
+        continue
+    fi
+
+    if [ $(modified_in_repo $repo_path) -gt $(modified_on_disk $disk_path) ] 
+    then
+        cp $repo_path $disk_path
+        updated_on_disk+=($disk_path)
     fi 
-    if [ $(modified_in_repo $in_repo) -st $(modified_on_disk $on_disk) ] 
+    if [ $(modified_in_repo $repo_path) -lt $(modified_on_disk $disk_path) ] 
     then
-        cp $on_disk $in_repo
-        updated_in_repo+=$in_repo
+        cp $disk_path $repo_path
+        updated_in_repo+=($repo_path)
     fi
 done
 
 if [ ${#updated_in_repo[@]} -gt 0 ]; then
-    echo updated in repo: ${updated_in_repo[@]}
+    printf 'updated in repo: %s' "${updated_in_repo[0]}"
+    printf ', %s' "${updated_in_repo[@]:1}"
+    printf '\n'
 fi
 
 if [ ${#updated_on_disk[@]} -gt 0 ]; then
-    echo updated on disk: ${updated_on_disk[@]}
+    printf 'updated on disk: %s' "${updated_on_disk[0]}"
+    printf ', %s' "${updated_on_disk[@]:1}"
+    printf '\n'
 fi
