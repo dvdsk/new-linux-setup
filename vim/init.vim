@@ -76,8 +76,6 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_disable_lsp = 1
 let g:ale_completion_enabled = 1
 let b:coc_suggest_disable = 0
-"disable undo dir popping up for every workspace
-"let g:workspace_persist_undo_history = 1
 
 let g:startify_list = [
   \ { 'type': 'sessions',  'header': ['   Sessions'],      },
