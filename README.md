@@ -80,6 +80,10 @@ git config --global commit.gpgsign true
   ```bash
   apt install gnome-tweak-tool gnome-shell-pomodoro
   ```
+- set pomodoro to send a popup when its time for a break by setting the following command to execute:
+  ```bash
+   zenity --timeout=300 --error --title "STOP WORKING" --width=2000 --height=500 --text="**Its time for a break, please stop, it can wait**"
+  ```
 - go to https://extensions.gnome.org/
 - install extensions: [launch-new-instance](https://extensions.gnome.org/extension/600/launch-new-instance/) [put-windows](https://extensions.gnome.org/extension/39/put-windows/)
 - copy the Templates dir to your home folder to allow creating templates from files program
