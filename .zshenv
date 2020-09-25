@@ -22,4 +22,4 @@ alias pip="pip3" #prevents acidentally using pip for python2
 alias open="xdg-open" 
 alias getaudio="youtube-dl -f 'bestaudio[ext=m4a]'" #followed by youtube url in quotes
 alias spellcheck="aspell -t -c" #followed by some file you want to spell check
-alias v="nvim"
+alias v="gnome-pomodoro --start && nvim"
