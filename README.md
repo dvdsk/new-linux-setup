@@ -19,13 +19,7 @@ cargo install fd-find #find like, used: fd
 cargo install du-dust #folder disk space, use: dust
 ```
 
-configure tools and aliases (in $home/.zshenv)
-or better download .zshenv from here
-```bash
-alias bat="bat --theme ansi-light"
-alias ls="exa"
-alias la="exa -la"
-```
+download .zshenv from here to $home/.zshenv
 
 configure zsh 
 - install plugin manager (https://github.com/zdharma/zinit)
