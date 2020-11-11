@@ -14,6 +14,12 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 #Install fonts
 [Iosevka](https://github.com/be5invis/Iosevka)
+- download the patched Iosevka font from this repos font dir
+or 
 - download the consolas style (ss03) release with default spacing
-- extract the fonts to `~/.local/share/fonts`
+- extract is somewhere and use the [font patcher](https://github.com/ryanoasis/nerd-fonts#option-8-patch-your-own-font) to patch it
+
+- move the fonts to `~/.local/share/fonts`
 - regenerate font cache: `fc-cache -f -v`
+- select Iosevka SS03 Medium Extended
+
