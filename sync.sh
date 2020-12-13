@@ -35,15 +35,23 @@ for paths in "${files[@]}"; do
 
     if [ $(modified_in_repo $repo_path) -gt $(modified_on_disk $disk_path) ] 
     then
-        cp $repo_path $disk_path
+		if [ "$1" == "-c" ]; then
+			cp $repo_path $disk_path
+		fi
         updated_on_disk+=($disk_path)
     fi 
     if [ $(modified_in_repo $repo_path) -lt $(modified_on_disk $disk_path) ] 
     then
-        cp $disk_path $repo_path
+		if [ "$1" == "-c" ]; then
+			cp $disk_path $repo_path
+		fi
         updated_in_repo+=($repo_path)
     fi
 done
+
+if [ "$1" != "-c" ]; then
+	printf 'test run, moving nothing use -c to confirm\n'
+fi
 
 if [ ${#updated_in_repo[@]} -gt 0 ]; then
     printf 'updated in repo: %s' "${updated_in_repo[0]}"

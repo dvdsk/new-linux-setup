@@ -11,9 +11,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
+Plug 'ryanoasis/vim-devicons'
 
 " Semantic language support
-Plug 'dense-analysis/ale'
+"Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'ervandew/supertab'
 
@@ -26,6 +27,7 @@ Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' } " needs pyvim 
 
 " Tools
+Plug 'vim-scripts/Align'
 Plug 'tpope/vim-commentary'
 Plug 'conradirwin/vim-bracketed-paste'
 Plug 'airblade/vim-rooter'
@@ -62,7 +64,12 @@ set hidden "allow to hide an unsaved buffer
 set splitbelow "new split goes bottom
 set splitright "new split goes right
 set tabstop=4
+set softtabstop=0 noexpandtab
 set shiftwidth=4
+autocmd FileType * setlocal tabstop=4 "override plugins overriding tabstop
+set foldmethod=syntax "enable code folding
+set foldenable
+set foldlevel=1
 
 " ========================================================================
 " # Plugin behaviour
@@ -70,12 +77,23 @@ set shiftwidth=4
 
 " disables multiple modes in clap which allows escape to always quit clap
 let g:clap_insert_mode_only = v:true
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 " let airline display ALE info
-let g:airline#extensions#ale#enabled = 1
+" let g:airline#extensions#ale#enabled = 1
 " we use coc for lsp
-let g:ale_disable_lsp = 1
-let g:ale_completion_enabled = 1
-let b:coc_suggest_disable = 0
+" let g:ale_disable_lsp = 1
+" let g:ale_completion_enabled = 1
+" let b:coc_suggest_disable = 1
 
 let g:startify_list = [
   \ { 'type': 'sessions',  'header': ['   Sessions'],      },
@@ -95,6 +113,12 @@ set relativenumber
 set laststatus=2 " always show status at bottom even if only one window
 set termguicolors
 highlight Comment cterm=italic gui=italic
+
+" airline config, disable error and warning section
+let g:airline#extensions#default#layout = [
+  \ [ 'a', 'b', 'c' ],
+  \ [ 'x', 'y', 'z' ]
+  \ ]
 
 " Change the background to dark or light depending upon the time of 
 " day (5 refers to 5AM and 17 to 5PM). Change the background only if it is not 
@@ -116,6 +140,8 @@ function! SetTheme()
             let g:clap_theme = 'nord'
 			colors zenburn
 			set background=dark
+			"zenburn overwrites this so we need to reset it
+			highlight Comment cterm=italic gui=italic
 			AirlineTheme zenburn
         endif
     endif
@@ -149,6 +175,18 @@ nnoremap <leader>m :Autoformat<CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> <leader>n <Plug>(coc-diagnostic-next)
 nmap <leader>cr <Plug>(coc-rename)
+
+"------------vim defaults changing re mapping----------
+
+""TODO FIXME GIVES ISSUES WITH SELECTING AUTOCOMPLETE
+
+""go up and down visual lines
+"nmap <silent> <Down> gj
+"nmap <silent> <Up> gk
+"vmap <silent> <Down> gj
+"vmap <silent> <Up> gk
+"imap <silent> <Down> <C-o>gj
+"imap <silent> <Up> <C-o>gk
 
 "------------re mapping for comfort----------
 "toggles between buffers
