@@ -4,6 +4,7 @@ files=(
     "vim/init.vim, ~/.config/nvim" 
     ".zshenv, ~"
     ".zshrc, ~"
+	".tmux.conf, ~"
 )
 
 
@@ -19,6 +20,6 @@ for paths in "${files[@]}"; do
         continue
     fi
 
-	printf '${repo_path} differs from ${disk_path}, diff:'
+	printf '${repo_path} differs from ${disk_path}, diff:\n'
 	diff $repo_path $disk_path
 done
