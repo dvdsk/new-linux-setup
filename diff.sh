@@ -20,6 +20,6 @@ for paths in "${files[@]}"; do
         continue
     fi
 
-	printf '${repo_path} differs from ${disk_path}, diff:\n'
+	printf "${repo_path} differs from ${disk_path}, diff:\n"
 	diff $repo_path $disk_path
 done
