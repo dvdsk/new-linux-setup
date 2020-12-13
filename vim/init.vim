@@ -14,7 +14,6 @@ Plug 'mhinz/vim-startify'
 Plug 'ryanoasis/vim-devicons'
 
 " Semantic language support
-"Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'ervandew/supertab'
 
@@ -53,7 +52,7 @@ set incsearch " Enable searching as you type, rather than waiting till you press
 set ignorecase "ignore case in search
 set smartcase "except when I put a capital in the query
 set incsearch "highlight all matches:
-set mouse+=a "enable mouse support
+set mouse=nic "enable mouse support except for selecting text
 set undodir=~/.vimdid "permanent undo
 set undofile "permanent undo
 "set backup TODO look into this
@@ -87,13 +86,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
-" let airline display ALE info
-" let g:airline#extensions#ale#enabled = 1
-" we use coc for lsp
-" let g:ale_disable_lsp = 1
-" let g:ale_completion_enabled = 1
-" let b:coc_suggest_disable = 1
 
 let g:startify_list = [
   \ { 'type': 'sessions',  'header': ['   Sessions'],      },
@@ -158,6 +150,10 @@ endif
 "" ========================================================================
 " # Key (re)Bindings
 " ========================================================================
+
+" this dark magic makes hitting // in visual mode search for the next
+" occurrence, then navigation goes with n and N like normal
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 tnoremap <ESC> <C-w>:q!<CR> "allow escape in terminal mode
 let mapleader="\<SPACE>" "Map the leader key to SPACE
