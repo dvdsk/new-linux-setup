@@ -5,6 +5,7 @@ files=(
     ".zshenv, ~"
     ".zshrc, ~"
 	".tmux.conf, ~"
+	".gitconfig, ~"
 )
 
 
