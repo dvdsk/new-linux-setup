@@ -12,9 +12,10 @@ path+=('/snap/bin/')
 export PATH
 
 # aliasses
-alias bat="bat --theme ansi-light"
+alias bat="bat --theme 'Monokai Extended Light'"
 alias ls="exa"
 alias la="exa -la"
+alias diff="delta --syntax-theme 'Monokai Extended Light'"
 alias mpd="ncmpcpp -h 192.168.1.10"
 alias python="python3" #if you ever need python2 you will have to disable this alias
 alias ipython="ipython3"

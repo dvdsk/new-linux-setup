@@ -4,7 +4,8 @@
 	signingkey = 66B4504941230382
 [commit]
 	gpgsign = true
-
+[gpg]
+	program = gpg2
 [core]
 	pager = delta
 
