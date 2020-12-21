@@ -17,6 +17,7 @@ cargo install bat #cat replacement
 cargo install ripgrep #use: rg
 cargo install fd-find #find like, used: fd
 cargo install du-dust #folder disk space, use: dust
+cargo install git-delta #diff replacement with syntax highlighting
 ```
 
 download .zshenv from here to $home/.zshenv
