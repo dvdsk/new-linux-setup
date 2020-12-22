@@ -2,6 +2,7 @@
 
 files=( 
     "vim/init.vim, ~/.config/nvim" 
+	"vim/.vimrc, ~"
     ".zshenv, ~"
     ".zshrc, ~"
 	".tmux.conf, ~"

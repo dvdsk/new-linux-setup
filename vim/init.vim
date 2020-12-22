@@ -2,6 +2,18 @@
 " # PLUGINS
 " ========================================================================
 " Plugins
+let b:has_vim_plug = 0
+if has('nvim')
+	if !empty(glob("~/.local/share/nvim/site/autoload/plug.vim"))
+		let b:has_vim_plug = 1
+	endif
+else 
+	if !empty(glob("~/.vim/autoload/plug.vim"))
+		let b:has_vim_plug = 1
+	endif
+endif
+
+if b:has_vim_plug
 call plug#begin('~/.vim/plugged')
 " GUI
 Plug 'machakann/vim-highlightedyank'
@@ -38,6 +50,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-indent'
 
 call plug#end()
+endif
 
 
 " ========================================================================
@@ -112,39 +125,41 @@ let g:airline#extensions#default#layout = [
   \ [ 'x', 'y', 'z' ]
   \ ]
 
-" Change the background to dark or light depending upon the time of 
-" day (5 refers to 5AM and 17 to 5PM). Change the background only if it is not 
-" already set to the value we want.
-let s:themeset = 0
-function! SetTheme()
-    if strftime("%H") >= 5 && strftime("%H") < 21 
-        if (&background != 'light' || s:themeset != 1)
-            colors solarized8
-			let s:themeset = 1
-			let g:clap_theme = 'solarized_dark'
-			let g:airline_solarized_bg='light'
-			set background=light
-			AirlineTheme solarized
-        endif
-    else
-        if (&background != 'dark' || s:themeset != 1)
-			let s:themeset = 1
-            let g:clap_theme = 'nord'
-			colors zenburn
-			set background=dark
-			"zenburn overwrites this so we need to reset it
-			highlight Comment cterm=italic gui=italic
-			AirlineTheme zenburn
-        endif
-    endif
-endfunction
+if b:has_vim_plug
+	" Change the background to dark or light depending upon the time of 
+	" day (5 refers to 5AM and 17 to 5PM). Change the background only if it is not 
+	" already set to the value we want.
+	let s:themeset = 0
+	function! SetTheme()
+		if strftime("%H") >= 5 && strftime("%H") < 21 
+			if (&background != 'light' || s:themeset != 1)
+				colors solarized8
+				let s:themeset = 1
+				let g:clap_theme = 'solarized_dark'
+				let g:airline_solarized_bg='light'
+				set background=light
+				AirlineTheme solarized
+			endif
+		else
+			if (&background != 'dark' || s:themeset != 1)
+				let s:themeset = 1
+				let g:clap_theme = 'nord'
+				colors zenburn
+				set background=dark
+				"zenburn overwrites this so we need to reset it
+				highlight Comment cterm=italic gui=italic
+				AirlineTheme zenburn
+			endif
+		endif
+	endfunction
 
 
-" Every time you save a file,call the function to check the time and change 
-" the background (if necessary).
-if has("autocmd")
-    autocmd VimEnter * call SetTheme()
-    autocmd bufwritepost * call SetTheme()
+	" Every time you save a file,call the function to check the time and change 
+	" the background (if necessary).
+	if has("autocmd")
+		autocmd VimEnter * call SetTheme()
+		autocmd bufwritepost * call SetTheme()
+	endif
 endif
 
 "" ========================================================================
