@@ -11,10 +11,10 @@ files=(
 
 for paths in "${files[@]}"; do
     repo_path=$(echo ${paths} | cut -d "," -f 1 | tr -d '[:space:]')
-    disk_path=$(echo ${paths} | cut -d "," -f 2 | tr -d '[:space:]')/$(basename $repo_path)
-    disk_path=${disk_path/#\~/$HOME} #replace tilde with current home folder
+    disk_folder=$(echo ${paths} | cut -d "," -f 2 | tr -d '[:space:]')/$(basename $repo_path)
+    disk_path=${disk_folder/#\~/$HOME} #replace tilde with current home folder
 
 	[ -f $disk_path ] && mv $disk_path "${disk_path}.backup"
-	[ -f $disk_path ] || mkdir $disk_path
+	[ -f $disk_folder ] || mkdir -p $disk_folder
 	cp $repo_path $disk_path
 done
