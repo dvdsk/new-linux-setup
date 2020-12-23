@@ -15,5 +15,6 @@ for paths in "${files[@]}"; do
     disk_path=${disk_path/#\~/$HOME} #replace tilde with current home folder
 
 	[ -f $disk_path ] && mv $disk_path "${disk_path}.backup"
+	[ -f $disk_path ] || mkdir $disk_path
 	cp $repo_path $disk_path
 done
