@@ -24,3 +24,6 @@ alias open="xdg-open"
 alias getaudio="youtube-dl -f 'bestaudio[ext=m4a]'" #followed by youtube url in quotes
 alias spellcheck="aspell -t -c" #followed by some file you want to spell check
 alias v="gnome-pomodoro --start && nvim"
+
+# make using the vim terminal mode easier with zsh
+# alias :q!="exit"

@@ -72,6 +72,9 @@ set undofile "permanent undo
 set nohlsearch "do not keep highlighting search after move
 set spell spelllang=en_gb
 set spellsuggest+=10 "don't take up the entire screen with spell suggestions
+if has('nvim')
+	autocmd TermOpen * setlocal nospell "do not spell check terminal
+endif
 set hidden "allow to hide an unsaved buffer
 set splitbelow "new split goes bottom
 set splitright "new split goes right
@@ -82,6 +85,22 @@ autocmd FileType * setlocal tabstop=4 "override plugins overriding tabstop
 set foldmethod=syntax "enable code folding
 set foldenable
 set foldlevel=1
+
+" ========================================================================
+" # Advanced behaviour
+" ========================================================================
+
+" function! b:click_in_term()
+" 	let b:last_mode = 0
+" endfunction
+
+" function! b:click_elsewhere()
+" endfunction
+if has('nvim')
+	autocmd TermOpen * startinsert
+	autocmd BufWinEnter,WinEnter term://* startinsert
+endif
+
 
 " ========================================================================
 " # Plugin behaviour
@@ -170,7 +189,8 @@ endif
 " occurrence, then navigation goes with n and N like normal
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
-tnoremap <ESC> <C-w>:q!<CR> "allow escape in terminal mode
+" tnoremap <ESC> <C-w>:q!<CR> "allow escape in terminal mode
+tnoremap <ESC> <C-\><C-n>
 let mapleader="\<SPACE>" "Map the leader key to SPACE
 
 "-----------new functionality-----------
@@ -187,6 +207,19 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> <leader>n <Plug>(coc-diagnostic-next)
 nmap <leader>cr <Plug>(coc-rename)
 
+" move windows with ctrl+arrows
+tnoremap <C-left> <C-\><C-N><C-w>h
+tnoremap <C-down> <C-\><C-N><C-w>j
+tnoremap <C-up> <C-\><C-N><C-w>k
+tnoremap <C-right> <C-\><C-N><C-w>l
+nnoremap <C-left> <C-\><C-N><C-w>h
+nnoremap <C-down> <C-\><C-N><C-w>j
+nnoremap <C-up> <C-\><C-N><C-w>k
+nnoremap <C-right> <C-\><C-N><C-w>l
+inoremap <C-left> <C-\><C-N><C-w>h
+inoremap <C-down> <C-\><C-N><C-w>j
+inoremap <C-up> <C-\><C-N><C-w>k
+inoremap <C-right> <C-\><C-N><C-w>l
 "------------vim defaults changing re mapping----------
 
 ""TODO FIXME GIVES ISSUES WITH SELECTING AUTOCOMPLETE
