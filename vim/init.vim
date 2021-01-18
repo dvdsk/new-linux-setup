@@ -175,9 +175,17 @@ if b:has_vim_plug
 
 	" Every time you save a file,call the function to check the time and change 
 	" the background (if necessary).
-	if has("autocmd")
-		autocmd VimEnter * call SetTheme()
-		autocmd bufwritepost * call SetTheme()
+	let auto_theme = $NOTHEME
+	if auto_theme
+		let g:clap_theme = 'nord'
+		colors zenburn
+		set background=dark
+		let g:airline_theme='zenburn'
+	else
+		if has("autocmd")
+			autocmd VimEnter * call SetTheme()
+			autocmd bufwritepost * call SetTheme()
+		endif
 	endif
 endif
 
