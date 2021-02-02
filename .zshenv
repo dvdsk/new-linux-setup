@@ -19,12 +19,10 @@ alias diff="delta --syntax-theme 'Monokai Extended Light'"
 alias mpd="ncmpcpp -h 192.168.1.10"
 alias python="python3" #if you ever need python2 you will have to disable this alias
 alias ipython="ipython3"
-alias pip="pip3" #prevents acidentally using pip for python2
+alias pip="pip3" #prevents accidentally using pip for python2
 alias open="xdg-open" 
 alias getaudio="youtube-dl -f 'bestaudio[ext=m4a]'" #followed by youtube url in quotes
 alias spellcheck="aspell -t -c" #followed by some file you want to spell check
 alias v="gnome-pomodoro --start && nvim"
-alias rootvim="sudo -E nvim"
-
-# make using the vim terminal mode easier with zsh
-# alias :q!="exit"
+alias tree2="tree -L 2"
+alias rootvim="sudo -E nvim" #warning use with caution, any vim plugin now runs with ROOT privilege
