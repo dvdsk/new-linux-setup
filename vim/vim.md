@@ -1,16 +1,19 @@
-- install neovim (> 5.0 if possible)
+- install neovim (> 0.5) note for now download nightly
 ```
 sudo apt install neovim
 ```
 
-- install vim plugin manager for neovim
+- install paq plugin manager for neovim
 ```
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+git clone https://github.com/savq/paq-nvim.git \
+    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
 ```
 
-- copy the neovim config (init.vim) from here to `~/.config/nvim/init.vim`
-- start neovim skip the errors and install the plugins using `:PlugInstall`
+- copy the neovim configs from here to `~/.config/nvim/`
+- start neovim and let it install all plugins `nvim +PaqInstall`
+- from neovim install some language servers and treesitter parsers 
+	- `:TSInstall python rust lua c`
+	- `:LspInstall pyls rust_analyzer` note use tab for completion
 
 #Install fonts
 [Iosevka](https://github.com/be5invis/Iosevka)
