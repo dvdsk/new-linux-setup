@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 files=( 
-    "vim/init.vim, ~/.config/nvim" 
+    "vim/init.lua, ~/.config/nvim" 
+    "vim/lua/*.lua, ~/.config/nvim/lua" 
 	"vim/.vimrc, ~"
     ".zshenv, ~"
     ".zshrc, ~"
@@ -21,16 +22,20 @@ updated_in_repo=()
 updated_on_disk=()
 for paths in "${files[@]}"; do
     repo_path=$(echo ${paths} | cut -d "," -f 1 | tr -d '[:space:]')
-    disk_path=$(echo ${paths} | cut -d "," -f 2 | tr -d '[:space:]')/$(basename $repo_path)
-    disk_path=${disk_path/#\~/$HOME} #replace tilde with current home folder
 
-    if cmp --silent $repo_path $disk_path ;
-    then
-        continue
-    fi
+	for repo_path in $repo_path 
+	do
+		disk_path=$(echo ${paths} | cut -d "," -f 2 | tr -d '[:space:]')/$(basename $repo_path)
+		disk_path=${disk_path/#\~/$HOME} #replace tilde with current home folder
 
-	printf "${repo_path} differs from ${disk_path}\n"
-	printf "${DIFF_EXPL}\n"
-	eval $DIFF $disk_path $repo_path
-	echo 
+		if cmp --silent $repo_path $disk_path ;
+		then
+			continue
+		fi
+
+		printf "${repo_path} differs from ${disk_path}\n"
+		printf "${DIFF_EXPL}\n"
+		eval $DIFF $disk_path $repo_path
+		echo 
+	done
 done
