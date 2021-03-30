@@ -1,14 +1,24 @@
 local cmd = vim.cmd;
- map = vim.api.nvim_set_keymap
+local map = vim.api.nvim_set_keymap
+local unmap = vim.api.nvim_del_keymap
 
 vim.g.mapleader = ' '
 
-options = {noremap = true}
+local options = {noremap = true}
+
 -- move around with ctrl+arrow
-map('n', '<C-left>', '<C-W>h', options)
-map('n', '<C-down>', '<C-W>j', options)
-map('n', '<C-up>',   '<C-W>k', options)
-map('n', '<C-right>','<C-W>l', options)
+local modes = {"n", "i", "t"}
+local magic = "<C-\\><C-N><C-w>"
+for _,mode in pairs(modes) do
+	map(mode, '<C-down>', magic..'<Down>', options)
+	map(mode, '<C-up>',   magic..'<Up>', options)
+	map(mode, '<C-right>',magic..'<Right>', options)
+	map(mode, '<C-left>', magic..'<Left>', options)
+end
+
+-- -- mouse drag does not go to visual mode
+-- map('n', '<LeftDrag>', '<LeftMouse>', options)
+-- unmap('n', '<LeftDrag>')
 
 -- toggle between buffers
 map('n', '<leader><leader>', '<C-^>', options) 
@@ -17,7 +27,7 @@ map('n', ':', ';', options)
 -- spell using leader instead of z=
 map('n', '<leader>z', ':z=', options)
 -- switch buffers
-map('n', '<leader>b', ':buffers<CR>:buffer<Space>', options)
+-- map('n', '<leader>b', ':buffers<CR>:buffer<Space>', options)
 -- yank till end of line
 map('n', 'Y', 'y$', options)
 
