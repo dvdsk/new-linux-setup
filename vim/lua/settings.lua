@@ -1,14 +1,14 @@
-local o = vim.o
+local o = vim.o -- global options
 local wo = vim.wo
 local bo = vim.bo
 local g = vim.g
 local cmd = vim.cmd
 
 -- global options
-o.incsearch = true --Enable searching as you type
 o.ignorecase = true --ignore case in search
 o.smartcase = true --except when I put a capital in the query
 o.incsearch = true --highlight all matches:
+o.hlsearch = false --do not keep highlighting search after move
 o.mouse = 'nic' --enable mouse support except for selecting text
 o.undodir = '~/.vimdid' --permanent undo
 o.undofile = true --permanent undo
