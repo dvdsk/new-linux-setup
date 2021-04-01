@@ -26,6 +26,7 @@ o.smartindent = true
 o.foldmethod = "syntax"
 o.foldenable = true
 o.foldlevel = 1
+o.foldlevelstart = 99
 
 -- gui related
 wo.number = true

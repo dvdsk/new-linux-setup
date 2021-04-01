@@ -2,9 +2,11 @@ local cmd = vim.cmd;
 map = vim.api.nvim_set_keymap
 options = {noremap = true, silent = true}
 
--- Clap
--- map('n', '<leader>o', ':Clap files<CR>', options)
--- map('n', '<leader>r', ':Clap grep<CR>', options)
+-- Tree
+map('n', '<leader>f', ':NvimTreeToggle<CR>', options)
+
+-- Undo
+map('n', '<leader>u', ':MundoToggle<CR>', options)
 
 -- Telescope
 function map_scope(key, func)

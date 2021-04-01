@@ -9,11 +9,9 @@ function theme:set_light()
 	then
 		self.is_set = true
 		vim.g.background = 'light'
-		vim.api.nvim_command("colors edge")
-		-- let g:clap_theme = 'solarized_dark'
-		-- let g:airline_solarized_bg='light'
-		-- set background=light
-		-- AirlineTheme solarized
+		vim.cmd [[colorscheme evening]]
+		--[[ require('colorbuddy').colorscheme('solarized')
+		vim.cmd [[colorscheme solarized]]
 	end
 end
 
@@ -22,11 +20,7 @@ function theme:set_dark()
 	then
 		self.is_set = true
 		vim.g.background = 'dark'
-		vim.api.nvim_command("colors OceanicNext")
-		-- let g:clap_theme = 'nord'
-		-- -- zenburn overwrites this so we need to reset it
-		-- highlight Comment cterm=italic gui=italic
-		-- AirlineTheme zenburn
+		vim.cmd [[colorscheme OceanicNext]]
 	end
 end
 

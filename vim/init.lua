@@ -9,27 +9,27 @@ paq 'nvim-lua/popup.nvim' -- telescope
 -- themes
 -- paq 'lifepillar/vim-solarized8'  
 -- paq 'jnurmine/Zenburn'
+paq 'tjdevries/colorbuddy.nvim' -- seem to need this to set colorschemes written in lua from config
+paq 'ishan9299/nvim-solarized-lua'
 paq 'mhartington/oceanic-next'
 paq 'sainnhe/edge'
 
 -- Looks
 paq 'machakann/vim-highlightedyank'
 paq 'lewis6991/gitsigns.nvim'
-paq 'vim-airline/vim-airline'
-paq 'vim-airline/vim-airline-themes'
+paq 'hoob3rt/lualine.nvim'
+paq 'kyazdani42/nvim-web-devicons'
 paq 'mhinz/vim-startify'
-paq 'ryanoasis/vim-devicons'
 
 -- GUI Tools
+paq 'kyazdani42/nvim-tree.lua'
 paq 'simnalamburt/vim-mundo'
-paq 'ms-jpq/chadtree'
--- paq{'liuchengxu/vim-clap', run=':Clap install-binary'}
 paq 'nvim-telescope/telescope.nvim'
-paq 'oberblastmeister/termwrapper.nvim' -- broken though promising
+paq 'oberblastmeister/termwrapper.nvim'
 
 -- Text Tools
 paq 'vim-scripts/Align'
-paq 'tpope/vim-commentary'
+paq 'b3nj5m1n/kommentary'
 paq 'conradirwin/vim-bracketed-paste'
 paq 'airblade/vim-rooter'
 
