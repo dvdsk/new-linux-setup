@@ -3,7 +3,7 @@ map = vim.api.nvim_set_keymap
 options = {noremap = true, silent = true}
 
 -- Tree
-map('n', '<leader>f', ':NvimTreeToggle<CR>', options)
+map('n', '<leader>d', ':NvimTreeToggle<CR>', options)
 
 -- Undo
 map('n', '<leader>u', ':MundoToggle<CR>', options)
@@ -29,4 +29,4 @@ map_saga('k', 'hover' , 'render_hover_doc') -- show doc
 map_saga('cr', 'rename', 'rename')
 
 -- Termwrapper
-map('n', 'gt', ':Ttoggle<CR>', options)
+map('n', '<leader>t', ':Ttoggle<CR>', options)

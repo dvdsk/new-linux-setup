@@ -65,6 +65,7 @@ require 'gui_tools'
 require 'treesitter'
 
 require 'comp'
+require 'lsp'
 
 local saga = require 'lspsaga'
 saga.init_lsp_saga()

@@ -1,6 +1,3 @@
-local lsp = require 'lsp'
-lsp.setup()
-
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
