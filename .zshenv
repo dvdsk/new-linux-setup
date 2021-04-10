@@ -7,6 +7,7 @@ path+="$HOME/bin"
 path+="$HOME/.local/bin"
 path+="/usr/local/texlive/2020/bin/x86_64-linux"
 path+=('/snap/bin/')
+path+="$HOME/.pyenv/bin"
 
 # export to sub-processes (make it inherited by child processes)
 export PATH
@@ -28,3 +29,6 @@ alias v="gnome-pomodoro --start && nvim"
 alias tree2="tree -L 2"
 alias rootvim="sudo -E nvim" #warning use with caution, any vim plugin now runs with ROOT privilege
 alias on_change="entr -rc"
+alias tt="gio trash"
+
+alias -s git="git clone"

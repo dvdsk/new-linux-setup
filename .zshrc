@@ -64,3 +64,9 @@ export SAVEHIST=${HISTSIZE}
 # make search up and down work, so partially type and hit up/down to find relevant stuff
 [[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" history-beginning-search-backward
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-beginning-search-forward
+
+# pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+if command -v pyenv 1>/dev/null 2>&1; then
+	eval "$(pyenv init -)"
+fi
