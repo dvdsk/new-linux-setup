@@ -29,6 +29,9 @@ alias v="gnome-pomodoro --start && nvim"
 alias tree2="tree -L 2"
 alias rootvim="sudo -E nvim" #warning use with caution, any vim plugin now runs with ROOT privilege
 alias on_change="entr -rc"
-alias tt="gio trash"
 
 alias -s git="git clone"
+
+# Mnemonic based aliases
+alias tt="gio trash" # to trash
+alias pc="pick_commit.sh"

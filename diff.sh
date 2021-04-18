@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 files=( 
-    "vim/init.lua, ~/.config/nvim" 
-    "vim/lua/*.lua, ~/.config/nvim/lua" 
+	"bin/*.sh, ~/bin"
+	"vim/init.lua, ~/.config/nvim" 
+	"vim/lua/*.lua, ~/.config/nvim/lua" 
 	"vim/.vimrc, ~"
-    ".zshenv, ~"
-    ".zshrc, ~"
+	".zshenv, ~"
+	".zshrc, ~"
 	".tmux.conf, ~"
 	".gitconfig, ~"
 )
