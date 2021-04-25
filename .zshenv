@@ -35,3 +35,4 @@ alias -s git="git clone"
 # Mnemonic based aliases
 alias tt="gio trash" # to trash
 alias pc="pick_commit.sh"
+alias pt="pick_template.sh"

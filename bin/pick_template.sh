@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
 set -e
+template_dir="${HOME}/Templates/"
+
+# list of template options including those in subdirs
+# prepended by their path from the Template dir
 
 format() {
-	local line=$1
+	local path="$1"
+	local line=$(echo ${path#${template_dir}})
+
 	local RESET="\033[0m"
 	local BLUE="\033[0;34m"
 	local GREEN="\033[0;32m"
@@ -11,59 +17,47 @@ format() {
 	local OPTION=""
 	local FOLDER=$GREEN
 
-	# if file present as option
-	if [ -f "$line" ]
-	then
-		echo -e "$OPTION$(basename $line)$RESET"
-		return 
-	fi
-
 	# if template folder
-	if [[ $line == *_ ]]
-	then
-		local file_name=$(basename $line)
-		local file_name=${file_name::-1}
-		echo -e "$OPTION$file_name$RESET"
+	if [[ $path == *__ ]]; then
+		local line=${line::-2}
+		printf "$path/ $OPTION$line$RESET"
 		return 
 	fi
 
-	# is folder
-	echo -e "$FOLDER$(basename $line)$RESET"
+	# if in template folder
+	if [[ $path == *__* ]]; then
+		return
+	fi
+
+	# if file present as option
+	if [ -f "$path" ]; then
+		printf "$path $OPTION$line$RESET"
+		return 
+	fi
+
 }
 
-format_ls() {
-	dir=$1
-	lines="$(ls $dir)"
-	for line in $lines
-	do
-		echo -e "$dir/$line $(format "$dir/$line")"
+format_lines() {
+	local lines="$(find $template_dir -maxdepth 3)"
+	for line in $lines; do
+		local line=$(format $line)
+		if [ "$line" != "" ]; then
+			echo $line
+		fi
 	done
 }
 
-pick_file() {
-	dir=$1
-	path=$(format_ls $dir \
-		| sk --with-nth 2 --ansi --no-multi \
-		| cut -d " " -f 1)
+pick_template() {
+	local path=$(format_lines $template_dir \
+		| sk --delimiter " " --with-nth 2 --ansi --no-multi \
+		| cut -d " " -f 1 \
+		| sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
 
-	# if template folder
-	if [[ $(basename $path) == *_ ]]
-	then
-		echo $path
-		return
+	if [ -d "$path" ]; then
+		local path=$(echo "$path*")
 	fi
-
-	# if file
-	if [ -f "$path" ]
-	then
-		echo $path
-		return
-	fi
-
-	# must be a subfolder -> go deeper
-	pick_file "${path}"
+	
+	cp $path .
 }
 
-target=$(pick_file "${HOME}/Templates")
-echo $target
-
+pick_template
