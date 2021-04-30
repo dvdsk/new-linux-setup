@@ -17,6 +17,11 @@ format() {
 	local OPTION=""
 	local FOLDER=$GREEN
 
+	# ignore backups
+	if [[ $path == *.backup ]]; then
+		return
+	fi
+
 	# if template folder
 	if [[ $path == *__ ]]; then
 		local line=${line::-2}
