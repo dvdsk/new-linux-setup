@@ -62,7 +62,7 @@ pick_template() {
 		local path=$(echo "$path*")
 	fi
 	
-	cp $path .
+	cp -r $path .
 }
 
 pick_template
