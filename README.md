@@ -1,47 +1,8 @@
 # new-linux-setup
 
-install programs
-```bash
-sudo apt install zsh git make g++ gcc python3 python3-pip sshfs
-```
-
-latest rustup
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
-install rust cmd tools
-```bash
-cargo install exa #ls replacement
-cargo install bat #cat replacement
-cargo install ripgrep #use: rg
-cargo install fd-find #find like, used: fd
-cargo install du-dust #folder disk space, use: dust
-cargo install git-delta #diff replacement with syntax highlighting
-```
-
-download .zshenv from here to $home/.zshenv
-
-configure zsh 
-- install plugin manager (https://github.com/zdharma/zinit)
-   ```bash
-   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-   ```
-- set zsh settings by copying the .zshrc and .profile in this repository to your home folder
-
-
-latex
-```bash
-sudo apt-get install libfontconfig1-dev libgraphite2-dev libharfbuzz-dev libicu-dev libssl-dev zlib1g-dev
-cargo install tectonic
-```
-
-
-setup [gitmoji](https://github.com/carloscuesta/gitmoji-cli)
-```bash
-sudo apt install npm
-sudo npm i -g gitmoji-cli
-```
+Install git then clone this repository
+run `init.sh` to install tools
+run `deploy.sh` to move config files
 
 setup keyfiles
 ```bash
@@ -83,10 +44,6 @@ git config --global commit.gpgsign true
 - install extensions: [launch-new-instance](https://extensions.gnome.org/extension/600/launch-new-instance/) [put-windows](https://extensions.gnome.org/extension/39/put-windows/)
 - copy the Templates dir to your home folder to allow creating templates from files program
 
-### Code editor setup
-- install vscode 
-- add extension `TabNine` for code complition
-
 ### Firefox setup
 - add extension AdGuard
 - [optional, if work account] add extension LeechBlock and configure to block distracting sites
@@ -94,7 +51,7 @@ git config --global commit.gpgsign true
 ### Print to paper tablet
 - follow: https://github.com/peerdavid/send-to-remarkable
 
-### Install latest texlive for more complicated documentclasses
+### Install latest texlive
 if applicable remove any old texlive:
 ```bash
 - sudo apt-get remove texlive*
