@@ -10,8 +10,6 @@ o.smartcase = true --except when I put a capital in the query
 o.incsearch = true --highlight all matches:
 o.hlsearch = false --do not keep highlighting search after move
 o.mouse = 'nic' --enable mouse support except for selecting text
-o.undodir = '~/.vimdid' --permanent undo
-o.undofile = true --permanent undo
 -- o.nohlsearch = true --do not keep highlighting search after move
 o.spell = false 
 o.spelllang = 'en_gb'
@@ -34,6 +32,13 @@ wo.relativenumber = true
 o.laststatus = 2
 o.termguicolors = true
 
+-- undo
+o.undodir = '$HOME/.vimdid' --permanent undo
+o.undofile = true --permanent undo
+vim.fn.system("mkdir -p "..o.undodir) -- ensure the folder exists
+
+
+-- comments shoulb be italic
 vim.api.nvim_exec([[
 	highlight Comment cterm=italic gui=italic
 	]], false)
