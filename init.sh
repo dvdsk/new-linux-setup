@@ -14,7 +14,7 @@ install_rust_and_tools() {
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 	tools=(
-		"zeoxide"     # smart cd
+		"zoxide"     # smart cd
 		"exa"         # ls replacement
 		"bat"         # cat replacement
 		"skim"        # general fuzzy finder
