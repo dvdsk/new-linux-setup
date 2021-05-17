@@ -31,7 +31,6 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit ice depth=1; zinit load djui/alias-tips
 zinit ice depth=1; zinit load zdharma/fast-syntax-highlighting
 zinit ice depth=1; zinit load zsh-users/zsh-completions
-zinit ice depth=1; zinit load agkozak/zsh-z
 zinit ice depth=1; zinit load mdumitru/fancy-ctrl-z
 zinit ice depth=1; zinit load mdumitru/git-aliases
 zinit ice depth=1; zinit load voronkovich/gitignore.plugin.zsh
@@ -64,6 +63,9 @@ export SAVEHIST=${HISTSIZE}
 # make search up and down work, so partially type and hit up/down to find relevant stuff
 [[ -n "${key[Up]}" ]] && bindkey "${key[Up]}" history-beginning-search-backward
 [[ -n "${key[Down]}" ]] && bindkey "${key[Down]}" history-beginning-search-forward
+
+# zoxide (z alternative) setup
+eval "$(zoxide init zsh)"
 
 # pyenv setup
 export PYENV_ROOT="$HOME/.pyenv"

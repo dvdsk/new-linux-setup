@@ -1,8 +1,21 @@
 require('gitsigns').setup()
-require('lualine').setup{
-	options = {
- --https://github.com/hoob3rt/lualine.nvim/blob/master/THEMES.md
-		-- theme = 'solarized_light'
-		theme = 'solarized'
+
+local M = {}
+
+function M:lualine_light() 
+	require('lualine').setup{
+		options = {
+			theme = 'solarized_light'
+		}
 	}
-}
+end
+
+function M:lualine_dark() 
+	require('lualine').setup{
+		options = {
+			theme = 'tokyonight'
+		}
+	}
+end
+
+return M
