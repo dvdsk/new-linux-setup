@@ -9,10 +9,11 @@ paq 'nvim-lua/popup.nvim' -- telescope
 -- themes
 -- paq 'lifepillar/vim-solarized8'  
 -- paq 'jnurmine/Zenburn'
-paq 'tjdevries/colorbuddy.nvim' -- seem to need this to set colorschemes written in lua from config
+paq 'folke/tokyonight.nvim'
 paq 'ishan9299/nvim-solarized-lua'
-paq 'mhartington/oceanic-next'
-paq 'sainnhe/edge'
+paq 'tjdevries/colorbuddy.nvim' -- seem to need this to set colorschemes written in lua from config
+-- paq 'mhartington/oceanic-next'
+-- paq 'sainnhe/edge'
 
 -- Looks
 paq 'machakann/vim-highlightedyank'
@@ -26,12 +27,13 @@ paq 'kyazdani42/nvim-tree.lua'
 paq 'simnalamburt/vim-mundo'
 paq 'nvim-telescope/telescope.nvim'
 paq 'oberblastmeister/termwrapper.nvim'
+paq 'folke/which-key.nvim'
 
 -- Text Tools
 paq 'vim-scripts/Align'
 paq 'b3nj5m1n/kommentary'
 paq 'conradirwin/vim-bracketed-paste'
-paq 'airblade/vim-rooter'
+-- paq 'airblade/vim-rooter'
 
 -- Nouns, Verbs, textobjects
 paq 'tpope/vim-surround'
@@ -45,7 +47,6 @@ paq 'nvim-treesitter/nvim-treesitter-textobjects'
 
 -- LSP
 paq 'neovim/nvim-lspconfig'
-paq 'anott03/nvim-lspinstall'
 paq 'hrsh7th/vim-vsnip' -- lsp snippets
 paq 'glepnir/lspsaga.nvim' -- extend lsp ui
 
@@ -62,6 +63,7 @@ require 'maps_plugins'
 require 'theme'
 require 'looks'
 require 'gui_tools'
+require 'text_tools'
 require 'treesitter'
 
 require 'comp'

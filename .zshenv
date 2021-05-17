@@ -11,6 +11,8 @@ path+="$HOME/.pyenv/bin"
 
 # export to sub-processes (make it inherited by child processes)
 export PATH
+export VISUAL="$HOME/bin/nvim.appimage"
+export EDITOR="$VISUAL"
 
 # aliasses
 alias bat="bat --theme 'Monokai Extended Light'"
@@ -24,10 +26,10 @@ alias pip="pip3" #prevents accidentally using pip for python2
 alias open="xdg-open" 
 alias getaudio="youtube-dl -f 'bestaudio[ext=m4a]'" #followed by youtube url in quotes
 alias spellcheck="aspell -t -c" #followed by some file you want to spell check
-alias nvim="~/bin/nvim.appimage"
+alias nvim="$HOME/bin/nvim.appimage"
 alias v="gnome-pomodoro --start && nvim"
 alias tree2="tree -L 2"
-alias rootvim="sudo -E nvim" #warning use with caution, any vim plugin now runs with ROOT privilege
+alias rootvim="echo use sudoedit instead" # works thanks to VISUAL
 alias on_change="entr -rc"
 
 alias -s git="git clone"
