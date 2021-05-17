@@ -2,6 +2,7 @@
 
 set -e
 template_dir="${HOME}/Templates/"
+folder_template_suffix="_|_|"
 
 # list of template options including those in subdirs
 # prepended by their path from the Template dir
@@ -23,14 +24,15 @@ format() {
 	fi
 
 	# if template folder
-	if [[ $path == *__ ]]; then
-		local line=${line::-2}
+	if [[ $path == *$folder_template_suffix ]]; then
+	    local suffix_length=${#folder_template_suffix}
+		local line=${line::-$suffix_length}
 		printf "$path/ $OPTION$line$RESET"
 		return 
 	fi
 
 	# if in template folder
-	if [[ $path == *__* ]]; then
+	if [[ $path == *$folder_template_suffix* ]]; then
 		return
 	fi
 
