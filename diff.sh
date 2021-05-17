@@ -29,13 +29,17 @@ for paths in "${files[@]}"; do
 	repo_path=$(echo ${paths} | cut -d "," -f 1 | tr -d '[:space:]')
 
     	# for each path in expanded paths
-	for repo_path in $repo_path 
-	do
+	for repo_path in $repo_path; do
 		disk_path=$(echo ${paths} | cut -d "," -f 2 | tr -d '[:space:]')/$(basename $repo_path)
 		disk_path=${disk_path/#\~/$HOME} #replace tilde with current home folder
 
-		if cmp --silent $repo_path $disk_path ;
-		then
+		# cant compare directories
+		if [ -d $repo_path ]; then
+			continue
+		fi
+
+		# if files are identical continue
+		if cmp --silent $repo_path $disk_path; then
 			continue
 		fi
 
