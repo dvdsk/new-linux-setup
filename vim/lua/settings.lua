@@ -33,7 +33,8 @@ o.laststatus = 2
 o.termguicolors = true
 
 -- undo
-o.undodir = '$HOME/.vimdid' --permanent undo
+local undodir = vim.fn.system("echo $HOME/.vimdid")
+o.undodir = undodir --permanent undo
 o.undofile = true --permanent undo
 vim.fn.system("mkdir -p "..o.undodir) -- ensure the folder exists
 

@@ -30,3 +30,7 @@ map_saga('cr', 'rename', 'rename')
 
 -- Termwrapper
 map('n', '<leader>t', ':Ttoggle<CR>', options)
+
+--[[ -- Macro FIXME TODO
+map('n', 'q', '<plug>(Mac_Play)', options)
+map('n', 'gq', '<plug>(Mac_RecordNew)', options) ]]

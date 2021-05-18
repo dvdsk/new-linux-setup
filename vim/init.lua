@@ -30,6 +30,7 @@ paq 'oberblastmeister/termwrapper.nvim'
 paq 'folke/which-key.nvim'
 
 -- Text Tools
+paq 'svermeulen/vim-macrobatics'
 paq 'vim-scripts/Align'
 paq 'b3nj5m1n/kommentary'
 paq 'conradirwin/vim-bracketed-paste'
