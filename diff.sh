@@ -26,12 +26,22 @@ fi
 updated_in_repo=()
 updated_on_disk=()
 for paths in "${files[@]}"; do
-	repo_path=$(echo ${paths} | cut -d "," -f 1 | tr -d '[:space:]')
+	repo_glob=$(echo ${paths} | cut -d "," -f 1 | tr -d '[:space:]')
+	base_disk_path=$(echo ${paths} | cut -d "," -f 2 | tr -d '[:space:]')
+	base_disk_path=${base_disk_path/#\~/$HOME} #replace tilde with current home folder
 
     	# for each path in expanded paths
-	for repo_path in $repo_path; do
-		disk_path=$(echo ${paths} | cut -d "," -f 2 | tr -d '[:space:]')/$(basename $repo_path)
-		disk_path=${disk_path/#\~/$HOME} #replace tilde with current home folder
+	for repo_path in $repo_glob; do
+
+		if [[ "$repo_glob" == *"*"* ]]; then 
+			# remove anything before /*
+			to_remove=$(echo "$repo_glob" \
+				| sed 's/\/\*.*//')
+			glob=$(echo ${repo_path#"${to_remove}"})
+			disk_path=$base_disk_path$glob
+		else 
+			disk_path=$base_disk_path/$(basename $repo_path)
+		fi 
 
 		# cant compare directories
 		if [ -d $repo_path ]; then
