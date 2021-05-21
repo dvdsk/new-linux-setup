@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-source preview.sh
+source git_preview.sh
 gen_gpg_key() {
 	gpg2 --batch --gen-key <<EOF
 		%no-protection
@@ -20,7 +20,7 @@ choose_key() {
 		--ansi \
 		--no-multi \
 		--delimiter ':' \
-		--preview "./preview.sh {1}" | cut -d ":" -f 1)
+		--preview "./git_preview.sh {1}" | cut -d ":" -f 1)
 	echo $choice
 }
 
