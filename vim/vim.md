@@ -11,18 +11,16 @@ git clone https://github.com/savq/paq-nvim.git \
 
 - copy the neovim configs from here to `~/.config/nvim/`
 - start neovim and let it install all plugins `nvim +PaqInstall`
-- from neovim install some language servers and treesitter parsers 
+- from neovim install treesitter parsers 
 	- `:TSInstall python rust lua c`
-	- `:LspInstall pyls rust_analyzer` note use tab for completion
 
-#Install fonts
-[Iosevka](https://github.com/be5invis/Iosevka)
-- download the patched Iosevka font from this repos font dir
-or 
-- download the consolas style (ss03) release with default spacing
-- extract is somewhere and use the [font patcher](https://github.com/ryanoasis/nerd-fonts#option-8-patch-your-own-font) to patch it
+#Install fonts [Iosevka](https://github.com/be5invis/Iosevka)
+- download the patched Iosevka font from this repos font dir 
+- download and patch the font:
+	- download the consolas style (ss03) release with default spacing
+	- extract is somewhere and use the [font patcher](https://github.com/ryanoasis/nerd-fonts#option-8-patch-your-own-font) to patch it
 
-- move the fonts to `~/.local/share/fonts`
-- regenerate font cache: `fc-cache -f -v`
-- select Iosevka SS03 Medium Extended
+	- move the fonts to `~/.local/share/fonts`
+	- regenerate font cache: `fc-cache -f -v`
+	- select Iosevka SS03 Medium Extended
 

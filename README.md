@@ -32,10 +32,6 @@ git config --global commit.gpgsign true
 ```
 
 ### Gnome desktop envirement setup
-- install tweak tool en pomodoro
-  ```bash
-  apt install gnome-tweak-tool gnome-shell-pomodoro
-  ```
 - set pomodoro to send a popup when its time for a break by setting the following command to execute:
   ```bash
    zenity --timeout=300 --error --title "STOP WORKING" --width=2000 --height=500 --text="**Its time for a break, please stop, it can wait**"
