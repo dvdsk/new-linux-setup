@@ -1,34 +1,15 @@
 # new-linux-setup
 
-Install git then clone this repository
-run `init.sh` to install tools
-run `deploy.sh` to move config files
+Install git then clone this repository and optionally:
+- install programs  using `init.sh` from `setup/`
+- install neovim using `vim.sh` from `setup/` 
+- setup git configuration using `git.sh` from `setup/` 
+- deploy config files using `deploy.sh`
 
 setup keyfiles
 ```bash
 ssh-keygen #click enter for all options
 cat /home/{username}/.ssh/id_rsa.pub #copy the output and save it to github
-```
-
-setup git
-populate git hooks with the content of the folder in this repo
-```bash
-git config --global user.name "github username"
-git config --global user.email "github email" #for example use private mail offerd by github
-git config --global core.hooksPath /home/kleingeld/bin/githooks
-```
-
-add [commit verification](https://help.github.com/en/articles/managing-commit-signature-verification)
-```bash
-sudo apt install gpg
-# as we are setting up for use with github use your github username and 
-# github email for Real Name and email during key generation
-gpg --full-generate-key  # default settings except key length use 4096
-gpg --list-secret-keys --keyid-format LONG  # copy the bit after 'sec rsa4096/' call it A
-gpg --armor --export <A>  # paste this key at github.com/settings/keys
-git config --global user.signingkey <A>
-git config --global commit.gpgsign true
-# sign tags using git tag -s
 ```
 
 ### Gnome desktop envirement setup
