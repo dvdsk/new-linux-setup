@@ -5,7 +5,7 @@
 path+="$HOME/.cargo/bin"
 path+="$HOME/bin"
 path+="$HOME/.local/bin"
-path+="/usr/local/texlive/2020/bin/x86_64-linux"
+path+="/usr/local/texlive/installed" # sim link to actual install
 path+=('/snap/bin/')
 path+="$HOME/.pyenv/bin"
 
