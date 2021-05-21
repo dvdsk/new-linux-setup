@@ -11,8 +11,8 @@ chmod +x $NVIM
 # move configs
 VIMDIR="$HOME/.config/nvim"
 mkdir -p $VIMDIR
-cp init.lua $VIMDIR
-cp -r lua $VIMDIR/lua/
+cp ../vim/init.lua $VIMDIR
+cp -r ../vim/lua $VIMDIR/lua/
 
 # setup plugin manager
 PAQDIR="${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
