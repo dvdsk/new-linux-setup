@@ -4,6 +4,7 @@ Install git then clone this repository and optionally:
 - install programs  using `init.sh` from `setup/`
 - install neovim using `vim.sh` from `setup/` 
 - setup git configuration using `git.sh` from `setup/` 
+- install texlive using `texlive.sh` from `setup/`
 - deploy config files using `deploy.sh`
 
 setup keyfiles
@@ -27,23 +28,3 @@ cat /home/{username}/.ssh/id_rsa.pub #copy the output and save it to github
 
 ### Print to paper tablet
 - follow: https://github.com/peerdavid/send-to-remarkable
-
-### Install latest texlive
-if applicable remove any old texlive:
-```bash
-- sudo apt-get remove texlive*
-- rm -rf /usr/local/texlive/2020
-- rm -rf ~/.texlive2020
-- rm -rf /usr/local/texlive/2019
-- rm -rf ~/.texlive2019
-```
-install fresh texlive
-```bash
-mkdir /tmp/texlive
-cd /tmp/texlive
-wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl.zip
-unzip ./install-tl.zip -d install-tl
-cd install-tl #might be called differently
-perl ./install-tl
-```
-update the path in .zshenv to point to the texlive install (year might need to be changed from 2020)
