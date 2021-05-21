@@ -12,7 +12,6 @@ files=(
 	".zshenv, ~"
 	".zshrc, ~"
 	".tmux.conf, ~"
-	".gitconfig, ~"
 )
 
 DIFF_EXPL="when deployed the red lines will be removed from the installed configs"

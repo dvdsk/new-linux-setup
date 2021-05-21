@@ -9,7 +9,6 @@ files=(
 	".zshenv, ~"
 	".zshrc, ~"
 	".tmux.conf, ~"
-	".gitconfig, ~"
 )
 
 for paths in "${files[@]}"; do
