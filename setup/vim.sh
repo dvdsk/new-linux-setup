@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
+if ! command -v  xclip; then
+	echo "trying to install xclip using apt, this needs sudo."\
+	     "It is okay to skip this step with Ctrl+C however copying"\
+	     "to/from sys clipboard might not work"
+	sudo apt install xclip || true # can continue if fails
+fi
+
 # get latest nvim (update to non nightly once 0.5 hits stable)
 NVIM="$HOME/bin/nvim.appimage"
 rm $NVIM
