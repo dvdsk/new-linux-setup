@@ -9,6 +9,7 @@ files=(
 	".zshenv, ~"
 	".zshrc, ~"
 	".tmux.conf, ~"
+	"alacritty.yml, ~/.config/alacritty"
 )
 
 for paths in "${files[@]}"; do
