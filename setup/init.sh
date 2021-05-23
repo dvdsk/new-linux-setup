@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+source deps.sh
 
 install_basics_from_package_manager() {
 	sudo apt install zsh curl wget git make g++ gcc python3 python3-pip sshfs
@@ -24,8 +25,8 @@ install_rust_and_tools() {
 		"git-delta"   # diff replacement with syntax highlighting
 	)
 
-	# path might not yet been set here
-	$HOME/.cargo/bin/cargo install "${tools[@]}"
+	cargo=$(ensure_cargo)
+	$cargo install "${tools[@]}"
 }
 
 install_gnome_specific_tools() {

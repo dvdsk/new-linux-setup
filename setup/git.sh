@@ -33,6 +33,7 @@ EMAIL="11743287+dskleingeld@users.noreply.github.com"
 
 git config --global user.name $USERNAME
 git config --global user.email $EMAIL
+git config --global init.defaultBranch main
 # # git config --global core.hooksPath /home/kleingeld/bin/githooks
 
 keyid=""

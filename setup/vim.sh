@@ -27,5 +27,5 @@ PAQDIR="${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
 || git clone --depth 1 "https://github.com/savq/paq-nvim.git" $PAQDIR
 
 # install plugins, treesitter
-$NVIM "+PaqInstall" "+TSInstall python rust lua c cpp" "+q"
+$NVIM "+PaqInstall" "+TSInstall python rust lua c cpp toml latex bibtex" "+q"
 echo "neovim install done"
