@@ -22,10 +22,10 @@ ensure_pip() {
 
 ensure_npm() {
 	if ! exists npm; then
-		sudo apt update \
-		&& sudo apt install nodejs
+		sudo apt-get update \
+		&& sudo apt-get install --yes nodejs npm
 	fi
-	echo nodejs
+	echo npm
 }
 
 ensure_rustup() {

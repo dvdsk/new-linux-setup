@@ -11,6 +11,17 @@ set_as_default() {
 		exec-arg ''
 }
 
+# copy the gnome terminal app .desktop to the users applications folder
+# (this overrides the system wide one) and modify it to start alacritty
+# instead
+set_as_desktop_terminal_app() {
+	local target=~/.local/share/applications/org.gnome.Terminal.desktop
+	cp /usr/share/applications/org.gnome.Terminal.desktop $target
+	sed -i 's/TryExec=gnome-terminal/TryExec=alacritty/' $target
+	sed -i 's/Exec=gnome-terminal/Exec=alacritty/' $target
+	sed -i 's/Icon=org.gnome.Terminal/Icon=com.alacritty.Alacritty/' $target
+}
+
 # move config in place
 cp ../alacritty.yml ~/.config/alacritty/
 
@@ -22,6 +33,7 @@ cp ../alacritty.yml ~/.config/alacritty/
 sudo add-apt-repository ppa:aslatter/ppa \
 	&& sudo apt-get install alacritty \
 	&& set_as_default \
+	&& set_as_desktop_terminal_app \
 	&& echo "installed alacritty" \
 	&& exit 0 \
 	|| true

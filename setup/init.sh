@@ -4,7 +4,7 @@ set -e
 source deps.sh
 
 install_basics_from_package_manager() {
-	sudo apt install zsh curl wget git make g++ gcc python3 python3-pip sshfs
+	sudo apt install zsh curl htop wget git make g++ gcc python3 python3-pip sshfs entre
 }
 
 get_zsh_plugin_manager() {
