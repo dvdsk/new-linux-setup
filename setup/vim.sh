@@ -10,7 +10,7 @@ fi
 
 # get latest nvim (update to non nightly once 0.5 hits stable)
 NVIM="$HOME/bin/nvim.appimage"
-rm $NVIM
+rm $NVIM || true # if there is no existing install thats fine
 wget "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage" \
 	--output-document $NVIM
 chmod +x $NVIM
