@@ -15,11 +15,13 @@ wget "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage" 
 	--output-document $NVIM
 chmod +x $NVIM
 
-# move configs
+# move configs if none ar there
 VIMDIR="$HOME/.config/nvim"
-mkdir -p $VIMDIR
-cp ../vim/init.lua $VIMDIR
-cp -r ../vim/lua $VIMDIR/lua/
+if [ ! -d "$VIMDIR" ]; then
+	mkdir -p $VIMDIR
+	cp ../vim/init.lua $VIMDIR
+	cp -r ../vim/lua $VIMDIR/lua/
+fi
 
 # setup plugin manager
 PAQDIR="${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
