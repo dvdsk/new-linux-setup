@@ -19,6 +19,7 @@ function M.setup(on_attach)
 			["rust-analyzer"] = {
 				assist = {
 					importMergeBehavior = "last",
+					importGranularity = "module",
 					importPrefix = "by_self",
 				},
 				cargo = {
@@ -31,9 +32,13 @@ function M.setup(on_attach)
 		}
 	})
 
-	lsp.pyls.setup{ on_attach=on_attach }   -- python
+	lsp.pylsp.setup{ on_attach=on_attach }   -- python
 	lsp.texlab.setup{ on_attach=on_attach } -- latex
 	lsp.bashls.setup{ on_attach=on_attach } -- bash
+	lsp.clangd.setup({  -- c++ and c
+		on_attach=on_attach,
+		filetypes={ "c", "cpp", "cc" },
+	})
 end
 
 M.setup()
