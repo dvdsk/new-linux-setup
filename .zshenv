@@ -46,3 +46,4 @@ alias -s git="git clone"
 alias tt="gio trash" # to trash
 alias pc="pick_commit.sh"
 alias pt="pick_template.sh"
+alias pb="pick_branch.sh"
