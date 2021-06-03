@@ -22,8 +22,14 @@ set_as_desktop_terminal_app() {
 	sed -i 's/Icon=org.gnome.Terminal/Icon=com.alacritty.Alacritty/' $target
 }
 
+# install fonts
+source fonts.sh
+install_fonts
+
 # move config in place
-cp ../alacritty.yml ~/.config/alacritty/
+CONFIGPATH=~/.config/alacritty/alacritty.yml
+mkdir -p $(dirname $CONFIGPATH)
+[ -f $CONFIGPATH ] || cp ../alacritty.yml $CONFIGPATH
 
 # try installing via ppa
 # echo "trying to install using apt, this needs sudo."\
