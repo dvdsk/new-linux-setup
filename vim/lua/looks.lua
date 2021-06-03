@@ -5,7 +5,7 @@ local M = {}
 function M:lualine_light() 
 	require('lualine').setup{
 		options = {
-			theme = 'solarized_light'
+			theme = 'solarized'
 		}
 	}
 end

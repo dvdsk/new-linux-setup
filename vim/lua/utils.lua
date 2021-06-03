@@ -26,8 +26,6 @@ function M.update()
 			vim.api.nvim_command("confirm write")
 		end
 	end
-
-
 end
 
 

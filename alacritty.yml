@@ -113,7 +113,7 @@ font:
 
   italic:
     family: Iosevka SS03
-    style: light Italic
+    style: Italic
 
   bold_italic:
     family: Iosevka SS03
