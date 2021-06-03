@@ -2,6 +2,7 @@
 set -e
 
 RED='\033[0;31m'
+GREEN='\e[0;32m'
 source deps.sh
 
 # # rust
@@ -10,7 +11,7 @@ source deps.sh
 # exists rust-analyzer-preview || echo -e "${RED}please make sure $HOME/.cargo/bin is in path"
 
 # rust
-if ! exists rust-analyzer; then
+if ! exists rust-analyzer || [ "$1" == "--update" ]; then
 	rustup=$(ensure_rustup)
 	$rustup component add rust-src
 	release="rust-analyzer-x86_64-unknown-linux-gnu.gz"
@@ -22,23 +23,25 @@ if ! exists rust-analyzer; then
 fi
 
 # python
-if ! exists pylsp; then
+if ! exists pylsp || [ "$1" == "--update" ]; then
 	pip=$(ensure_pip)
 	$pip install --user --upgrade 'python-lsp-server[all]'
 fi
 
 # latex
-if ! exists texlab; then
+if ! exists texlab || [ "$1" == "--update" ]; then
 	cargo=$(ensure_cargo)
 	$cargo install --git https://github.com/latex-lsp/texlab.git --locked
 	exists texlab || echo -e "${RED}please make sure $HOME/.cargo/bin is in path"
 fi
 
 # bash
-if ! exists bash-language-server; then
+if ! exists bash-language-server || [ "$1" == "--update" ]; then
 	npm=$(ensure_npm)
 	make -p ~/.local/bin
 	$npm config set prefix '~/.local/'
 	$npm install -g bash-language-server
 	exists bash-language-server || echo -e "${RED}please make sure $($npm bin) is in path"
 fi
+
+echo -e "${GREEN}done or already installed, use --update to update all lsp"
