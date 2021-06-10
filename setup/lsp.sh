@@ -44,4 +44,31 @@ if ! exists bash-language-server || [ "$1" == "--update" ]; then
 	exists bash-language-server || echo -e "${RED}please make sure $($npm bin) is in path"
 fi
 
+# lua
+if ! exists lua-language-server || [ "$1" == "--update" ]; then
+	check git
+	check g++
+	ninja=$(ensure_ninja)
+
+	(
+		export PATH="$ninja:$PATH"
+		cd /tmp
+		rm -rf lua-language-server
+		git clone "https://github.com/sumneko/lua-language-server"
+		cd lua-language-server
+		git submodule update --init --recursive
+
+		cd 3rd/luamake
+		compile/install.sh
+		cd ../..
+		./3rd/luamake/luamake rebuild
+	)
+
+	make -p ~/.local/bin
+	mv /tmp/lua-language-server/bin/Linux/lua-language-server $HOME/.local/bin/
+	rm /tmp/lua-language-server # cleanup
+
+	exists lua-language-server || echo -e "${RED}please make sure $HOME/.local/bin in path"
+fi
+
 echo -e "${GREEN}done or already installed, use --update to update all lsp"
