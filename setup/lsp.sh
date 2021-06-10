@@ -44,8 +44,9 @@ if ! exists bash-language-server || [ "$1" == "--update" ]; then
 	exists bash-language-server || echo -e "${RED}please make sure $($npm bin) is in path"
 fi
 
-# lua
-if ! exists lua-language-server || [ "$1" == "--update" ]; then
+# lua, contains lsp binary and needed main.lua
+lua_lsp="$HOME/.local/share/lua-language-server"
+if [ ! -d $lua_lsp ] || [ "$1" == "--update" ]; then
 	check git
 	check g++
 	ninja=$(ensure_ninja)
@@ -65,10 +66,7 @@ if ! exists lua-language-server || [ "$1" == "--update" ]; then
 	)
 
 	make -p ~/.local/bin
-	mv /tmp/lua-language-server/bin/Linux/lua-language-server $HOME/.local/bin/
-	rm /tmp/lua-language-server # cleanup
-
-	exists lua-language-server || echo -e "${RED}please make sure $HOME/.local/bin in path"
+	mv /tmp/lua-language-server $HOME/.local/share/
 fi
 
 echo -e "${GREEN}done or already installed, use --update to update all lsp"
