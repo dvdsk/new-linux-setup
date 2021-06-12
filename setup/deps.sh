@@ -82,6 +82,56 @@ ensure_ninja() {
 	echo ~/.local/bin/ninja
 }
 
+ensure_go() {
+	if exists go; then
+		echo go
+		return
+	fi
+
+	if exists $HOME/.local/bin/go; then
+		echo ~/.local/bin/go
+		return
+	fi
+
+	version="$(curl -s https://golang.org/VERSION?m=text)"
+	release=".linux-amd64.tar.gz"
+	base_url="https://golang.org/dl/"
+	local_path="$HOME/.local/share"
+	curl -L "$base_url$version$release" | tar -xzvf - -C $local_path
+
+	for path in $local_path/go/bin/*; do
+		chmod +x $path
+		ln -s $path $HOME/.local/bin/$(basename $path)
+	done
+
+	echo ~/.local/bin/go
+}
+
+ensure_local_lua() {
+	lua=~/.local/bin/lua
+	libs=~/.local/lib/lua/include
+	if exists $lua && [ -d $libs ]; then
+		echo "$libs"
+		return
+	fi
+
+	sudo apt-get install --yes build-essential libreadline-dev
+	release=$(curl -L https://www.lua.org/ftp/ \
+		| grep -o "lua\-[[:digit:]\.]*\.tar\.gz" \
+		| sort -r | head -n 1)
+	base_url="https://www.lua.org/ftp/"
+	local_path="/tmp/${release%.tar.gz}"
+	curl -L "$base_url$release" | tar -xzvf - -C /tmp
+	(
+		cd $local_path
+		make local
+		mkdir -p $libs
+		mv $local_path/install/bin/* ~/.local/bin/
+		mv $local_path/install/include/* $libs
+	)
+	echo "$libs"
+}
+
 check() {
 	if exists $1; then
 		return
@@ -90,3 +140,5 @@ check() {
 	>&2 echo -e "${RED}needs $1 installed/in path, it is not"
 	exit 1
 }
+
+ensure_local_lua

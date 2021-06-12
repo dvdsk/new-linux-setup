@@ -1,14 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
+
 RED='\033[0;31m'
 GREEN='\e[0;32m'
 source deps.sh
-
-# # rust
-# rustup=$(ensure_rustup)
-# $rustup "+nightly" component add rust-analyzer-preview
-# exists rust-analyzer-preview || echo -e "${RED}please make sure $HOME/.cargo/bin is in path"
 
 # rust
 if ! exists rust-analyzer || [ "$1" == "--update" ]; then
@@ -68,5 +64,36 @@ if [ ! -d $lua_lsp ] || [ "$1" == "--update" ]; then
 	make -p ~/.local/bin
 	mv /tmp/lua-language-server $HOME/.local/share/
 fi
+
+# install general purpose lang server on which we can
+# add the autoformatter
+if ! exists efm-langserver; then 
+	go=$(ensure_go) # efm enables need to wrap luaformat
+	$go get github.com/mattn/efm-langserver
+fi
+
+# install lua formatter
+if ! exists stylua; then
+	cargo=$(ensure_cargo)
+	$cargo install stylua
+fi
+
+# if ! exists lua-format || [ "$1" == "--update" ]; then
+# 	go=$(ensure_go) # efm enables need to wrap luaformat
+# 	$go get github.com/mattn/efm-langserver
+
+# 	libs=$(ensure_local_lua)
+# 	release=$(curl -L "https://luarocks.github.io/luarocks/releases/" \
+# 		| grep -o "luarocks\-[[:digit:]\.]*\.tar\.gz" \
+# 		| sort -r | head -n 1)
+# 	base_url="https://luarocks.github.io/luarocks/releases/"
+# 	curl -L "$base_url$release" | tar -xzvf - -C /tmp
+
+# 	(
+# 		cd /tmp/luarocks-*
+# 		./configure --with-lua-bin="$HOME/.local/bin" --with-lua-include=$libs
+# 		make
+# 	)
+# fi
 
 echo -e "${GREEN}done or already installed, use --update to update all lsp"
