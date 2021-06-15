@@ -4,7 +4,7 @@ set -e
 source deps.sh
 
 install_basics_from_package_manager() {
-	sudo apt install zsh curl htop wget git make g++ gcc python3 python3-pip sshfs entre
+	sudo apt install zsh curl htop wget git make g++ gcc python3 python3-pip sshfs entr
 }
 
 get_zsh_plugin_manager() {
@@ -12,8 +12,6 @@ get_zsh_plugin_manager() {
 }
 
 install_rust_and_tools() {
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
 	tools=(
 		"zoxide"     # smart cd
 		"exa"         # ls replacement

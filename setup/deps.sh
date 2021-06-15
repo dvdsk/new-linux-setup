@@ -140,5 +140,3 @@ check() {
 	>&2 echo -e "${RED}needs $1 installed/in path, it is not"
 	exit 1
 }
-
-ensure_local_lua
