@@ -23,11 +23,6 @@ if [ ! -d "$VIMDIR" ]; then
 	cp -r ../vim/lua $VIMDIR/lua/
 fi
 
-# setup plugin manager
-PAQDIR="${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
-[[ -d $PAQDIR ]] \
-|| git clone --depth 1 "https://github.com/savq/paq-nvim.git" $PAQDIR
-
 # install plugins, treesitter
-$NVIM "+PaqInstall" "+TSInstall python rust lua c cpp toml latex bibtex" "+q"
+$NVIM --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 echo "neovim install done"

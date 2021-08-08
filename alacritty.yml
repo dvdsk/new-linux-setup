@@ -109,7 +109,7 @@ font:
 
   bold:
     family: Iosevka SS03
-    style: Bold
+    style: SemiBold
 
   italic:
     family: Iosevka SS03
@@ -117,7 +117,7 @@ font:
 
   bold_italic:
     family: Iosevka SS03
-    style: Semibold Italic
+    style: SemiBold Italic
 
   # Point size
   size: 17.0
