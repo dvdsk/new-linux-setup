@@ -24,5 +24,7 @@ require'compe'.setup {
   };
 }
 
--- LuaSnip setup
-
+-- local ls = require'luasnip'
+-- ls.snippets = {}
+-- -- LuaSnip setup
+-- require('luasnip/loaders/from_vscode').load()

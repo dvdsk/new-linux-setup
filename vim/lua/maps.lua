@@ -1,6 +1,7 @@
 local cmd = vim.cmd;
 local map = vim.api.nvim_set_keymap
 local unmap = vim.api.nvim_del_keymap
+require('functions/spell_correct') -- set up user functions
 
 vim.g.mapleader = ' '
 
@@ -16,18 +17,15 @@ for _,mode in pairs(modes) do
 	map(mode, '<C-left>', magic..'<Left>', options)
 end
 
--- -- mouse drag does not go to visual mode
--- map('n', '<LeftDrag>', '<LeftMouse>', options)
--- unmap('n', '<LeftDrag>')
-
 -- toggle between buffers
 map('n', '<leader><leader>', '<C-^>', options) 
 map('n', ';', ':', options)
 map('n', ':', ';', options)
--- spell using leader instead of z=
-map('n', '<leader>z', ':z=', options)
--- switch buffers
--- map('n', '<leader>b', ':buffers<CR>:buffer<Space>', options)
+
+-- correct last word and jump back
+vim.api.nvim_set_keymap('n', ',', '<Cmd>lua _G.SpellCheck:correct()<CR>', options)
+-- vim.api.nvim_set_keymap('n', ',', '<Cmd>lua _G.SpellCheck:save_pos()<CR>', options)
+
 -- yank till end of line
 map('n', 'Y', 'y$', options)
 
@@ -39,10 +37,8 @@ map('t', '<ESC>', '<C-\\><C-n>', options)
 -- Code navigation
 map('n', 'gd',        [[<cmd>lua vim.lsp.buf.definition()<CR>]], options)
 map('n', 'gD',        [[<cmd>lua vim.lsp.buf.declaration()<CR>]], options)
-map('n', 'gr',        [[<cmd>lua vim.lsp.buf.references()<CR>]], options)
 map('n', 'gi',        [[<cmd>lua vim.lsp.buf.implementation()<CR>]], options)
-map('n', 'K',         [[<cmd>lua vim.lsp.buf.hover()<CR>]], options)
-map('n', '<leader>k', [[<cmd>lua vim.lsp.buf.signature_help()<CR>]], options)
+map('n', 'k',         [[<cmd>lua vim.lsp.buf.hover()<CR>]], options)
 map('n', '<leader>n', [[<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>]], options)
 map('n', '<leader>p', [[<cmd>lua vim.lsp.diagnostic.goto_next()<CR>]], options)
 
