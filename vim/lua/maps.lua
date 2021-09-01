@@ -1,7 +1,6 @@
 local cmd = vim.cmd;
 local map = vim.api.nvim_set_keymap
 local unmap = vim.api.nvim_del_keymap
-require('functions/spell_correct') -- set up user functions
 
 vim.g.mapleader = ' '
 
@@ -9,28 +8,37 @@ local options = {noremap = true}
 
 -- move around with ctrl+arrow
 local modes = {"n", "i", "t"}
-local magic = "<C-\\><C-N><C-w>"
+local move_magic = "<C-\\><C-N><C-w>"
 for _,mode in pairs(modes) do
-	map(mode, '<C-down>', magic..'<Down>', options)
-	map(mode, '<C-up>',   magic..'<Up>', options)
-	map(mode, '<C-right>',magic..'<Right>', options)
-	map(mode, '<C-left>', magic..'<Left>', options)
+	map(mode, '<C-down>', move_magic..'<Down>', options)
+	map(mode, '<C-up>',   move_magic..'<Up>', options)
+	map(mode, '<C-right>',move_magic..'<Right>', options)
+	map(mode, '<C-left>', move_magic..'<Left>', options)
 end
 
--- toggle between buffers
-map('n', '<leader><leader>', '<C-^>', options) 
+-- change current window (split) size using alt
+local resize_magic = "<C-\\><C-N><C-w>"
+for _,mode in pairs(modes) do
+	map(mode, '<A-down>',  resize_magic..'-', options)
+	map(mode, '<A-up>',    resize_magic..'+', options)
+	map(mode, '<A-right>', resize_magic..'<', options)
+	map(mode, '<A-left>',  resize_magic..'>', options)
+end
+
+map('n', '<leader><leader>', '<C-^>', options)
 map('n', ';', ':', options)
 map('n', ':', ';', options)
 
 -- correct last word and jump back
-vim.api.nvim_set_keymap('n', ',', '<Cmd>lua _G.SpellCheck:correct()<CR>', options)
+-- require('functions/spell_correct') -- set up user functions
+-- vim.api.nvim_set_keymap('n', ',', '<Cmd>lua _G.SpellCheck:correct()<CR>', options)
 -- vim.api.nvim_set_keymap('n', ',', '<Cmd>lua _G.SpellCheck:save_pos()<CR>', options)
 
 -- yank till end of line
 map('n', 'Y', 'y$', options)
 
 -- make escape in terminal mode go to normal mode
--- note this does make us get stuck in terminal 
+-- note this does make us get stuck in terminal
 -- apps which use esc
 map('t', '<ESC>', '<C-\\><C-n>', options)
 
