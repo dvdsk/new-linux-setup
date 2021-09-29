@@ -5,7 +5,7 @@ files=(
 	"bin/*.sh, ~/bin"
 	"vim/init.lua, ~/.config/nvim" 
 	"vim/lua/*.lua, ~/.config/nvim/lua" 
-	"vim/.vimrc, ~"
+	"neomutt/*, ~/.config/neomutt"
 	".zshenv, ~"
 	".zshrc, ~"
 	".tmux.conf, ~"
