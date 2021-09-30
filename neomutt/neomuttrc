@@ -1,0 +1,90 @@
+# vim: filetype=muttrc
+
+###############
+# Mailbox.org over IMAP
+#
+set imap_idle
+unset imap_passive
+set imap_keepalive = 300
+# automatically get folders from imap server
+set imap_check_subscribed = yes
+set mail_check = 6 # seconds
+set ssl_force_tls = true
+
+# also sets up realname and from
+source mailaddr.muttrc
+
+###############
+# Pager settings
+#
+ignore *
+unignore From Message-ID Date To Cc Bcc Subject
+
+set pager_stop
+unset markers
+
+# Prefer plain text to html.
+# However, for brain dead clients that bundle attachments inside a
+# multipart/alternative, prefer that alternative.
+alternative_order multipart/mixed multipart/related text/plain
+
+# Consult mime.types for determining types of these attachments
+mime_lookup application/octet-stream
+
+# This requires a ~/.mailcap entry with the copiousoutput flag, such as:
+# text/html; lynx -dump -width ${COLUMNS:-80} %s; nametemplate=%s.html; copiousoutput
+auto_view text/html
+
+###############
+# Index settings
+#
+set quit = ask-yes
+set sort = date-sent
+
+# Remember to `mkdir -p ~/.neomutt/hcache` first:
+set header_cache= "~/.local/share/neomutt/hcache"
+# set header_cache_compress_method=  "lz4"
+# set header_cache_compress_level = 10
+set message_cachedir= $header_cache
+
+###############
+# General settings
+#
+#
+set signature = "~/.config/neomutt/signature.txt"
+set abort_noattach = "ask-yes"
+set abort_noattach_regex = "\\<(bijgevoegd|bijlage|attached|attachment)\\>"
+
+# disabled as this needs a newer neomutt (2021-08)
+# set use_threads = threads 
+# set sort = last-date 
+# set sort_aux = date
+
+###############
+# Message composition settings
+#
+set edit_headers
+
+# set editor = "emacsclient -a emacs -t"
+# set editor = "vim"
+
+set mime_type_query_command = "xdg-mime query filetype"
+
+# msmtp is a solid SMTP client.
+# neomutt also has built-in SMTP, or you can use an MTA like exim4 or postfix.
+# set sendmail = "/usr/bin/msmtp"
+
+# lbdb is a versatile contact query tool.
+# Invoke via ctrl-t in an address prompt
+set query_command = "abook --mutt-query '%s'"
+
+##############
+# Sidebar
+#
+set mail_check_stats
+set sidebar_visible = true
+# format string
+set sidebar_format = "%D%?F? [%F]?%* %?N?%N/?%S"
+
+source mappings.muttrc
+source colors.muttrc
