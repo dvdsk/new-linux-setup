@@ -1,0 +1,12 @@
+audio/*; /usr/bin/xdg-open %s ; copiousoutput
+
+image/*; /usr/bin/xdg-open %s ; copiousoutput
+
+application/msword; /usr/bin/xdg-open %s ; copiousoutput
+application/pdf; /usr/bin/xdg-open %s ; copiousoutput
+application/postscript ; /usr/bin/xdg-open %s ; copiousoutput
+
+text/html; qutebrowser %s && sleep 5 ; test=test -n "$DISPLAY";
+nametemplate=%s.html; needsterminal
+# text/html; lynx -dump %s ; copiousoutput; nametemplate=%s.html
+text/html; w3m -I %{charset} -T text/html ; copiousoutput; nametemplate=%s.html
