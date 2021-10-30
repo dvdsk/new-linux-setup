@@ -26,7 +26,7 @@ return require('packer').startup(function(use)
 	-- Looks
 	use "machakann/vim-highlightedyank"
 	use "lewis6991/gitsigns.nvim"
-	use "hoob3rt/lualine.nvim"
+	use "nvim-lualine/lualine.nvim"
 	use "kyazdani42/nvim-web-devicons"
 	use "mhinz/vim-startify"
 
@@ -42,8 +42,9 @@ return require('packer').startup(function(use)
 	use "vim-scripts/Align"
 	use "b3nj5m1n/kommentary"
 	use "conradirwin/vim-bracketed-paste"
-	-- 	use "lewis6991/spellsitter.nvim" -- disabled to check in progress prosesitter
-	-- 	use  'airblade/vim-rooter' -- has issues with rust workspaces
+
+	-- use { "dvdsk/prosesitter", branch = 'buf_specific_lintreq' }
+	use "Ron89/thesaurus_query.vim"
 
 	-- Nouns, Verbs, textobjects
 	use "tpope/vim-surround"
@@ -53,17 +54,26 @@ return require('packer').startup(function(use)
 
 	-- TreeSitter
 	use "nvim-treesitter/nvim-treesitter"
-	-- 	use "nvim-treesitter/nvim-treesitter-textobjects"
+	use "nvim-treesitter/nvim-treesitter-textobjects"
 	use "nvim-treesitter/playground"
 
 	-- LSP
 	use "neovim/nvim-lspconfig"
-	use "glepnir/lspsaga.nvim" -- extend lsp ui
+	-- use "glepnir/lspsaga.nvim" -- extend lsp ui
 
 	-- Completions
-	-- 	use  'L3MON4D3/LuaSnip' -- switch to in future
-	use "hrsh7th/nvim-compe"
-	use "hrsh7th/vim-vsnip"
+	use "L3MON4D3/LuaSnip" -- switch to in future
 	use "rafamadriz/friendly-snippets"
+
+	use "hrsh7th/nvim-cmp"
+	use "hrsh7th/cmp-nvim-lsp"
+	use "hrsh7th/cmp-buffer"
+	use "hrsh7th/cmp-path"
+	use "hrsh7th/cmp-cmdline"
+	use "saadparwaiz1/cmp_luasnip"
+
+	-- Debugger
+	use "mfussenegger/nvim-dap"
+	use "jbyuki/one-small-step-for-vimkind"
 end)
 

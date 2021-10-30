@@ -59,7 +59,8 @@ end
 -- plugins in the future
 function M.setup(on_attach)
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
+	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+	-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 	lsp.rust_analyzer.setup({
 		on_attach = on_attach,
