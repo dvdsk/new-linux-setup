@@ -40,6 +40,25 @@ if ! exists bash-language-server || [ "$1" == "--update" ]; then
 	exists bash-language-server || echo -e "${RED}please make sure $($npm bin) is in path"
 fi
 
+# C and friends
+function install_C_lsp()
+{
+	if ! exists clangd; then
+		sudo apt install clangd
+	fi
+
+	if ! exists bear; then
+		sudo apt install bear # to generate compile_commands.json
+	fi
+}
+
+read -n1 -p $'C/C++ lsp are installed from apt, needs sudo. install them? [y,n]\n' awnser 
+case $awnser in  
+  y|Y) install_C_lsp ;; 
+  n|N) echo skipping ;; 
+  *) echo skipping ;; 
+esac
+
 # lua, contains lsp binary and needed main.lua
 lua_lsp="$HOME/.local/share/lua-language-server"
 if [ ! -d $lua_lsp ] || [ "$1" == "--update" ]; then
