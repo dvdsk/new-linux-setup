@@ -86,9 +86,11 @@ function M.setup(on_attach)
 	lsp.texlab.setup({ on_attach = on_attach }) -- latex
 	lsp.bashls.setup({ on_attach = on_attach }) -- bash
 	lua_lsp(lsp, on_attach)
+	-- needs a compile_commands.json file; easiest to generate
+	-- using bear; `make clean; bear -- make`
 	lsp.clangd.setup({ -- c++ and c
 		on_attach = on_attach,
-		filetypes = { "c", "cpp", "cc" },
+		filetypes = { "c", "cpp", "hpp", "cc" },
 	})
 end
 

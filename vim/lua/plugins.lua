@@ -22,6 +22,7 @@ return require('packer').startup(function(use)
 	-- themes
 	use "folke/tokyonight.nvim"
 	use "shaunsingh/solarized.nvim"
+	use "sainnhe/gruvbox-material"
 
 	-- Looks
 	use "machakann/vim-highlightedyank"
@@ -32,7 +33,6 @@ return require('packer').startup(function(use)
 
 	-- GUI Tools
 	use "kyazdani42/nvim-tree.lua"
-	use "simnalamburt/vim-mundo"
 	use "nvim-telescope/telescope.nvim"
 	use "oberblastmeister/termwrapper.nvim"
 	use "folke/which-key.nvim"
@@ -74,6 +74,8 @@ return require('packer').startup(function(use)
 
 	-- Debugger
 	use "mfussenegger/nvim-dap"
+    use "theHamsta/nvim-dap-virtual-text"
+	use "rcarriga/nvim-dap-ui"
 	use "jbyuki/one-small-step-for-vimkind"
 end)
 

@@ -8,6 +8,24 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local function in_snippet()
+	local session = luasnip.session
+	local node = session.current_nodes[vim.api.nvim_get_current_buf()]
+	if not node then
+		return
+	end
+	local snippet = node.parent.snippet
+	local snip_begin_pos, snip_end_pos = snippet.mark:pos_begin_end()
+	local pos = vim.api.nvim_win_get_cursor(0)
+	if pos[1] - 1 >= snip_begin_pos[1] and pos[1] - 1 <= snip_end_pos[1] then
+		return true -- not on row inside snippet
+	end
+end
+
+local function expandable_or_locally_jumpable()
+	return luasnip.expandable() or (in_snippet() and luasnip.jumpable())
+end
+
 local cmp = require("cmp")
 cmp.setup({
 	snippet = {
@@ -38,8 +56,6 @@ cmp.setup({
 	}),
 
 	mapping = {
-		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		-- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
 		["<C-y>"] = cmp.config.disable,
@@ -47,12 +63,12 @@ cmp.setup({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
+			elseif expandable_or_locally_jumpable() then
 				luasnip.expand_or_jump()
 			elseif has_words_before() then
 				cmp.complete()

@@ -24,7 +24,6 @@ o.foldenable = true
 o.foldlevel = 1
 o.foldlevelstart = 99
 o.completeopt = "menu,menuone,noselect"
-o.scrolloff = 8 --start scrolling down the window when the cursor gets to the bottom or top
 
 -- gui related
 wo.number = true
