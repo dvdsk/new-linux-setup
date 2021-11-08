@@ -28,8 +28,8 @@ if ! command -v gpg2 &> /dev/null; then
 	sudo apt install gnupg2
 fi
 
-USERNAME="dskleingeld"
-EMAIL="11743287+dskleingeld@users.noreply.github.com"
+USERNAME="dvdsk"
+EMAIL="noreply@davidsk.dev"
 
 git config --global user.name $USERNAME
 git config --global user.email $EMAIL

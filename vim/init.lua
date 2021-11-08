@@ -2,9 +2,7 @@
 require("plugins")
 
 require("settings")
-
 require("maps")
-require("maps_plugins")
 
 -- -- these files mirrors those in the plugin file
 -- -- and contain configurations
@@ -17,3 +15,4 @@ require("treesitter")
 require("comp")
 require("lsp")
 require("debuggers") -- debugger adapter
+

@@ -34,12 +34,11 @@ return require('packer').startup(function(use)
 	-- GUI Tools
 	use "kyazdani42/nvim-tree.lua"
 	use "nvim-telescope/telescope.nvim"
-	use "oberblastmeister/termwrapper.nvim"
+ 	use "akinsho/toggleterm.nvim"
 	use "folke/which-key.nvim"
 
 	-- Text Tools
-	-- 	use  'svermeulen/vim-macrobatics'
-	use "vim-scripts/Align"
+	use "junegunn/vim-easy-align"
 	use "b3nj5m1n/kommentary"
 	use "conradirwin/vim-bracketed-paste"
 
@@ -59,10 +58,9 @@ return require('packer').startup(function(use)
 
 	-- LSP
 	use "neovim/nvim-lspconfig"
-	-- use "glepnir/lspsaga.nvim" -- extend lsp ui
 
 	-- Completions
-	use "L3MON4D3/LuaSnip" -- switch to in future
+	use "L3MON4D3/LuaSnip"
 	use "rafamadriz/friendly-snippets"
 
 	use "hrsh7th/nvim-cmp"
