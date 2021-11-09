@@ -8,24 +8,6 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local function in_snippet()
-	local session = luasnip.session
-	local node = session.current_nodes[vim.api.nvim_get_current_buf()]
-	if not node then
-		return
-	end
-	local snippet = node.parent.snippet
-	local snip_begin_pos, snip_end_pos = snippet.mark:pos_begin_end()
-	local pos = vim.api.nvim_win_get_cursor(0)
-	if pos[1] - 1 >= snip_begin_pos[1] and pos[1] - 1 <= snip_end_pos[1] then
-		return true -- not on row inside snippet
-	end
-end
-
-local function expandable_or_locally_jumpable()
-	return luasnip.expandable() or (in_snippet() and luasnip.jumpable())
-end
-
 local cmp = require("cmp")
 cmp.setup({
 	snippet = {
@@ -68,7 +50,7 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-			elseif expandable_or_locally_jumpable() then
+			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
 			elseif has_words_before() then
 				cmp.complete()
