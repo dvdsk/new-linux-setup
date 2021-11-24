@@ -6,6 +6,9 @@ shopt -s globstar
 files=( 
 	"Templates/**/*, ~/Templates"
 	"bin/*.sh, ~/bin"
+	"neomutt/colors.muttrc, ~/.config/neomutt"
+	"neomutt/mappings.muttrc, ~/.config/neomutt"
+	"neomutt/neomuttrc, ~/.config/neomutt"
 	"vim/init.lua, ~/.config/nvim" 
 	"vim/lua/*.lua, ~/.config/nvim/lua" 
 	"vim/.vimrc, ~"
