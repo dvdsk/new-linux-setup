@@ -104,23 +104,27 @@ window:
 # Font configuration
 font:
   normal:
-    family: Iosevka SS03
+    # family: Iosevka SS03
+    family: CaskaydiaCovePL Nerd Font
     style: regular
 
   bold:
-    family: Iosevka SS03
+    # family: Iosevka SS03
+    family: CaskaydiaCovePL Nerd Font
     style: SemiBold
 
   italic:
-    family: Iosevka SS03
+    # family: Iosevka SS03
+    family: CaskaydiaCovePL Nerd Font
     style: Italic
 
   bold_italic:
-    family: Iosevka SS03
+    # family: Iosevka SS03
+    family: CaskaydiaCovePL Nerd Font
     style: SemiBold Italic
 
   # Point size
-  size: 17.0
+  size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter

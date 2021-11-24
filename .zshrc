@@ -33,7 +33,6 @@ zinit ice depth=1; zinit load zdharma/fast-syntax-highlighting
 zinit ice depth=1; zinit load zsh-users/zsh-completions
 zinit ice depth=1; zinit load mdumitru/fancy-ctrl-z
 zinit ice depth=1; zinit load mdumitru/git-aliases
-zinit ice depth=1; zinit load voronkovich/gitignore.plugin.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

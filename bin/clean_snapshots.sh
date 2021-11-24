@@ -20,7 +20,6 @@ echo "indexing snapshots.... (this might take quite a while)"
 snapshots=`zfs list -t snapshot -o name | grep USERDATA/$USER`
 lines=`echo "$snapshots" | wc -l`
 
-
 NEEDED=$1
 [ -n "$NEEDED" ] || read -r -p "needed space in GB: " NEEDED
 NEEDED=$(($NEEDED * 1000000000))

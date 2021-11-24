@@ -27,8 +27,9 @@ alias python="python3" #if you ever need python2 you will have to disable this a
 alias ipython="ipython3"
 alias pip="pip3" #prevents accidentally using pip for python2
 alias open="xdg-open" 
-alias nvim="$HOME/bin/nvim.appimage"
-alias v="gnome-pomodoro --start && nvim"
+alias nvim="$HOME/.local/bin/nvim.appimage"
+alias v="nvim"
+alias m="neomutt"
 
 alias ctrlc="xclip -selection c"
 alias ctrlv="xclip -selection c -o"
@@ -56,3 +57,6 @@ alias tt="gio trash" # to trash
 alias pc="pick_commit.sh"
 alias pt="pick_template.sh"
 alias pb="pick_branch.sh"
+
+# cd directory  aliasses
+alias pros="cd ~/.local/share/nvim/site/pack/manually_installed/opt/prosesitter.nvim"
