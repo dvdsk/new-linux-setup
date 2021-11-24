@@ -1,0 +1,27 @@
+global:
+  logging:
+    # use syslog instead of stdout because it makes journald happy
+    - type: syslog
+      format: human
+      level: warn
+
+
+jobs:
+
+- name: homes
+  type: snap
+  filesystems: {
+    "rpool/USERDATA<": true,
+  }
+  snapshotting:
+    type: periodic
+    interval: 15m
+    prefix: zrepl_
+  pruning:
+    keep:
+      - type: grid
+        grid: 1x1h(keep=all) | 24x1h | 14x1d
+        regex: "^zrepl_.*"
+      - type: regex
+        negate: true
+        regex: "^zrepl_.*"
