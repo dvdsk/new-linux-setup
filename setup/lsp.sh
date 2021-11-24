@@ -34,7 +34,7 @@ fi
 # bash
 if ! exists bash-language-server || [ "$1" == "--update" ]; then
 	npm=$(ensure_npm)
-	make -p ~/.local/bin
+	mkdir -p ~/.local/bin
 	$npm config set prefix '~/.local/'
 	$npm install -g bash-language-server
 	exists bash-language-server || echo -e "${RED}please make sure $($npm bin) is in path"
@@ -43,21 +43,14 @@ fi
 # C and friends
 function install_C_lsp()
 {
-	if ! exists clangd; then
+	if ! exists clangd && sudo_ok; then
 		sudo apt install clangd
 	fi
 
-	if ! exists bear; then
+	if ! exists bear && sudo_ok; then
 		sudo apt install bear # to generate compile_commands.json
 	fi
 }
-
-read -n1 -p $'C/C++ lsp are installed from apt, needs sudo. install them? [y,n]\n' awnser 
-case $awnser in  
-  y|Y) install_C_lsp ;; 
-  n|N) echo skipping ;; 
-  *) echo skipping ;; 
-esac
 
 # lua, contains lsp binary and needed main.lua
 lua_lsp="$HOME/.local/share/lua-language-server"
@@ -75,12 +68,13 @@ if [ ! -d $lua_lsp ] || [ "$1" == "--update" ]; then
 		git submodule update --init --recursive
 
 		cd 3rd/luamake
-		compile/install.sh
+		compile/install.sh >/dev/null
 		cd ../..
-		./3rd/luamake/luamake rebuild
+		./3rd/luamake/luamake rebuild >/dev/null
 	)
 
-	make -p ~/.local/bin
+	mkdir -p ~/.local/bin
+	rm -rf $HOME/.local/share/lua-language-server
 	mv /tmp/lua-language-server $HOME/.local/share/
 fi
 
@@ -96,23 +90,5 @@ if ! exists stylua; then
 	cargo=$(ensure_cargo)
 	$cargo install stylua
 fi
-
-# if ! exists lua-format || [ "$1" == "--update" ]; then
-# 	go=$(ensure_go) # efm enables need to wrap luaformat
-# 	$go get github.com/mattn/efm-langserver
-
-# 	libs=$(ensure_local_lua)
-# 	release=$(curl -L "https://luarocks.github.io/luarocks/releases/" \
-# 		| grep -o "luarocks\-[[:digit:]\.]*\.tar\.gz" \
-# 		| sort -r | head -n 1)
-# 	base_url="https://luarocks.github.io/luarocks/releases/"
-# 	curl -L "$base_url$release" | tar -xzvf - -C /tmp
-
-# 	(
-# 		cd /tmp/luarocks-*
-# 		./configure --with-lua-bin="$HOME/.local/bin" --with-lua-include=$libs
-# 		make
-# 	)
-# fi
 
 echo -e "${GREEN}done or already installed, use --update to update all lsp"
