@@ -1,7 +1,8 @@
 require("nvim-tree").setup()
 
 require("toggleterm").setup({
-	shade_terminals = false
+	shade_terminals = false,
+	open_mapping = [[<c-\>]],
 })
 
 require("telescope").setup({
