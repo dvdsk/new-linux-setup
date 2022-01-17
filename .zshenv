@@ -13,7 +13,7 @@ path+="$HOME/.pyenv/bin"
 
 # export to sub-processes (make it inherited by child processes)
 export PATH
-export VISUAL="$HOME/bin/nvim.appimage"
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 export GOPATH=$HOME/.go
 
@@ -27,7 +27,6 @@ alias python="python3" #if you ever need python2 you will have to disable this a
 alias ipython="ipython3"
 alias pip="pip3" #prevents accidentally using pip for python2
 alias open="xdg-open" 
-alias nvim="$HOME/.local/bin/nvim.appimage"
 alias v="nvim"
 alias m="neomutt"
 

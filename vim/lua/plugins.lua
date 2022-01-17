@@ -34,6 +34,7 @@ return require('packer').startup(function(use)
 	-- GUI Tools
 	use "kyazdani42/nvim-tree.lua"
 	use "nvim-telescope/telescope.nvim"
+	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
  	use "akinsho/toggleterm.nvim"
 	use "folke/which-key.nvim"
 
@@ -41,9 +42,8 @@ return require('packer').startup(function(use)
 	use "junegunn/vim-easy-align"
 	use "b3nj5m1n/kommentary"
 	use "conradirwin/vim-bracketed-paste"
-
-	-- use { "dvdsk/prosesitter", branch = 'buf_specific_lintreq' }
 	use "Ron89/thesaurus_query.vim"
+	-- use { "dvdsk/prosesitter", branch = 'buf_specific_lintreq' }
 
 	-- Nouns, Verbs, textobjects
 	use "tpope/vim-surround"
@@ -76,4 +76,3 @@ return require('packer').startup(function(use)
 	use "rcarriga/nvim-dap-ui"
 	use "jbyuki/one-small-step-for-vimkind"
 end)
-

@@ -67,8 +67,8 @@ map_scope("<leader>o", "find_files")
 map_scope("<leader>r", "live_grep")
 map_scope("<leader>b", "buffers")
 map_scope("<leader>s", "lsp_workspace_symbols")
-map_scope("<leader>e", "lsp_workspace_diagnostics")
-map_scope("<leader>E", "lsp_document_diagnostics")
+map_scope("<leader>e", "diagnostics")
+map_scope("<leader>E", "diagnostics bufnr=0")
 map_scope("gr", "lsp_references")
 
 -- toggle terminal

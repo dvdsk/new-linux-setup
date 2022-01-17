@@ -52,11 +52,22 @@ local function lsp_name()
 	return msg
 end
 
+local function diff_source()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed
+    }
+  end
+end
+
 local lualine_sections = {
 	lualine_a = { "mode" },
-	lualine_b = { "branch", "diff" },
+    lualine_b = { {'b:gitsigns_head', icon = ''}, {'diff', source = diff_source}, },
 	lualine_c = { try_filepath },
-	lualine_x = { { lsp_name, icon = "  LSP:" }, { "diagnostics", sources = { "nvim_lsp" } } },
+	lualine_x = { { lsp_name, icon = "  LSP:" }, { "diagnostics", sources = { "nvim_diagnostic" } } },
 	lualine_y = { "progress" },
 	lualine_z = { "location" },
 }

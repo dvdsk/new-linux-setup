@@ -7,7 +7,7 @@ set imap_idle
 unset imap_passive
 set imap_keepalive = 300
 # automatically get folders from imap server
-set imap_check_subscribed = yes
+# set imap_check_subscribed = yes
 set mail_check = 6 # seconds
 set ssl_force_tls = true
 
@@ -34,6 +34,9 @@ mime_lookup application/octet-stream
 # This requires a ~/.mailcap entry with the copiousoutput flag, such as:
 # text/html; lynx -dump -width ${COLUMNS:-80} %s; nametemplate=%s.html; copiousoutput
 auto_view text/html
+# magic to enable easy url clicking
+macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 
 ###############
 # Index settings
@@ -51,6 +54,7 @@ set message_cachedir= $header_cache
 # General settings
 #
 #
+set new_mail_command="notify-send 'New Email' '%n new messages, %u unread.' &"
 set signature = "~/.config/neomutt/signature.txt"
 set abort_noattach = "ask-yes"
 set abort_noattach_regex = "\\<(bijgevoegd|bijlage|attached|attachment)\\>"
@@ -63,10 +67,12 @@ set abort_noattach_regex = "\\<(bijgevoegd|bijlage|attached|attachment)\\>"
 ###############
 # Message composition settings
 #
-set edit_headers
+set use_from=yes
+set reverse_name=yes # reply from 
+set reverse_realname=no
 
-# set editor = "emacsclient -a emacs -t"
-# set editor = "vim"
+# use in the future to start nvim with mail profile
+# set editor = "$HOME/bin/nvim.appimage"
 
 set mime_type_query_command = "xdg-mime query filetype"
 

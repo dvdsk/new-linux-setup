@@ -16,3 +16,13 @@ require("comp")
 require("lsp")
 require("debuggers") -- debugger adapter
 
+
+-- development
+-- vim.cmd[[
+-- 	:packadd prosesitter.nvim
+-- ]]
+
+-- require("telescope").load_extension("prosesitter")
+-- require("prosesitter"):setup({
+-- 	auto_enable = true, -- default true
+-- })
