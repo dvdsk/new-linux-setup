@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-set -e
+
+set -o errexit
+set -o nounset
+set -o pipefail
 
 RED='\033[0;31m'
 GREEN='\e[0;32m'
@@ -93,10 +96,11 @@ ensure_go() {
 		return
 	fi
 
-	version="$(curl -s https://golang.org/VERSION?m=text)"
+	version="$(curl -s https://go.dev/VERSION?m=text)"
 	release=".linux-amd64.tar.gz"
-	base_url="https://golang.org/dl/"
+	base_url="https://go.dev/dl/"
 	local_path="$HOME/.local/share"
+	echo $base_url$version$release
 	curl -L "$base_url$version$release" | tar -xzvf - -C $local_path
 
 	for path in $local_path/go/bin/*; do

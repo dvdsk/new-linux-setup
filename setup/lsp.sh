@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
-set -e
 
+set -o errexit
+set -o nounset
+set -o pipefail
 
 RED='\033[0;31m'
 GREEN='\e[0;32m'
 source deps.sh
 
+arg=${1-"do_not_update"}
+
 # rust
-if ! exists rust-analyzer || [ "$1" == "--update" ]; then
+if ! exists rust-analyzer || [ "$arg" == "--update" ]; then
 	rustup=$(ensure_rustup)
 	$rustup component add rust-src
 	release="rust-analyzer-x86_64-unknown-linux-gnu.gz"
@@ -19,20 +23,20 @@ if ! exists rust-analyzer || [ "$1" == "--update" ]; then
 fi
 
 # python
-if ! exists pylsp || [ "$1" == "--update" ]; then
+if ! exists pylsp || [ "$arg" == "--update" ]; then
 	pip=$(ensure_pip)
 	$pip install --user --upgrade 'python-lsp-server[all]'
 fi
 
 # latex
-if ! exists texlab || [ "$1" == "--update" ]; then
+if ! exists texlab || [ "$arg" == "--update" ]; then
 	cargo=$(ensure_cargo)
 	$cargo install --git https://github.com/latex-lsp/texlab.git --locked
 	exists texlab || echo -e "${RED}please make sure $HOME/.cargo/bin is in path"
 fi
 
 # bash
-if ! exists bash-language-server || [ "$1" == "--update" ]; then
+if ! exists bash-language-server || [ "$arg" == "--update" ]; then
 	npm=$(ensure_npm)
 	mkdir -p ~/.local/bin
 	$npm config set prefix '~/.local' # npm will syslink to ~/.local/bin
@@ -54,7 +58,7 @@ function install_C_lsp()
 
 # lua, contains lsp binary and needed main.lua
 lua_lsp="$HOME/.local/share/lua-language-server"
-if [ ! -d $lua_lsp ] || [ "$1" == "--update" ]; then
+if [ ! -d $lua_lsp ] || [ "$arg" == "--update" ]; then
 	check git
 	check g++
 	ninja=$(ensure_ninja)

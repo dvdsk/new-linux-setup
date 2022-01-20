@@ -36,7 +36,13 @@ remove_snaps() {
 
 }
 
+add_flatpack() {
+	sudo apt install flatpak
+	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+}
+
 remove_snaps
+add_flatpack
 install_basics_from_package_manager
 get_zsh_plugin_manager
 install_rust_and_tools
