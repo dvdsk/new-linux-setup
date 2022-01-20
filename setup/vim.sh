@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-set -e
+
+set -o errexit
+set -o nounset
+set -o pipefail
 
 if ! command -v  xclip; then
 	echo "trying to install xclip using apt, this needs sudo."\
@@ -9,11 +12,16 @@ if ! command -v  xclip; then
 fi
 
 # get latest nvim (update to non nightly once 0.5 hits stable)
-NVIM="$HOME/bin/nvim.appimage"
+NVIM="$HOME/.local/bin/nvim.appimage"
+if [ ! -d $(dirname $NVIM) ]; then
+        mkdir -p $(dirname $NVIM)
+fi
+
 rm $NVIM || true # if there is no existing install thats fine
 wget "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage" \
 	--output-document $NVIM
 chmod +x $NVIM
+ln $NVIM $(dirname $NVIM)/nvim
 
 # move configs if none ar there
 VIMDIR="$HOME/.config/nvim"

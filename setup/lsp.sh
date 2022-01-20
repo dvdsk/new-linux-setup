@@ -35,7 +35,7 @@ fi
 if ! exists bash-language-server || [ "$1" == "--update" ]; then
 	npm=$(ensure_npm)
 	mkdir -p ~/.local/bin
-	$npm config set prefix '~/.local/'
+	$npm config set prefix '~/.local' # npm will syslink to ~/.local/bin
 	$npm install -g bash-language-server
 	exists bash-language-server || echo -e "${RED}please make sure $($npm bin) is in path"
 fi

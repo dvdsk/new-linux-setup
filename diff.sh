@@ -6,6 +6,7 @@ shopt -s globstar
 files=( 
 	"Templates/**/*, ~/Templates"
 	"bin/*.sh, ~/bin"
+	".mailcap, ~"
 	"neomutt/colors.muttrc, ~/.config/neomutt"
 	"neomutt/mappings.muttrc, ~/.config/neomutt"
 	"neomutt/neomuttrc, ~/.config/neomutt"

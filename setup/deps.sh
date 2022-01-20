@@ -26,7 +26,7 @@ ensure_pip() {
 ensure_npm() {
 	if ! exists npm; then
 		sudo apt-get update \
-		&& sudo apt-get install --yes nodejs npm
+		&& sudo apt-get install --yes nodejs npm 1> /dev/null
 	fi
 	echo npm
 }
@@ -43,7 +43,7 @@ ensure_rustup() {
 	fi
 
 	# rustup must not be intalled, install rust lang
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 1> /dev/null
 	echo ~/.cargo/bin/rustup
 }
 
@@ -59,7 +59,7 @@ ensure_cargo() {
 	fi
 
 	# cargo must not be intalled, install rust lang
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y 1> /dev/null
 	echo ~/.cargo/bin/cargo
 }
 

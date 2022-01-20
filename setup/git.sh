@@ -34,7 +34,6 @@ EMAIL="noreply@davidsk.dev"
 git config --global user.name $USERNAME
 git config --global user.email $EMAIL
 git config --global init.defaultBranch main
-# # git config --global core.hooksPath /home/kleingeld/bin/githooks
 
 keyid=""
 for (( ; ;)); do 
