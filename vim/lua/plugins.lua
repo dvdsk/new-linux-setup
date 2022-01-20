@@ -32,7 +32,7 @@ return require('packer').startup(function(use)
 	use "mhinz/vim-startify"
 
 	-- GUI Tools
-	use "kyazdani42/nvim-tree.lua"
+	-- awaiting rewrite: "kyazdani42/nvim-tree.lua"
 	use "nvim-telescope/telescope.nvim"
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
  	use "akinsho/toggleterm.nvim"
@@ -43,7 +43,9 @@ return require('packer').startup(function(use)
 	use "b3nj5m1n/kommentary"
 	use "conradirwin/vim-bracketed-paste"
 	use "Ron89/thesaurus_query.vim"
-	-- use { "dvdsk/prosesitter", branch = 'buf_specific_lintreq' }
+
+	-- Other
+	use "ggandor/lightspeed.nvim"
 
 	-- Nouns, Verbs, textobjects
 	use "tpope/vim-surround"

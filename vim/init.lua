@@ -11,6 +11,7 @@ require("looks")
 require("gui_tools")
 require("text_tools")
 require("treesitter")
+require("other")
 
 require("comp")
 require("lsp")
