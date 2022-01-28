@@ -4,7 +4,7 @@ set -e
 source deps.sh
 
 install_basics_from_package_manager() {
-	sudo apt install firefox zsh curl htop wget git make g++ gcc python3 python3-pip sshfs entr imagemagick w3m neomutt gnupg2 pass wl-clipboard
+	sudo apt install firefox zsh curl htop wget git make g++ gcc python3 python3-pip sshfs entr imagemagick w3m neomutt urlscan gnupg2 pass wl-clipboard
 }
 
 get_zsh_plugin_manager() {
