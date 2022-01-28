@@ -12,7 +12,6 @@ files=(
 	"neomutt/neomuttrc, ~/.config/neomutt"
 	"vim/init.lua, ~/.config/nvim" 
 	"vim/lua/*.lua, ~/.config/nvim/lua" 
-	"vim/.vimrc, ~"
 	".zshenv, ~"
 	".zshrc, ~"
 	".tmux.conf, ~"
