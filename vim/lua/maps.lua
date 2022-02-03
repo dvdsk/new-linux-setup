@@ -47,6 +47,10 @@ map("n", "<leader>p", [[<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>]], options)
 map("n", "<leader>n", [[<cmd>lua vim.lsp.diagnostic.goto_next()<CR>]], options)
 map("n", "<leader>l", [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]], options)
 
+--Lightspeed (movement)
+map("n", "r", [[<Plug>Lightspeed_s]], {})
+map("n", "R", [[<Plug>Lightspeed_S]], {})
+
 -- auto format
 map("n", "<leader>f", [[<cmd>lua vim.lsp.buf.formatting()<CR>]], options)
 map("n", "cr", [[<cmd>lua vim.lsp.buf.rename()<CR>]], options)
