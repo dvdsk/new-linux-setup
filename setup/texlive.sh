@@ -22,7 +22,12 @@ path=$(ls $TEMP/install-tl | sort | tail -n 1)
 sudo perl $TEMP/install-tl/$path/install-tl <<< I
 
 # add simlink so path need not be changed between updates
-sudo ln -s /usr/local/texlive/$curr_year /usr/local/texlive/installed
+cd /usr/local/texlive
+current=$(find . 20* -maxdepth 0 -type d | sort | tail -n 1)
+cd -
+
+sudo rm /usr/local/texlive/installed
+sudo ln -s /usr/local/texlive/$current /usr/local/texlive/installed
 
 # clean up
 rm -rf $TEMP
