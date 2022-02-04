@@ -58,7 +58,7 @@ function install_C_lsp()
 
 # lua, contains lsp binary and needed main.lua
 lua_lsp="$HOME/.local/share/lua-language-server"
-if [ ! -d $lua_lsp ] || [ "$arg" == "--update" ]; then
+if [ ! -d $lua_lsp ] || [ "$arg" == "--update" ] || [ "$arg" == "--lua" ]; then
 	check git
 	check g++
 	ninja=$(ensure_ninja)
@@ -72,9 +72,13 @@ if [ ! -d $lua_lsp ] || [ "$arg" == "--update" ]; then
 		git submodule update --init --recursive
 
 		cd 3rd/luamake
-		compile/install.sh >/dev/null
+		echo "*******************************"
+		# do not touch user shell config
+		SHELL="noshell" compile/install.sh
+		echo "*******************************"
+		
 		cd ../..
-		./3rd/luamake/luamake rebuild >/dev/null
+		./3rd/luamake/luamake rebuild 1>/dev/null
 	)
 
 	mkdir -p ~/.local/bin
