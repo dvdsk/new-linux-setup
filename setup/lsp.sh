@@ -11,7 +11,7 @@ source deps.sh
 arg=${1-"do_not_update"}
 
 # rust
-if ! exists rust-analyzer || [ "$arg" == "--update" ]; then
+if ! exists rust-analyzer || [ "$arg" == "--all" ] || [ "$arg" == "--rust" ]; then
 	rustup=$(ensure_rustup)
 	$rustup component add rust-src
 	release="rust-analyzer-x86_64-unknown-linux-gnu.gz"
@@ -23,20 +23,29 @@ if ! exists rust-analyzer || [ "$arg" == "--update" ]; then
 fi
 
 # python
-if ! exists pylsp || [ "$arg" == "--update" ]; then
+if ! exists pylsp || [ "$arg" == "--all" ] || [ "$arg" == "--python" ]; then
 	pip=$(ensure_pip)
 	$pip install --user --upgrade 'python-lsp-server[all]'
 fi
 
 # latex
-if ! exists texlab || [ "$arg" == "--update" ]; then
+if ! exists texlab || [ "$arg" == "--all" ] || [ "$arg" == "--latex" ]; then
 	cargo=$(ensure_cargo)
 	$cargo install --git https://github.com/latex-lsp/texlab.git --locked
 	exists texlab || echo -e "${RED}please make sure $HOME/.cargo/bin is in path"
 fi
 
+# json
+if ! exists vscode-json-language-server || [ "$arg" == "--all" ] || [ "$arg" == "--json" ]; then
+	npm=$(ensure_npm)
+	mkdir -p ~/.local/bin
+	$npm config set prefix '~/.local' # npm will syslink to ~/.local/bin
+	$npm install -g vscode-langservers-extracted
+	exists bash-language-server || echo -e "${RED}please make sure $($npm bin) is in path"
+fi
+
 # bash
-if ! exists bash-language-server || [ "$arg" == "--update" ]; then
+if ! exists bash-language-server || [ "$arg" == "--all" ] || [ "$arg" == "--bash" ]; then
 	npm=$(ensure_npm)
 	mkdir -p ~/.local/bin
 	$npm config set prefix '~/.local' # npm will syslink to ~/.local/bin
@@ -45,8 +54,7 @@ if ! exists bash-language-server || [ "$arg" == "--update" ]; then
 fi
 
 # C and friends
-function install_C_lsp()
-{
+if ! [ "$arg" == "--all" ] || [ "$arg" == "--c" ]; then
 	if ! exists clangd && sudo_ok; then
 		sudo apt install clangd
 	fi
@@ -54,11 +62,11 @@ function install_C_lsp()
 	if ! exists bear && sudo_ok; then
 		sudo apt install bear # to generate compile_commands.json
 	fi
-}
+fi
 
 # lua, contains lsp binary and needed main.lua
 lua_lsp="$HOME/.local/share/lua-language-server"
-if [ ! -d $lua_lsp ] || [ "$arg" == "--update" ] || [ "$arg" == "--lua" ]; then
+if [ ! -d $lua_lsp ] || [ "$arg" == "--all" ] || [ "$arg" == "--lua" ]; then
 	check git
 	check g++
 	ninja=$(ensure_ninja)
@@ -84,19 +92,6 @@ if [ ! -d $lua_lsp ] || [ "$arg" == "--update" ] || [ "$arg" == "--lua" ]; then
 	mkdir -p ~/.local/bin
 	rm -rf $HOME/.local/share/lua-language-server
 	mv /tmp/lua-language-server $HOME/.local/share/
-fi
-
-# install general purpose lang server on which we can
-# add the autoformatter
-if ! exists efm-langserver; then 
-	go=$(ensure_go) # efm enables need to wrap luaformat
-	$go get github.com/mattn/efm-langserver
-fi
-
-# install lua formatter
-if ! exists stylua; then
-	cargo=$(ensure_cargo)
-	$cargo install stylua
 fi
 
 echo -e "${GREEN}done or already installed, use --update to update all lsp"
