@@ -33,6 +33,7 @@ alias m="neomutt"
 alias ctrlc="xclip -selection c"
 alias ctrlv="xclip -selection c -o"
 alias rootvim="echo use sudoedit instead" # works thanks to VISUAL
+alias strip="tr '[\t][\n]' ' ' | tr -s '[:blank:]'" # remove newlines and indents
 
 alias getaudio="youtube-dl -f 'bestaudio[ext=m4a]'" #followed by youtube url in quotes
 alias on_change="entr -rc"
