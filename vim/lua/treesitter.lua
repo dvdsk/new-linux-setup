@@ -25,7 +25,7 @@ local swap = {
 require("nvim-treesitter.configs").setup {
 	ensure_installed = { "c", "rust", "python", "bash", "lua", "latex", "bibtex", "toml", "json", "cpp", "query" },
 	highlight = { enable = true },
-	indent = { enable = true },
+	indent = { enable = false },
 	playground = {
 		enable = true,
 		disable = {},

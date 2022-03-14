@@ -33,26 +33,6 @@ local function lua_lsp(lsp, on_attach)
 			},
 		},
 	})
-
-	-- this autoformatter only works when the code is
-	-- compiling fine... its the best we can do now
-	-- this is not an issue of the formatter, it works fine
-	-- from the terminal
-	lsp.efm.setup({
-		init_options = { documentFormatting = true },
-		filetypes = { "lua" },
-		settings = {
-			rootMarkers = { ".git/" },
-			languages = {
-				lua = {
-					{
-						formatCommand = "stylua -",
-						formatStdin = true,
-					},
-				},
-			},
-		},
-	})
 end
 
 -- on attach is not used right now but could be used by other
@@ -84,6 +64,7 @@ function M.setup(on_attach)
 
 	lsp.pylsp.setup({ on_attach = on_attach }) -- python
 	lsp.texlab.setup({ on_attach = on_attach }) -- latex
+	lsp.jsonls.setup({ capabilities = capabilities }) --json
 	lsp.bashls.setup({ on_attach = on_attach }) -- bash
 	lua_lsp(lsp, on_attach)
 	-- needs a compile_commands.json file; easiest to generate

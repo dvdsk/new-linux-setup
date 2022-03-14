@@ -1,6 +1,4 @@
-local cmd = vim.cmd
 local map = vim.api.nvim_set_keymap
-local unmap = vim.api.nvim_del_keymap
 local silent = { noremap = true, silent = true }
 local options = { noremap = true }
 
@@ -37,6 +35,11 @@ map("n", "Y", "y$", options)
 -- apps which use esc
 map("t", "<ESC>", "<C-\\><C-n>", options)
 
+-- Signature help
+for _, mode in pairs(modes) do
+	map(mode, "<A-3>", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]], options)
+end
+
 -- Code navigation
 map("n", "gd", [[<cmd>lua vim.lsp.buf.definition()<CR>]], options)
 map("n", "gD", [[<cmd>lua vim.lsp.buf.declaration()<CR>]], options)
@@ -67,6 +70,7 @@ local function map_scope(key, func)
 	map("n", key, ":lua require'telescope.builtin'." .. func .. "()<CR>", silent)
 end
 
+map_scope("\\\\", "resume") -- Lists the results of the previous picker
 map_scope("<leader>o", "find_files")
 map_scope("<leader>r", "live_grep")
 map_scope("<leader>b", "buffers")
@@ -74,6 +78,7 @@ map_scope("<leader>s", "lsp_workspace_symbols")
 map_scope("<leader>e", "diagnostics")
 map_scope("<leader>E", "diagnostics bufnr=0")
 map_scope("gr", "lsp_references")
+map("n", "<leader>u", ":lua require'functions'.func_def_scope()<CR>", silent)
 
 -- toggle terminal
 map("n", "<leader>t", ":ToggleTerm<CR>", silent)

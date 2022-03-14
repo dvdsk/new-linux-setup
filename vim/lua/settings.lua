@@ -20,6 +20,7 @@ o.splitright = true --new split goes right
 o.tabstop = 4
 o.softtabstop = 0
 o.shiftwidth = 4
+o.autoindent = true
 o.smartindent = true
 o.foldmethod = "syntax"
 o.foldenable = true
