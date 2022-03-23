@@ -1,7 +1,6 @@
 -- list of installable lang-servers
 -- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
 --
-local M = {}
 local lsp = require("lspconfig")
 
 vim.lsp.set_log_level("debug")
@@ -37,7 +36,7 @@ end
 
 -- on attach is not used right now but could be used by other
 -- plugins in the future
-function M.setup(on_attach)
+local function setup(on_attach)
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 	-- capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -75,4 +74,4 @@ function M.setup(on_attach)
 	})
 end
 
-M.setup()
+setup()

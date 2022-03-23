@@ -1,31 +1,38 @@
-local luasnip = require("luasnip")
-luasnip.snippets = {}
--- LuaSnip setup
+-- snippets
+local ls = require("luasnip")
+local types = require "luasnip.util.types"
 require("luasnip/loaders/from_vscode").load()
+require("snippets/all")
+require("snippets/lua")
+require("snippets/sh")
+require("snippets/rust")
+require("snippets/latex")
+require("snippets/markdown")
 
-local has_words_before = function()
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
-local types = require("luasnip.util.types")
-local cmp = require("cmp")
-cmp.setup({
-	ext_opt = {
+-- Every unspecified option will be set to the default.
+ls.config.set_config({
+	history = true,
+	-- Update more often, :h events for more info.
+	updateevents = "TextChanged,TextChangedI",
+	ext_opts = {
 		[types.choiceNode] = {
 			active = {
-				virt_text = { { "●", "GruvboxOrange" } },
-			},
-		},
-		[types.insertNode] = {
-			active = {
-				virt_text = { { "●", "GruvboxBlue" } },
+				virt_text = { { "choiceNode", "Comment" } },
 			},
 		},
 	},
+	-- treesitter-hl has 100, use something higher (default is 200).
+	ext_base_prio = 300,
+	-- minimal increase in priority.
+	ext_prio_increase = 1,
+})
+
+local cmp = require("cmp")
+local func = require "functions"
+cmp.setup({
 	snippet = {
 		expand = function(args)
-			luasnip.lsp_expand(args.body)
+			ls.lsp_expand(args.body)
 		end,
 	},
 	sources = cmp.config.sources({
@@ -52,21 +59,11 @@ cmp.setup({
 	}),
 
 	mapping = {
-		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		-- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
-		["<C-y>"] = cmp.config.disable,
-		["<C-e>"] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
-		}),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
-
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expand_or_locally_jumpable() then
-				luasnip.expand_or_jump()
-			elseif has_words_before() then
+			if ls.expand_or_locally_jumpable() then
+				ls.expand_or_jump()
+			elseif func.has_words_before() then
 				cmp.complete()
 			else
 				fallback()
@@ -75,12 +72,9 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-
 		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
+			if ls.jumpable(-1) then
+				ls.jump(-1)
 			else
 				fallback()
 			end

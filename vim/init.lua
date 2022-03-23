@@ -12,7 +12,8 @@ require("gui_tools")
 require("text_tools")
 require("treesitter")
 
-require("comp")
+
+require("comp") -- completions and snippets
 require("lsp")
 require("debuggers") -- debugger adapter
 

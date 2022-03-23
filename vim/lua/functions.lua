@@ -10,14 +10,14 @@ local function_def = {
  ["latex"] = "\\section",
 }
 
-local function_use = {
- ["lua"] = "(.*)",
- ["python"] = "(.*)",
- ["rust"] = "(.*)",
- ["c"] = "(.*)",
- ["cpp"] = "(.*)",
- ["latex"] = "\\section",
-}
+-- local function_use = {
+--  ["lua"] = "(.*)",
+--  ["python"] = "(.*)",
+--  ["rust"] = "(.*)",
+--  ["c"] = "(.*)",
+--  ["cpp"] = "(.*)",
+--  ["latex"] = "\\section",
+-- }
 
 local extensions = {
  ["lua"] = { "lua" },
@@ -29,6 +29,7 @@ local extensions = {
 }
 
 -- idea take from https://www.reddit.com/r/neovim/comments/st1kxs/some_telescope_tips/
+-- Update link in blogpost if this function in moved
 local function func_scope(pattern)
     local bufnr = vim.api.nvim_get_current_buf()
     local filetype = vim.bo[bufnr].filetype
@@ -60,4 +61,11 @@ end
 
 -- M.func_use_scope()
 --
+
+function M.has_words_before()
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+
 return M

@@ -1,3 +1,4 @@
+local func = require("functions")
 local map = vim.api.nvim_set_keymap
 local silent = { noremap = true, silent = true }
 local options = { noremap = true }
@@ -82,6 +83,16 @@ map("n", "<leader>u", ":lua require'functions'.func_def_scope()<CR>", silent)
 
 -- toggle terminal
 map("n", "<leader>t", ":ToggleTerm<CR>", silent)
+
+-- lua snip (rest is in cmp)
+map("i", "^[2", "<Plug>luasnip-next-choice<CR>", silent)
+
+local ls = require("luasnip")
+vim.keymap.set({ "i", "s" }, "<A-2>", function()
+  if ls.choice_active() then
+    ls.change_choice(1)
+  end
+end)
 
 -- -- Prosesitter
 -- local opt = { noremap = true, silent = true, nowait = true }

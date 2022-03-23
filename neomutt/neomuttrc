@@ -48,7 +48,7 @@ set sort = date-sent
 set header_cache= "~/.local/share/neomutt/hcache"
 # set header_cache_compress_method=  "lz4"
 # set header_cache_compress_level = 10
-set message_cachedir= $header_cache
+set message_cachedir= "~/.local/share/neomutt/mcache"
 
 ###############
 # General settings
