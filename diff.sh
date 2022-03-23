@@ -12,7 +12,7 @@ files=(
 	"neomutt/neomuttrc, ~/.config/neomutt"
 	"vim/init.lua, ~/.config/nvim" 
 	"vim/lua/*.lua, ~/.config/nvim/lua" 
-	"vim/lua/snippets/*.lua, ~/.config/nvim/snippets/lua" 
+	"vim/lua/snippets/*.lua, ~/.config/nvim/lua/snippets" 
 	".zshenv, ~"
 	".zshrc, ~"
 	".tmux.conf, ~"
