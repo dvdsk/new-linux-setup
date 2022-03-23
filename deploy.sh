@@ -5,6 +5,7 @@ files=(
 	"bin/*.sh, ~/bin"
 	"vim/init.lua, ~/.config/nvim" 
 	"vim/lua/*.lua, ~/.config/nvim/lua" 
+	"vim/lua/snippets/*.lua, ~/.config/nvim/snippets/lua" 
 	".mailcap, ~"
 	"neomutt/colors.muttrc, ~/.config/neomutt"
 	"neomutt/mappings.muttrc, ~/.config/neomutt"
