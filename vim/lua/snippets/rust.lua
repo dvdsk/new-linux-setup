@@ -38,7 +38,7 @@ local function struct_snip(trig, derive)
 	)
 end
 
-ls.snippets.rust = {
+return {
 	s({trig="fno", name="function returning a option"},
 	fmt([[
 		fn {} ({}) -> Option<{}> {{
@@ -64,4 +64,4 @@ ls.snippets.rust = {
 	struct_snip("sdc", "Debug, Clone"),
 	struct_snip("sdcc", "Debug, Clone, Copy"),
 	struct_snip("sds", "Debug, Clone, Serialize, Deserialize"),
-}
+}, {}

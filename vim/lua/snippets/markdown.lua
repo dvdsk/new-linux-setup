@@ -30,7 +30,7 @@ local function list_snippet(trig, list)
 	})
 end
 
-ls.snippets.markdown = {
+return {
 	list_snippet("li", "1."),
 	list_snippet("le", "-"),
 	s({trig = "quote", name = "quote"}, {
@@ -43,4 +43,4 @@ ls.snippets.markdown = {
 		'''
 		]], {i(1, "language"), i(0, "code")})
 	}),
-}
+}, {}

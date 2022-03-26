@@ -1,13 +1,8 @@
 -- snippets
 local ls = require("luasnip")
 local types = require "luasnip.util.types"
-require("luasnip/loaders/from_vscode").load()
-require("snippets/all")
-require("snippets/lua")
-require("snippets/sh")
-require("snippets/rust")
-require("snippets/latex")
-require("snippets/markdown")
+require("luasnip/loaders/from_vscode").lazy_load()
+require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/snippets"})
 
 -- Every unspecified option will be set to the default.
 ls.config.set_config({

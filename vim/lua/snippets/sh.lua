@@ -12,7 +12,7 @@ local r = ls.restore_node
 
 local fmt = require("luasnip.extras.fmt").fmt
 
-ls.snippets.sh = {
+return {
 	s({trig="bb", name="shebang"},
 	{ t("#!/usr/bin/env bash") })
-}
+}, {}

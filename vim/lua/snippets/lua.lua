@@ -12,7 +12,7 @@ local r = ls.restore_node
 
 local fmt = require("luasnip.extras.fmt").fmt
 
-ls.snippets.lua = {
+return {
 	s(
 		"req",
 		fmt([[local {} = require("{}")]], {
@@ -23,4 +23,4 @@ ls.snippets.lua = {
 			i(1),
 		})
 	)
-}
+}, {}
