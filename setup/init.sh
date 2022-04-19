@@ -21,6 +21,7 @@ install_rust_and_tools() {
 		"fd-find"     # find like, used: fd
 		"du-dust"     # folder disk space, use: dust
 		"git-delta"   # diff replacement with syntax highlighting
+		"difftastic"  # diff replacement comparing on syntax
 	)
 
 	cargo=$(ensure_cargo)

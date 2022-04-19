@@ -34,6 +34,8 @@ EMAIL="noreply@davidsk.dev"
 git config --global user.name $USERNAME
 git config --global user.email $EMAIL
 git config --global init.defaultBranch main
+git config --global diff.external difft
+git config --global merge.conflictstyle diff3
 
 keyid=""
 for (( ; ;)); do 
