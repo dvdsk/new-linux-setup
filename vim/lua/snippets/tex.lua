@@ -34,7 +34,7 @@ end
 -- returns a list of text nodes of all the styles found in latex files
 local function find_styles()
 	assert(vim.fn.executable("rg") == 1, "ripgrep needs to be installed")
-	local handle = io.popen([[rg "\\\tikzstyle\{(.+)\}"]]
+	local handle = io.popen([[rg "\\\tikzstyle\{(.+?)\}"]]
 	..[[ --no-filename]]
 	..[[ --no-line-number]]
 	..[[ --only-matching]]
@@ -81,14 +81,22 @@ end
 local function tikz_style_node(pos)
 	return d(pos, function(_)
 		local choices = find_styles()
-		return sn(nil, {c(1, choices)})
+		if #choices > 0 then
+			return sn(nil, {c(1, choices)})
+		else
+			return sn(nil, i(1, "style or args"))
+		end
 	end, {})
 end
 
 local function tikz_id_node(pos)
 	return d(pos, function(_)
 		local names = find_node_ids()
-		return sn(nil, {c(1, names)})
+		if #names > 0 then
+			return sn(nil, {c(1, names)})
+		else
+			return sn(nil, i(1, "other node"))
+		end
 	end, {})
 end
 
@@ -111,14 +119,69 @@ local function tikz_dir(main_dir)
 	)
 end
 
-local function tikz_deg_node(pos)
+local function tikz_deg_node_a(pos)
+	return c(pos, {t("90"), t("0"), t("270"), t("180"), i(pos, "deg")})
+end
+local function tikz_deg_node_b(pos)
 	return c(pos, {t("270"), t("180"), t("90"), t("0"), i(pos, "deg")})
 end
+
+local function fig_input(pos)
+	return c(pos, {
+		sn(nil, {t("\\includegraphics{"), i(1, "path"), t("}")}),
+		sn(nil, {t("\\input{"), i(1, "path"), t("}") })
+	})
+end
+
+local tikz = s({trig = "bt", name = "figure"},
+fmt([[
+\begin{{tikzpicture}}[node distance=0.5cm and 1.0cm, auto]
+	{}
+\end{{tikzpicture}}
+]], {i(0)}))
+
+local figure = s({trig = "bf", name = "figure"},
+fmt([[
+\begin{{figure}}[htbp]
+	\centering
+	{fig}
+	\caption{{{caption}}}
+	\label{{fig:{label}}}
+\end{{figure}}{}
+]], {fig= fig_input(1), caption=i(2), label=i(3), i(0)}))
+
+
+local subfigure = s({trig = "bsf", name = "subfigure"},
+fmt([[
+\begin{{figure}}[htbp]
+	\begin{{subcaptionblock}}{{.4\textwidth}}
+		\centering
+		{fig_a}
+		\caption{{{caption_a}}}
+		\label{{fig:{label_a}}}
+	\end{{subcaptionblock}}%
+	\begin{{subcaptionblock}}{{.4\textwidth}}
+		\centering
+		{fig_b}
+		\caption{{{caption_b}}}
+		\label{{fig:{label_b}}}
+	\end{{subcaptionblock}}%
+	{fig_caption}
+	{fig_label}
+\end{{figure}}
+]], {
+	fig_a= fig_input(1), caption_a=i(2), label_a=i(3),
+	fig_b= fig_input(4), caption_b=i(5), label_b=i(6),
+	fig_caption=c(7, {sn(nil, {t("\\caption{"),i(1),t("}")}), t("")}),
+	fig_label=c(8, {sn(nil, {t("\\label{fig:"),i(0),t("}")}), t("")}),
+}))
+
 
 return {
 	list_snippet("li", "itemize"),
 	list_snippet("le", "enumerate"),
 	-- tikz
+	tikz,
 	tikz_dir("below"),
 	tikz_dir("above"),
 	tikz_dir("left"),
@@ -128,11 +191,13 @@ return {
 		{
 			style = tikz_style_node(1),
 			start = tikz_id_node(2),
-			deg_out = tikz_deg_node(3),
-			deg_in = tikz_deg_node(4),
+			deg_out = tikz_deg_node_a(3),
+			deg_in = tikz_deg_node_b(4),
 			label = i(5, "text"),
 			endn = tikz_id_node(6),
 			i(0,"")
 		})
-	)
+	),
+	figure,
+	subfigure,
 }, {}
