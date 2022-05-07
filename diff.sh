@@ -17,6 +17,8 @@ files=(
 	".zshrc, ~"
 	".tmux.conf, ~"
 	"alacritty.yml, ~/.config/alacritty"
+	"sway/*, ~/.config/sway/*"
+	
 )
 
 DIFF_EXPL="when deployed the red lines will be removed from the installed configs"

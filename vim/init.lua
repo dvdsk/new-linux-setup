@@ -3,6 +3,7 @@ require("plugins")
 
 require("settings")
 require("maps")
+require("commands")
 
 -- -- these files mirrors those in the plugin file
 -- -- and contain configurations
@@ -18,7 +19,7 @@ require("lsp")
 require("debuggers") -- debugger adapter
 
 
--- development
+-- -- development
 -- vim.cmd[[
 -- 	:packadd prosesitter.nvim
 -- ]]

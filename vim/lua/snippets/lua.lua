@@ -22,5 +22,8 @@ return {
 			end, { 1 }),
 			i(1),
 		})
-	)
+	),
+	s({trig="pi", name="print object"},
+		fmt([[print(vim.inspect({})){}]], {i(1), i(0)})
+	),
 }, {}

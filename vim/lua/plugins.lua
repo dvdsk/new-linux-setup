@@ -35,8 +35,10 @@ return require('packer').startup(function(use)
 	-- awaiting rewrite: "kyazdani42/nvim-tree.lua"
 	use "nvim-telescope/telescope.nvim"
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+	use "nvim-telescope/telescope-ui-select.nvim"
  	use "akinsho/toggleterm.nvim"
 	use "folke/which-key.nvim"
+	use "mrjones2014/legendary.nvim"
 
 	-- Text Tools
 	use "junegunn/vim-easy-align"
