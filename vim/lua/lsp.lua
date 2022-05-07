@@ -3,8 +3,6 @@
 --
 local lsp = require("lspconfig")
 
-vim.lsp.set_log_level("debug")
-
 local function lua_lsp(lsp, on_attach)
 	local lsp_root = vim.fn.system("echo -n $HOME/.local/share/lua-language-server")
 	local lsp_binary = lsp_root .. "/bin/lua-language-server"

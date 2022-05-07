@@ -30,7 +30,7 @@ end
 
 local function struct_snip(trig, derive)
 	return s({trig=trig, name="struct + derive "..derive},
-	fmt("#[Derive("..derive..")]\n"..[[
+	fmt("#[derive("..derive..")]\n"..[[
 {}struct {{
 	{}
 }}

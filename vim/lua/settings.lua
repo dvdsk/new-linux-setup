@@ -27,6 +27,8 @@ o.foldenable = true
 o.foldlevel = 1
 o.foldlevelstart = 99
 o.completeopt = "menu,menuone,noselect"
+o.modeline = true -- file annotations can set vim settings
+-- for example: `// vim: set ft=json:` sets the filetype for a file without extension
 
 -- gui related
 wo.number = true

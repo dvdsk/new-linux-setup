@@ -53,7 +53,7 @@ cmp.setup({
 		}),
 	}),
 
-	mapping = {
+	mapping = cmp.mapping.preset.insert({
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if ls.expand_or_locally_jumpable() then
@@ -77,5 +77,5 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-	},
+	}),
 })
