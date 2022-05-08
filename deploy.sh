@@ -14,7 +14,8 @@ files=(
 	".zshrc, ~"
 	".tmux.conf, ~"
 	"alacritty.yml, ~/.config/alacritty"
-	"sway/*, ~/.config/sway/"
+	"sway/config, ~/.config/sway/"
+	"sway/rwaybar.toml, ~/.config/"
 )
 
 for paths in "${files[@]}"; do

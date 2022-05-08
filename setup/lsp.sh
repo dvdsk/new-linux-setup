@@ -10,6 +10,8 @@ source deps.sh
 
 arg=${1-"do_not_update"}
 
+mkdir -p ~/.local/bin
+
 # rust
 if ! exists rust-analyzer || [ "$arg" == "--all" ] || [ "$arg" == "--rust" ]; then
 	rustup=$(ensure_rustup)

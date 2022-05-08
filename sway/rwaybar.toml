@@ -1,0 +1,102 @@
+# Bars are defined as an array, so you can have more than one
+[[bar]]
+name = "DP-2"
+size = 25
+side = "top"
+left = ["workspaces"]
+center= ["clock"]
+right = ["tray", "pulse-spk"]
+font = "Roboto 14"
+fg = "white"
+bg = "black"
+
+[fonts]
+# Named fonts are tried first, then all other fonts are searched for missing glyphs
+mono = "/usr/share/fonts/truetype/roboto/hinted/Roboto-Medium.ttf"
+
+[time_fmt]
+# type='value' is implied if the only key is 'value'
+# Value is not format-expanded, but its contents can be set by actions (see clock below)
+value = "%Y-%m-%d %H:%M"
+
+[time]
+type = "clock"
+format = "{time_fmt}"
+
+[tray]
+type = "tray"
+
+[clock]
+type = "text"
+format = "{time}"
+# The expression "{bar.some-value}" reads configuration items from the
+# currently rendering bar, which is useful if you want to have bars of
+# different sizes without duplicating all your items just to change one value
+font = "{bar.the-clock-font}"
+margin = "0 10"
+
+## WORKSPACE
+[sway-workspace]
+type = "sway-workspace"
+
+[workspaces]
+type = "focus-list"
+source = "sway-workspace"
+
+# Instead of writing "workspaces.item = 'an_item'", we can use a sub-key like this:
+# (note you can't address such sub-keys from other items)
+[workspaces.item]
+format = " {item} "
+margin = "0 1 0 1"
+padding = "0 0 5 0"
+border = "3 0 0 0"
+border-alpha = 0
+
+[workspaces.focused-item]
+format = " {item} "
+margin = "0 1 0 1"
+padding = "0 0 5 0"
+border = "3 0 0 0"
+bg = "#197d9b"
+bg-alpha = 0.8
+
+[workspaces-repr]
+type = "sway-tree"
+align = "center"
+margin = "2 0 6 0"
+markup = true
+
+[workspaces-repr.pre-node]
+format = "{item.layout}["
+
+[[workspaces-repr.window]]
+format = '{item.marks}'
+
+[[workspaces-repr.window]]
+type = 'icon'
+name = '{item-icon-path}'
+fallback = '({item.appid})'
+tooltip = '{item.title}'
+border = "0 0 2 0"
+padding = "2 0"
+border-color = "#69cbad"
+border-alpha = '{item.focus}'
+
+[workspaces-repr.post-node]
+format = "]"
+
+[workspaces-repr.pre-float]
+format = " + "
+
+## Volume
+[pulse-spk]
+padding = "0 10 0 10"
+type = 'pulse'
+target = 'sink'
+# Instead of the default, you can specify a particular sink:
+# target = 'sink:alsa_output.pci-0000_00_1f.3.analog-stereo'
+# "pactl list" will show the available names
+
+[pulse-mic]
+type = 'pulse'
+target = 'source'

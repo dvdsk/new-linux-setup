@@ -36,8 +36,8 @@ mkdir -p $(dirname $CONFIGPATH)
 #      "It is okay to skip this step with Ctrl+C then "\
 #      "this will install locally"
 
-sudo add-apt-repository ppa:mmstick76/alacritty \
-	&& sudo apt-get install alacritty \
+# sudo add-apt-repository ppa:mmstick76/alacritty && \ # needed on ubuntu
+sudo apt-get install alacritty \
 	&& set_as_default \
 	&& set_as_desktop_terminal_app \
 	&& echo "installed alacritty" \
