@@ -17,7 +17,8 @@ files=(
 	".zshrc, ~"
 	".tmux.conf, ~"
 	"alacritty.yml, ~/.config/alacritty"
-	"sway/*, ~/.config/sway/*"
+	"sway/config, ~/.config/sway/config"
+	"sway/rwaybar.toml, ~/.config/rwaybar.toml"
 	
 )
 
