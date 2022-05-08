@@ -33,18 +33,21 @@ install_gnome_specific_tools() {
 }
 
 remove_snaps() {
-	sudo snap remove firefox
-
+	if command -v snap &> /dev/null
+	then
+		sudo snap remove firefox
+	fi
 }
 
 add_flatpack() {
 	sudo apt install flatpak
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	flatpak install com.discordapp.Discord com.github.wwmm.easyeffects org.telegram.desktop org.darktable.Darktable com.github.vikdevelop.photopea_app
 }
 
 remove_snaps
 add_flatpack
 install_basics_from_package_manager
-get_zsh_plugin_manager
 install_rust_and_tools
 install_gnome_specific_tools
+get_zsh_plugin_manager

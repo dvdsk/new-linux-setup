@@ -14,7 +14,7 @@ set $term alacritty
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu i3-dmenu-desktop | xargs swaymsg exec --
+set $menu j4-dmenu-desktop | xargs swaymsg exec --
 
 ## gaps
 # smart_borders on
@@ -106,11 +106,11 @@ output * scale 1.4
 #
 # Start programs
 #
-	# start firefox
+	# start kodi
 	bindsym $mod+k exec kodi
 
 	# start firefox
-	bindsym $mod+b exec flatpak run org.mozilla.firefox
+	bindsym $mod+b exec firefox
 
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --max-volume 100 --change-volume +5

@@ -25,7 +25,7 @@ cd /usr/local/texlive
 current=$(find . 20* -maxdepth 0 -type d | sort | tail -n 1)
 cd -
 
-sudo rm /usr/local/texlive/installed
+sudo rm /usr/local/texlive/installed || true
 sudo ln -s /usr/local/texlive/$current /usr/local/texlive/installed
 
 # # clean up
