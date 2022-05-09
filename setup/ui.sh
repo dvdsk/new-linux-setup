@@ -3,7 +3,7 @@
 set -e
 source deps.sh
 
-# install sway
+# install sway and launcher
 sudo apt install sway j4-dmenu-desktop
 
 # install bar
@@ -18,6 +18,7 @@ $cargo build --release
 cp target/release/rwaybar ~/.local/bin
 cd - # back out to org wd.
 
-
-# install launcher
-# sudo apt install dmenu i3menu?
+# install breaktime
+URL=https://github.com/tom-james-watson/breaktimer-app/releases/latest/download/BreakTimer.AppImage 
+curl $URL --output ~/.local/bin
+chmod +x ~/.local/bin
