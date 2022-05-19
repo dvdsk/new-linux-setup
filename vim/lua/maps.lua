@@ -1,81 +1,100 @@
 local func = require("functions")
-local map = vim.api.nvim_set_keymap
-local silent = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
-local keymaps = {}
 
-keymaps[#keymaps+1] = {"<leader><leader>", "<C-^>", description="switch to prev buffer"}
-vim.keymap.set('n', ";", ":", {noremap = true})
-vim.keymap.set('n', ":", ";", {noremap = true})
+-- switch to prev buffer
+vim.keymap.set('n', "<leader><leader>", "<C-^>")
+vim.keymap.set({'n','v'}, ";", ":", {noremap = true})
+vim.keymap.set({'n','v'}, ":", ";", {noremap = true})
 
 -- yank till end of line
-keymaps[#keymaps+1] = {"Y", "y$", description="yank till end of line"}
+vim.keymap.set('n', "Y", "y$")
 
 -- make escape in terminal mode go to normal mode
 -- note this does make us get stuck in terminal
 -- apps which use esc
-keymaps[#keymaps+1] = {"<ESC>", "<C-\\><C-n>"}
+vim.keymap.set('n', "<ESC>", "<C-\\><C-n>" )
 
 -- Signature help
--- for _, mode in pairs(modes) do
-	-- map(mode, "<A-3>", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]], options)
--- end
-
--- map("i", "<C-k>", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]], options) -- control + k
+vim.keymap.set({'i','n'}, "<A-3>", vim.lsp.buf.signature_help)
 
 -- Code navigation
-keymaps[#keymaps+1] = {"gd", vim.lsp.buf.definition, description="go to definition"}
-keymaps[#keymaps+1] = {"gD", vim.lsp.buf.declaration, description="go to declaration"}
-keymaps[#keymaps+1] = {"gi", vim.lsp.buf.implementation, description="go to implementation"}
-keymaps[#keymaps+1] = {"k", vim.lsp.buf.hover, description="show hover doc"}
-keymaps[#keymaps+1] = {"<leader>p", vim.lsp.diagnostic.goto_prev, description="go to next issue"}
-keymaps[#keymaps+1] = {"<leader>n", vim.lsp.diagnostic.goto_next, description="go to next issue"}
-keymaps[#keymaps+1] = {"<leader>l", function() vim.diagnostic.open_float({scope="line"}) end,
-description="show issues for the current line"}
+-- go to definition
+vim.keymap.set('n', "gd", vim.lsp.buf.definition)
+-- go to declaration
+vim.keymap.set('n', "gD", vim.lsp.buf.declaration)
+-- go to implementation
+vim.keymap.set('n', "gi", vim.lsp.buf.implementation)
+-- show hover doc
+vim.keymap.set('n', "k", vim.lsp.buf.hover)
+-- go to next issue
+vim.keymap.set('n', "<leader>p", vim.lsp.diagnostic.goto_prev)
+-- go to next issue
+vim.keymap.set('n', "<leader>n", vim.lsp.diagnostic.goto_next)
+-- show issues for the current line
+vim.keymap.set('n', "<leader>l", function() vim.diagnostic.open_float({scope="line"}) end)
+
 
 --Lightspeed (movement)
-keymaps[#keymaps+1] = {"r", [[<Plug>Lightspeed_s]]}
-keymaps[#keymaps+1] = {"R", [[<Plug>Lightspeed_S]]}
+vim.keymap.set('n', "r", [[<Plug>Lightspeed_s]])
+vim.keymap.set('n', "R", [[<Plug>Lightspeed_S]])
 
--- auto format
-keymaps[#keymaps+1] = {"<leader>f", vim.lsp.buf.formatting, description="auto format the curren buffer"}
-keymaps[#keymaps+1] = {"cr", vim.lsp.buf.rename, "rename token under cursor"}
-keymaps[#keymaps+1] = {"<leader>a", vim.lsp.buf.code_action, "show lsp code actions"}
 
--- gui tools
-keymaps[#keymaps+1] = {"<leader>d", ":NvimTreeToggle<CR>"}
+-- Harpoon 
+for i = 1,5,1 do
+	local fn = function() require("harpoon.ui").nav_file(i) end
+	vim.keymap.set('n', "<C-"..tostring(i+5)..">", fn)
+end
+vim.keymap.set('n', "<C><C>", require"harpoon.mark".add_file)
+vim.keymap.set('n', "<leader>hh", require"harpoon.ui".toggle_quick_menu)
 
--- Gitsigns
-keymaps[#keymaps+1] = {"<leader>hp", require'gitsigns'.preview_hunk, decription ="git diff at cursor"}
+
+-- auto format the curren buffer
+vim.keymap.set('n', "<leader>f", vim.lsp.buf.formatting)
+-- rename token under cursor
+vim.keymap.set('n', "cr", vim.lsp.buf.rename)
+-- show lsp code actions
+vim.keymap.set('n', "<leader>a", vim.lsp.buf.code_action)
+
+-- git diff at cursor
+vim.keymap.set('n', "<leader>hp", require'gitsigns'.preview_hunk)
 
 
 local builtin = require("telescope.builtin")
-keymaps[#keymaps+1] = {"\\\\", builtin.resume, description = "resume previous picker"}
-keymaps[#keymaps+1] = {"<leader>o", builtin.find_files, description = "live grep over files"}
-keymaps[#keymaps+1] = {"<leader>r", builtin.live_grep, description = "live grep through all files"}
-keymaps[#keymaps+1] = {"<leader>b", builtin.buffers, description = "pick a buffer"}
-keymaps[#keymaps+1] = {"<leader>s", builtin.lsp_workspace_symbols, description = "list symbols in the current workspace"}
-keymaps[#keymaps+1] = {"<leader>e", builtin.diagnostics, description = "list all lsp issues"}
-keymaps[#keymaps+1] = {"<leader>E", function() builtin.diagnostics({bufnr=0}) end, description="list lsp issues for current buffer"}
-keymaps[#keymaps+1] = {"gr", builtin.lsp_references, description="list lsp references for word under cursor"}
+--  resume previous picker
+vim.keymap.set('n', "\\\\", builtin.resume)
+--  live grep over files
+vim.keymap.set('n', "<leader>o", builtin.find_files)
+--  live grep through all files
+vim.keymap.set('n', "<leader>r", builtin.live_grep)
+--  pick a buffer
+vim.keymap.set('n', "<leader>b", builtin.buffers)
+--  list symbols in the current workspace
+vim.keymap.set('n', "<leader>s", builtin.lsp_workspace_symbols)
+--  list all lsp issues
+vim.keymap.set('n', "<leader>e", builtin.diagnostics)
+-- list lsp issues for current buffer
+vim.keymap.set('n', "<leader>E", function() builtin.diagnostics({bufnr=0}) end)
+-- list lsp references for word under cursor
+vim.keymap.set('n', "gr", builtin.lsp_references)
 
-keymaps[#keymaps+1] = {"<leader>u", require'functions'.func_def_scope, description = "pick a function definition"}
+--  pick a function definition
+vim.keymap.set('n', "<leader>u", require'functions'.func_def_scope)
 
 -- toggle terminal
-keymaps[#keymaps+1] = {"<leader>t", ":ToggleTerm<CR>", description = "open terminal in split" }
+--  open terminal in split 
+vim.keymap.set('n', "<leader>t", ":ToggleTerm<CR>")
 
 -- lua snip (rest is in cmp)
-map("i", "^[2", "<Plug>luasnip-next-choice<CR>", silent)
+local silent = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("i", "^[2", "<Plug>luasnip-next-choice<CR>", silent)
 
 local move_magic = "<C-\\><C-N><C-w>"
 local resize_magic = "<C-\\><C-N><C-w>"
 for dir, resize_str in pairs({up="-", down="+", left=">", right="<"}) do
-	keymaps[#keymaps+1] = {"<C-"..dir..">", move_magic .. "<"..dir..">",
-	description = "move one window "..dir, mode = { 'n', 'i', 't' }}
-
-	keymaps[#keymaps+1] = {"<A-"..dir..">", resize_magic .. resize_str,
-	description = "change window size "..dir, mode = { 'n', 'i', 't' }}
+	-- move one window 
+	vim.keymap.set({'n','i','t'}, "<C-"..dir..">", move_magic .. "<"..dir..">")
+	vim.keymap.set({'n','i','t'}, "<A-"..dir..">", resize_magic .. resize_str)
 end
 
 local ls = require("luasnip")
@@ -84,19 +103,9 @@ local function choice_node()
     ls.change_choice(1)
   end
 end
-keymaps[#keymaps+1] = {"A-2", choice_node, mode = { 'i', 's' }, description = "go to next snippet choice"}
 
-require("legendary").setup()
-require("legendary").bind_keymaps(keymaps)
-require("which-key").setup {}
-
-
-
-
-
-
-
-
+--  go to next snippet choice
+vim.keymap.set({'i', 's'}, "A-2", choice_node)
 
 -- attempt to map cmp here, not yet easy/possible
 -- local cmp = require('cmp')

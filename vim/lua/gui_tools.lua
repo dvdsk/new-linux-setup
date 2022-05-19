@@ -4,11 +4,6 @@
 	open_on_setup = false,
 }) ]]
 
-require("toggleterm").setup({
-	shade_terminals = false,
-	open_mapping = [[<c-\>]],
-})
-
 require("telescope").setup({
 	defaults = {
 		vimgrep_arguments = {
