@@ -9,16 +9,9 @@ sudo apt install sway j4-dmenu-desktop redshift
 # install bar
 cargo=$(ensure_cargo)
 
-tmpdir=`mktemp -d`
-git clone https://github.com/danieldg/rwaybar $tmpdir
-cd $tmpdir
-echo $cargo
-sudo apt install 
-$cargo build --release
-cp target/release/rwaybar ~/.local/bin
-cd - # back out to org wd.
+$cargo install --git https://github.com/danieldg/rwaybar
 
 # install breaktime
 URL=https://github.com/tom-james-watson/breaktimer-app/releases/latest/download/BreakTimer.AppImage 
-curl $URL --output ~/.local/bin
-chmod +x ~/.local/bin
+curl $URL -L --output ~/.local/bin/BreakTimer.AppImage
+chmod +x ~/.local/bin/BreakTimer.AppImage
