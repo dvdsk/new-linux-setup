@@ -28,9 +28,9 @@ vim.keymap.set('n', "gi", vim.lsp.buf.implementation)
 -- show hover doc
 vim.keymap.set('n', "k", vim.lsp.buf.hover)
 -- go to next issue
-vim.keymap.set('n', "<leader>p", vim.lsp.diagnostic.goto_prev)
+vim.keymap.set('n', "<leader>p", vim.diagnostic.goto_prev)
 -- go to next issue
-vim.keymap.set('n', "<leader>n", vim.lsp.diagnostic.goto_next)
+vim.keymap.set('n', "<leader>n", vim.diagnostic.goto_next)
 -- show issues for the current line
 vim.keymap.set('n', "<leader>l", function() vim.diagnostic.open_float({scope="line"}) end)
 
