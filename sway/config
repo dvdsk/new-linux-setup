@@ -113,8 +113,8 @@ output * scale 1.4
 	bindsym $mod+b exec firefox
 
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --max-volume 100 --change-volume +5
-bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --max-volume 100 --change-volume -5
+bindsym XF86AudioRaiseVolume exec --no-startup-id .cargo/bin/pw-volume change "+2.5%"
+bindsym XF86AudioLowerVolume exec --no-startup-id .cargo/bin/pw-volume change "-2.5%"
 
 #
 # Moving around:
