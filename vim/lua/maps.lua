@@ -13,7 +13,7 @@ vim.keymap.set('n', "Y", "y$")
 -- make escape in terminal mode go to normal mode
 -- note this does make us get stuck in terminal
 -- apps which use esc
-vim.keymap.set('n', "<ESC>", "<C-\\><C-n>")
+vim.keymap.set('t', "<ESC>", "<C-\\><C-n>")
 
 -- Signature help
 vim.keymap.set({ 'i', 'n' }, "<A-3>", vim.lsp.buf.signature_help)
@@ -44,13 +44,15 @@ for i = 1, 5, 1 do
 	local fn = function() require("harpoon.ui").nav_file(i) end
 	vim.keymap.set('n', "<C-" .. tostring(i + 5) .. ">", fn)
 end
-vim.keymap.set('n', "<A-7>", require "harpoon.mark".add_file)
-vim.keymap.set('n', "<A-5>", require "harpoon.ui".toggle_quick_menu)
+vim.keymap.set({ 'n', 'i' }, "<A-7>", require "harpoon.mark".add_file)
+vim.keymap.set({ 'n', 'i' }, "<A-5>", require "harpoon.ui".toggle_quick_menu)
+
+vim.keymap.set({ 'n', 'i' }, "<A-6>", func.open_terminal)
 
 -- save button
 vim.keymap.set('n', "<A-4>", ":w<CR>")
 -- auto format the curren buffer
-vim.keymap.set('n', "<leader>f", vim.lsp.buf.formatting)
+vim.keymap.set('n', "<leader>f", vim.lsp.buf.format)
 -- rename token under cursor
 vim.keymap.set('n', "cr", vim.lsp.buf.rename)
 -- show lsp code actions
