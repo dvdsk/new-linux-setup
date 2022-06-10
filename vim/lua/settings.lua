@@ -40,8 +40,8 @@ o.termguicolors = true
 g.tex_flavor = "latex"
 
 -- undo
-local undodir = vim.fn.system("echo $HOME/.vimdid")
-o.undodir = undodir --permanent undo
+local undodir = vim.fn.system("echo -n $HOME/.vimdid")
+o.undodir = undodir .. "//" -- appending // makes vim use it?
 o.undofile = true --permanent undo
 vim.fn.system("mkdir -p " .. o.undodir) -- ensure the folder exists
 
