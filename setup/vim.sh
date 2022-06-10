@@ -21,7 +21,7 @@ rm $NVIM || true # if there is no existing install thats fine
 wget "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage" \
 	--output-document $NVIM
 chmod +x $NVIM
-ln $NVIM $(dirname $NVIM)/nvim
+ln -f $NVIM $(dirname $NVIM)/nvim
 
 # move configs if none ar there
 VIMDIR="$HOME/.config/nvim"
