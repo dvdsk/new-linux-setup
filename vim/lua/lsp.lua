@@ -63,6 +63,7 @@ local function setup(on_attach)
 	lsp.texlab.setup({ on_attach = on_attach }) -- latex
 	lsp.jsonls.setup({ capabilities = capabilities }) --json
 	lsp.bashls.setup({ on_attach = on_attach }) -- bash
+	lsp.ltex.setup({})
 	lua_lsp(lsp, on_attach)
 	-- needs a compile_commands.json file; easiest to generate
 	-- using bear; `make clean; bear -- make`

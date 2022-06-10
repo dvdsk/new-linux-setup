@@ -55,6 +55,17 @@ if ! exists bash-language-server || [ "$arg" == "--all" ] || [ "$arg" == "--bash
 	exists bash-language-server || echo -e "${RED}please make sure $($npm bin) is in path"
 fi
 
+# spell/grammer
+if ! exists ltex-lsp || [ "$arg" == "--all" ] || [ "$arg" == "--ltex" ]; then
+	base_url="https://github.com/valentjn/ltex-ls/releases"
+	url="$base_url/download/15.2.0/ltex-ls-15.2.0-linux-x64.tar.gz"
+	tmp=`mktemp -d`/targ.gz
+	wget -nc -O $tmp $url
+	mkdir -p ~/.local/share/ltex
+	tar -xf $tmp -C ~/.local/share/ltex
+	ln -sf ~/.local/share/ltex/ltex-ls-15.2.0/bin/ltex-ls ~/.local/bin/ltex-ls
+fi
+
 # C and friends
 if ! [ "$arg" == "--all" ] || [ "$arg" == "--c" ]; then
 	if ! exists clangd && sudo_ok; then
