@@ -63,7 +63,18 @@ local function setup(on_attach)
 	lsp.texlab.setup({ on_attach = on_attach }) -- latex
 	lsp.jsonls.setup({ capabilities = capabilities }) --json
 	lsp.bashls.setup({ on_attach = on_attach }) -- bash
-	lsp.ltex.setup({})
+	lsp.ltex.setup({ filetypes = { -- default + `mail`
+		"bib",
+		"gitcommit",
+		"markdown",
+		"org",
+		"plaintex",
+		"rst",
+		"rnoweb",
+		"tex",
+		"mail"
+	}
+	})
 	lua_lsp(lsp, on_attach)
 	-- needs a compile_commands.json file; easiest to generate
 	-- using bear; `make clean; bear -- make`
