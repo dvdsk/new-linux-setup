@@ -11,12 +11,10 @@ function set_wallpaper {
 	# start new background over old one
 	swaybg -m fill -i "$HOME/.local/share/sway/$file" &
 	local new_pid=$!
-	echo new pid: $new_pid >&2
 
 	sleep 1
 	# kill old background (now behind new one)
 	if [[ $pid != None ]]; then
-		echo killing $pid >&2
 		kill $pid
 	fi
 	pid=$new_pid
@@ -25,7 +23,6 @@ function set_wallpaper {
 function sleep_till {
 	local deadline=$1
 	local deadline_secs=`date --date=$deadline +%s`
-	echo $deadline
 	local now_secs=`date +%s`
 
 	if [[ $now_secs > $deadline_secs ]]; then
@@ -39,7 +36,6 @@ function sleep_till {
 
 function wallpaper {
 	local now=`date +%H:%M`
-	echo now: $now
 	if [[ $now < 06:00 ]] || [[ $now > 21:00 ]]; then
 		set_wallpaper "night.png"
 		sleep_till 06:00
@@ -55,6 +51,21 @@ function wallpaper {
 	fi
 }
 
+function wallpaper_work {
+	local now=`date +%H:%M`
+	if [[ $now < 16:30 ]]; then
+		set_wallpaper "work.png"
+		sleep_till 16:30
+	else
+		set_wallpaper "work_late.png"
+		sleep_till 06:00
+	fi
+}
+
 while true; do
-	wallpaper
+	if [[ `whoami` == "work" ]]; then
+		wallpaper_work
+	else
+		wallpaper
+	fi
 done
