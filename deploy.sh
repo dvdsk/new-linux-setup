@@ -15,8 +15,8 @@ files=(
 	".tmux.conf, ~"
 	"alacritty.yml, ~/.config/alacritty"
 	"sway/config, ~/.config/sway/"
-	"sway/wallpapers/*, ~/.local/share/sway/"
-	"sway/wallpaper.sh, ~/.config/sway/"
+	"sway/wallpapers/*, ~/.local/share/sway"
+	"sway/wallpaper.sh, ~/.config/sway"
 	"sway/rwaybar.toml, ~/.config/"
 )
 
