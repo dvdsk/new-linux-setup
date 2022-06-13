@@ -12,15 +12,15 @@ local select = {
 	},
 }
 
-local swap = {
-	enable = true,
-	swap_next = {
-		["h"] = "@parameter.inner",
-	},
-	swap_previous = {
-		["H"] = "@parameter.inner",
-	},
-}
+-- local swap = {
+	-- enable = true,
+	-- swap_next = {
+	-- 	["h"] = "@parameter.inner",
+	-- },
+	-- swap_previous = {
+	-- 	["H"] = "@parameter.inner",
+	-- },
+-- }
 
 require("nvim-treesitter.configs").setup {
 	ensure_installed = { "c", "rust", "python", "bash", "lua", "latex", "bibtex", "toml", "json", "cpp", "query" },
@@ -46,6 +46,6 @@ require("nvim-treesitter.configs").setup {
 	},
 	textobjects = {
 		select = select,
-		swap = swap,
+		-- swap = swap,
 	},
 }
