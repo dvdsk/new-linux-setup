@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-sudo apt-get --quiet --yes remove texlive* || true
+sudo apt-get --quiet --yes purge "texlive-*" || true
 sudo apt-get --quiet --yes install perl wget 
 
 curr_year=$(date +'%Y')
