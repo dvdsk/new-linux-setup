@@ -5,18 +5,19 @@ vim.g.mapleader = " "
 -- remappings for colemak
 -- free up home row keys
 vim.keymap.set('n', 'j', 's')
--- vim.keymap.set('n', 'l', 't') -- not needed for v/d/c till as that uses operator mode
+vim.keymap.set('n', 'l', 't') -- not needed for v/d/c till as that uses operator mode
 vim.keymap.set('n', 'h', 'n')
-vim.keymap.set('n', 'm', 'e')
+-- not freeing 'e' key (part of nest), using m instead as e is more frequent then
+-- m
 
 -- set movement keys to home row
-vim.keymap.set('n', 'n', '<Up>')
-vim.keymap.set('n', 'e', '<Down>')
+vim.keymap.set({'n', 'o'}, 'm', '<Down>')
+vim.keymap.set({'n', 'o'}, 'n', '<Up>')
 vim.keymap.set('n', 's', '<Left>')
-vim.keymap.set('n', 's', '<Left>')
+vim.keymap.set('n', 't', '<Right>')
 
 vim.keymap.set('n', 'N', '<PageUp>')
-vim.keymap.set('n', 'E', '<PageDown>')
+vim.keymap.set('n', 'M', '<PageDown>')
 vim.keymap.set('n', 'S', '<Home>')
 vim.keymap.set('n', 'T', '<End>')
 
