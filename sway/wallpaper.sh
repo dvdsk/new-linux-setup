@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo test >> /home/david/.config/sway/test.log
-
 pid=None
 
 function set_wallpaper {
