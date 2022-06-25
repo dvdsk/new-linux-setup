@@ -56,7 +56,7 @@ if ! exists bash-language-server || [ "$arg" == "--all" ] || [ "$arg" == "--bash
 fi
 
 # spell/grammer
-if ! exists ltex-lsp || [ "$arg" == "--all" ] || [ "$arg" == "--ltex" ]; then
+if ! exists ltex-ls || [ "$arg" == "--all" ] || [ "$arg" == "--ltex" ]; then
 	base_url="https://github.com/valentjn/ltex-ls/releases"
 	url="$base_url/download/15.2.0/ltex-ls-15.2.0-linux-x64.tar.gz"
 	tmp=`mktemp -d`/targ.gz
@@ -66,16 +66,38 @@ if ! exists ltex-lsp || [ "$arg" == "--all" ] || [ "$arg" == "--ltex" ]; then
 	ln -sf ~/.local/share/ltex/ltex-ls-15.2.0/bin/ltex-ls ~/.local/bin/ltex-ls
 fi
 
-# C and friends
-if ! [ "$arg" == "--all" ] || [ "$arg" == "--c" ]; then
-	if ! exists clangd && sudo_ok; then
-		sudo apt install clangd
-	fi
+# spell/grammer
+if ! exists vale || [ "$arg" == "--all" ] || [ "$arg" == "--vale" ]; then
+	latest_version=$(latest_github_release_version https://github.com/errata-ai/vale)
+	fname="vale_${latest_version:1}_Linux_64-bit.tar.gz"
+	url="https://github.com/errata-ai/vale/releases/download/$latest_version/$fname"
+	curl --location $url | tar --gzip --extract --directory ~/.local/bin vale
 
-	if ! exists bear && sudo_ok; then
-		sudo apt install bear # to generate compile_commands.json
-	fi
+	tmp=`mktemp -d`
+	mkdir -p ~/.local/share/styles
+	styles="Microsoft Google write-good proselint Joblint alex"
+	for style in $styles; do
+		release=$(latest_github_release_version https://github.com/errata-ai/$style)
+		version=$(echo $release | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+		url="https://github.com/errata-ai/$style/releases/download/$version/$style.zip"
+		curl --location --output "$tmp/$style.zip" $url 
+		unzip -o -q "$tmp/$style.zip" -d ~/.local/share/styles
+	done
+
+	# yes vale has to pollute home, yes it is frustrating, no they wont change it :(
+	echo "StylesPath = $HOME/.local/share/styles" > ~/.vale.ini
 fi
+
+# # C and friends
+# if ! [ "$arg" == "--all" ] || [ "$arg" == "--c" ]; then
+# 	if ! exists clangd && sudo_ok; then
+# 		sudo apt install clangd
+# 	fi
+
+# 	if ! exists bear && sudo_ok; then
+# 		sudo apt install bear # to generate compile_commands.json
+# 	fi
+# fi
 
 # lua, contains lsp binary and needed main.lua
 lua_lsp="$HOME/.local/share/lua-language-server"

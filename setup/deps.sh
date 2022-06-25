@@ -144,3 +144,9 @@ check() {
 	>&2 echo -e "${RED}needs $1 installed/in path, it is not"
 	exit 1
 }
+
+function latest_github_release_version() {
+	local release=$(curl -L -s -H 'Accept: application/json' $1/releases/latest)
+	local version=$(echo $release | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+	echo $version
+}
