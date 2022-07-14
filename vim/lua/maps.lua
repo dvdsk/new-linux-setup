@@ -2,36 +2,13 @@ local func = require("functions")
 
 vim.g.mapleader = " "
 
--- remappings for colemak
--- free up home row keys
-vim.keymap.set('n', 'j', 's')
-vim.keymap.set('n', 'l', 't') -- not needed for v/d/c till as that uses operator mode
-vim.keymap.set('n', 'h', 'n')
--- not freeing 'e' key (part of nest), using m instead as e is more frequent then
--- m
-
--- set movement keys to home row
-vim.keymap.set({'n', 'o'}, 'm', '<Down>')
-vim.keymap.set({'n', 'o'}, 'n', '<Up>')
-vim.keymap.set('n', 's', '<Left>')
-vim.keymap.set('n', 't', '<Right>')
-
-vim.keymap.set('n', 'N', '<PageUp>')
-vim.keymap.set('n', 'M', '<PageDown>')
-vim.keymap.set('n', 'S', '<Home>')
-vim.keymap.set('n', 'T', '<End>')
-
--- unbind normal mode arrow keys to force new `nest` keys
-vim.keymap.set('n', '<Up>', '<nop>')
-vim.keymap.set('n', '<Down>', '<nop>')
-vim.keymap.set('n', '<Left>', '<nop>')
-vim.keymap.set('n', '<Right>', '<nop>')
-
+-- apply "controversial" remaps such as
+-- specific remaps to work without arrow keys on colemak
+-- and switch : and ;
+func.apply_custom_remaps()
 
 -- switch to prev buffer
 vim.keymap.set('n', "<leader><leader>", "<C-^>")
-vim.keymap.set({ 'n', 'v' }, ";", ":", { noremap = true })
-vim.keymap.set({ 'n', 'v' }, ":", ";", { noremap = true })
 
 -- yank till end of line
 vim.keymap.set('n', "Y", "y$")

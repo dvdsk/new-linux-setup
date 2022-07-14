@@ -78,4 +78,61 @@ function M.more_pub()
     line = line:gsub("([traittypestructfnasyncsuperpub()]+%s)([%w_]+)", replace, 1)
 	vim.api.nvim_buf_set_lines(0, row, row + 1, false, {line})
 end
+
+function M.apply_custom_remaps()
+	-- remappings for colemak
+	-- free up home row keys
+	vim.keymap.set({'n', 'v'}, 'j', 's')
+	vim.keymap.set({'n', 'v'}, 'l', 't') -- not needed for v/d/c till as that uses operator mode
+	vim.keymap.set({'n', 'v'}, 'h', 'n')
+	-- not freeing 'e' key (part of nest), using m instead as e is more frequent then
+	-- m
+
+	-- set movement keys to home row
+	local modes = { 'n', 'o', 'v' }
+	vim.keymap.set(modes, 'm', '<Down>')
+	vim.keymap.set(modes, 'n', '<Up>')
+	vim.keymap.set(modes, 's', '<Left>')
+	vim.keymap.set(modes, 't', '<Right>')
+
+	vim.keymap.set(modes, 'N', '<PageUp>')
+	vim.keymap.set(modes, 'M', '<PageDown>')
+	vim.keymap.set(modes, 'S', '<Home>')
+	vim.keymap.set(modes, 'T', '<End>')
+
+	-- unbind normal mode arrow keys to force new `nest` keys
+	vim.keymap.set(modes, '<Up>', '<nop>')
+	vim.keymap.set(modes, '<Down>', '<nop>')
+	vim.keymap.set(modes, '<Left>', '<nop>')
+	vim.keymap.set(modes, '<Right>', '<nop>')
+
+	vim.keymap.set({ 'n', 'v' }, ";", ":", { noremap = true })
+	vim.keymap.set({ 'n', 'v' }, ":", ";", { noremap = true })
+end
+
+function M.undo_custom_remaps()
+	vim.keymap.del({'n', 'v'}, 'j')
+	vim.keymap.del({'n', 'v'}, 'l')
+	vim.keymap.del({'n', 'v'}, 'h')
+
+	local modes = { 'n', 'o', 'v' }
+	vim.keymap.del(modes, 'm')
+	vim.keymap.del(modes, 'n')
+	vim.keymap.del(modes, 's')
+	vim.keymap.del(modes, 't')
+
+	vim.keymap.del(modes, 'N')
+	vim.keymap.del(modes, 'M')
+	vim.keymap.del(modes, 'S')
+	vim.keymap.del(modes, 'T')
+
+	vim.keymap.del(modes, '<Up>')
+	vim.keymap.del(modes, '<Down>')
+	vim.keymap.del(modes, '<Left>')
+	vim.keymap.del(modes, '<Right>')
+
+	vim.keymap.del({ 'n', 'v' }, ";")
+	vim.keymap.del({ 'n', 'v' }, ":")
+end
+
 return M
