@@ -10,15 +10,6 @@ local function_def = {
 	["latex"] = "\\section",
 }
 
--- local function_use = {
---  ["lua"] = "(.*)",
---  ["python"] = "(.*)",
---  ["rust"] = "(.*)",
---  ["c"] = "(.*)",
---  ["cpp"] = "(.*)",
---  ["latex"] = "\\section",
--- }
-
 local extensions = {
 	["lua"] = { "lua" },
 	["python"] = { "py" },
@@ -53,15 +44,6 @@ function M.func_def_scope()
 	func_scope(function_def)
 end
 
--- TODO make this work
--- function M.func_use_scope()
--- 	func_scope(function_use)
--- 	-- vim.api.nvim_win_set_cursor(0, {0,0})
--- end
-
--- M.func_use_scope()
---
-
 function M.has_words_before()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -72,4 +54,28 @@ function M.open_terminal()
 	vim.api.nvim_command('terminal')
 end
 
+function M.more_pub()
+	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+	row = row - 1
+	local line = vim.api.nvim_buf_get_lines(0, row, row + 1, false)[1]
+
+	local function replace(key, rest)
+		local lookup = {}
+		lookup["fn "] = "pub(super) fn "
+		lookup["struct "] = "pub(super) struct "
+		lookup["async "] = "pub(super) async "
+		lookup["pub(super) "] = "pub(crate) "
+		lookup["pub(crate) "] = "pub "
+		lookup["pub "] = ""
+
+		if lookup[key] == nil then
+			return
+		end
+
+		return lookup[key] .. rest
+	end
+
+    line = line:gsub("([traittypestructfnasyncsuperpub()]+%s)([%w_]+)", replace, 1)
+	vim.api.nvim_buf_set_lines(0, row, row + 1, false, {line})
+end
 return M

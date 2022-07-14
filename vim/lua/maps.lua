@@ -109,10 +109,9 @@ vim.keymap.set('n', "gr", builtin.lsp_references)
 --  pick a function definition
 vim.keymap.set('n', "<leader>u", func.func_def_scope)
 
--- lua snip (rest is in cmp) should be fine to replace with keybind using function
--- `go to next snippet`
--- local silent = { noremap = true, silent = true }
--- vim.api.nvim_set_keymap("i", "^[2", "<Plug>luasnip-next-choice<CR>", silent)
+-- make item more public
+vim.keymap.set({'n','i'}, "<A-0>", func.more_pub)
+
 
 local move_magic = "<C-\\><C-N><C-w>"
 local resize_magic = "<C-\\><C-N><C-w>"
