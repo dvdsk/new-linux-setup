@@ -62,6 +62,8 @@ function M.more_pub()
 	local function replace(key, rest)
 		local lookup = {}
 		lookup["fn "] = "pub(super) fn "
+		lookup["type "] = "pub(super) type "
+		lookup["trait "] = "pub(super) trait "
 		lookup["struct "] = "pub(super) struct "
 		lookup["async "] = "pub(super) async "
 		lookup["pub(super) "] = "pub(crate) "
@@ -75,16 +77,16 @@ function M.more_pub()
 		return lookup[key] .. rest
 	end
 
-    line = line:gsub("([traittypestructfnasyncsuperpub()]+%s)([%w_]+)", replace, 1)
-	vim.api.nvim_buf_set_lines(0, row, row + 1, false, {line})
+	line = line:gsub("([traittypestructfnasyncsuperpub()]+%s)([%w_]+)", replace, 1)
+	vim.api.nvim_buf_set_lines(0, row, row + 1, false, { line })
 end
 
 function M.apply_custom_remaps()
 	-- remappings for colemak
 	-- free up home row keys
-	vim.keymap.set({'n', 'v'}, 'j', 's')
-	vim.keymap.set({'n', 'v'}, 'l', 't') -- not needed for v/d/c till as that uses operator mode
-	vim.keymap.set({'n', 'v'}, 'h', 'n')
+	vim.keymap.set({ 'n', 'v' }, 'j', 's')
+	vim.keymap.set({ 'n', 'v' }, 'l', 't') -- not needed for v/d/c till as that uses operator mode
+	vim.keymap.set({ 'n', 'v' }, 'h', 'n')
 	-- not freeing 'e' key (part of nest), using m instead as e is more frequent then
 	-- m
 
@@ -93,7 +95,7 @@ function M.apply_custom_remaps()
 	vim.keymap.set(modes, 'm', '<Down>')
 	vim.keymap.set(modes, 'n', '<Up>')
 	vim.keymap.set(modes, 's', '<Left>')
-	vim.keymap.set(modes, 't', '<Right>')
+	vim.keymap.set({ 'n', 'v' }, 't', '<Right>')
 
 	vim.keymap.set(modes, 'N', '<PageUp>')
 	vim.keymap.set(modes, 'M', '<PageDown>')
@@ -111,15 +113,15 @@ function M.apply_custom_remaps()
 end
 
 function M.undo_custom_remaps()
-	vim.keymap.del({'n', 'v'}, 'j')
-	vim.keymap.del({'n', 'v'}, 'l')
-	vim.keymap.del({'n', 'v'}, 'h')
+	vim.keymap.del({ 'n', 'v' }, 'j')
+	vim.keymap.del({ 'n', 'v' }, 'l')
+	vim.keymap.del({ 'n', 'v' }, 'h')
 
 	local modes = { 'n', 'o', 'v' }
 	vim.keymap.del(modes, 'm')
 	vim.keymap.del(modes, 'n')
 	vim.keymap.del(modes, 's')
-	vim.keymap.del(modes, 't')
+	vim.keymap.del({ 'n', 'v' }, 't')
 
 	vim.keymap.del(modes, 'N')
 	vim.keymap.del(modes, 'M')
