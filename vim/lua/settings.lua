@@ -39,6 +39,13 @@ o.termguicolors = true
 -- file specific
 g.tex_flavor = "latex"
 
+local function set_buf_filetype()
+	vim.bo.filetype = "rust"
+end
+
+-- auto commands to set filetype based on unknown extensions
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.ers" }, callback = set_buf_filetype })
+
 -- undo
 local undodir = vim.fn.system("echo -n $HOME/.vimdid")
 o.undodir = undodir .. "//" -- appending // makes vim use it?
