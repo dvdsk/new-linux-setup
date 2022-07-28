@@ -13,6 +13,7 @@ files=(
 	"vim/init.lua, ~/.config/nvim" 
 	"vim/lua/*.lua, ~/.config/nvim/lua" 
 	"vim/lua/snippets/*.lua, ~/.config/nvim/lua/snippets" 
+	"vim/lua/snippets/helpers_all/*.lua, ~/.config/nvim/lua/snippets/helpers_all" 
 	".zshenv, ~"
 	".zshrc, ~"
 	".tmux.conf, ~"
