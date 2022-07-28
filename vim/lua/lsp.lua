@@ -63,7 +63,15 @@ local function setup(on_attach)
 		},
 	})
 
-	lsp.pylsp.setup({ on_attach = on_attach }) -- python
+	lsp.pylsp.setup({ on_attach = on_attach, settings = {
+		pylsp = {
+			plugins = {
+				flake8 = { enabled = true },
+				mypy = { enabled = true }
+			}
+		}
+	}
+	})
 	lsp.texlab.setup({ on_attach = on_attach }) -- latex
 	lsp.jsonls.setup({ capabilities = capabilities }) --json
 	lsp.bashls.setup({ on_attach = on_attach }) -- bash

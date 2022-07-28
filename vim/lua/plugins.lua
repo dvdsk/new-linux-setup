@@ -42,7 +42,7 @@ return require('packer').startup(function(use)
 
 	-- Text Tools
 	use "junegunn/vim-easy-align"
-	use "b3nj5m1n/kommentary"
+	use "numToStr/Comment.nvim"
 	use "conradirwin/vim-bracketed-paste"
 	use "Ron89/thesaurus_query.vim"
 

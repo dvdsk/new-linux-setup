@@ -158,10 +158,10 @@ return {
 		d(1, test_mod_or_function)
 	}),
 
-	s({ trig = "dd", name = "derive debug" }, t("#[Derive(Debug)]")),
-	s({ trig = "ddc", name = "derive debug, clone" }, t("#[Derive(Debug, Clone)]")),
-	s({ trig = "ddcc", name = "derive debug, clone, copy" }, t("#[Derive(Debug, Clone, Copy)]")),
-	s({ trig = "dds", name = "derive debug, serialize" }, t("#[Derive(Debug, Clone, Serialize, Deserialize)]")),
+	s({ trig = "dd", name = "derive debug" }, t("#[derive(Debug)]")),
+	s({ trig = "ddc", name = "derive debug, clone" }, t("#[derive(Debug, Clone)]")),
+	s({ trig = "ddcc", name = "derive debug, clone, copy" }, t("#[derive(Debug, Clone, Copy)]")),
+	s({ trig = "dds", name = "derive debug, serialize" }, t("#[derive(Debug, Clone, Serialize, Deserialize)]")),
 
 	struct_snip("sd", "Debug"),
 	struct_snip("sdc", "Debug, Clone"),

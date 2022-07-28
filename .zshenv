@@ -34,6 +34,7 @@ alias ctrlc="xclip -selection c"
 alias ctrlv="xclip -selection c -o"
 alias rootvim="echo use sudoedit instead" # works thanks to VISUAL
 alias strip="tr '[\t][\n]' ' ' | tr -s '[:blank:]'" # remove newlines and indents
+alias cnom="cargo c 2>&1 | grep --after-context=25" # cargo nom, eat compiler output till string argument found
 
 alias getaudio="youtube-dl -f 'bestaudio[ext=m4a]'" #followed by youtube url in quotes
 alias on_change="entr -rc"
