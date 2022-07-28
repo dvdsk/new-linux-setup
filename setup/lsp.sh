@@ -28,6 +28,7 @@ fi
 if ! exists pylsp || [ "$arg" == "--all" ] || [ "$arg" == "--python" ]; then
 	pip=$(ensure_pip)
 	$pip install --user --upgrade 'python-lsp-server[all]'
+	$pip install --user --upgrade 'pylsp-mypy'
 fi
 
 # latex
@@ -56,7 +57,7 @@ if ! exists bash-language-server || [ "$arg" == "--all" ] || [ "$arg" == "--bash
 fi
 
 # spell/grammer
-if ! exists ltex-lsp || [ "$arg" == "--all" ] || [ "$arg" == "--ltex" ]; then
+if ! exists ltex-ls || [ "$arg" == "--all" ] || [ "$arg" == "--ltex" ]; then
 	base_url="https://github.com/valentjn/ltex-ls/releases"
 	url="$base_url/download/15.2.0/ltex-ls-15.2.0-linux-x64.tar.gz"
 	tmp=`mktemp -d`/targ.gz
@@ -67,7 +68,7 @@ if ! exists ltex-lsp || [ "$arg" == "--all" ] || [ "$arg" == "--ltex" ]; then
 fi
 
 # C and friends
-if ! [ "$arg" == "--all" ] || [ "$arg" == "--c" ]; then
+if [ "$arg" == "--all" ] || [ "$arg" == "--c" ]; then
 	if ! exists clangd && sudo_ok; then
 		sudo apt install clangd
 	fi
