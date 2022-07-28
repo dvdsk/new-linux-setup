@@ -56,3 +56,10 @@ vim.fn.system("mkdir -p " .. o.undodir) -- ensure the folder exists
 vim.api.nvim_exec([[
 	highlight Comment cterm=italic gui=italic
 	]], false)
+
+vim.diagnostic.config({
+	update_in_insert = false,
+	-- disabled in favor of lsp_lines.nvim plugin
+	virtual_text = false,
+	virtual_lines = false,
+})

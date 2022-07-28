@@ -1,4 +1,7 @@
 -- test using :luafile %
+
+local util = require("util")
+
 M = {}
 
 local function_def = {
@@ -18,6 +21,32 @@ local extensions = {
 	["cpp"] = { "cpp", "hpp" },
 	["latex"] = { "tex" },
 }
+
+-- only works for one line right now
+function M.paste_keep_pasted()
+	local to_paste = vim.fn.getreg('"')
+
+	print(vim.fn.mode())
+	if vim.fn.mode() ~= "v" then
+		vim.api.nvim_paste(to_paste, false, -1)
+		return
+	end
+
+	local row_start, col_start, row_end, col_end = util.visual_selection_range()
+
+	if row_start ~= row_end then
+		error("Can not (yet) use paste_keep_pasted() for multiple rows")
+		return
+	end
+
+	local current = vim.api.nvim_get_current_line()
+	col_start = math.max(col_start - 1, 1)
+	local before = current:sub(1, col_start)
+	local after = current:sub(col_end + 1, -1) -- till end of string
+
+	local new = before .. to_paste .. after
+	vim.api.nvim_set_current_line(new)
+end
 
 -- idea take from https://www.reddit.com/r/neovim/comments/st1kxs/some_telescope_tips/
 -- Update link in blogpost if this function in moved
@@ -55,9 +84,7 @@ function M.open_terminal()
 end
 
 function M.more_pub()
-	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-	row = row - 1
-	local line = vim.api.nvim_buf_get_lines(0, row, row + 1, false)[1]
+	local line = vim.api.nvim_get_current_line()
 
 	local function replace(key, rest)
 		local lookup = {}
@@ -78,7 +105,7 @@ function M.more_pub()
 	end
 
 	line = line:gsub("([traittypestructfnasyncsuperpub()]+%s)([%w_]+)", replace, 1)
-	vim.api.nvim_buf_set_lines(0, row, row + 1, false, { line })
+	vim.api.nvim_set_current_line(line)
 end
 
 function M.apply_custom_remaps()
@@ -135,6 +162,13 @@ function M.undo_custom_remaps()
 
 	vim.keymap.del({ 'n', 'v' }, ";")
 	vim.keymap.del({ 'n', 'v' }, ":")
+end
+
+local virtual_lines_on = false
+function M.toggle_diagnostic_lines()
+	virtual_lines_on = not virtual_lines_on
+	vim.diagnostic.config({virtual_lines = virtual_lines_on})
+
 end
 
 return M

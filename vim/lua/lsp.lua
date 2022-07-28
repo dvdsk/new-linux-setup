@@ -50,9 +50,8 @@ local function setup(on_attach)
 		settings = {
 			["rust-analyzer"] = {
 				assist = {
-					importMergeBehavior = "last",
+					importMergeBehavior = "module",
 					importGranularity = "module",
-					importPrefix = "by_self",
 				},
 				cargo = {
 					loadOutDirsFromCheck = true,
