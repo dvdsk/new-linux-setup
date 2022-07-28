@@ -88,23 +88,23 @@ output * scale 1.4
 	bindsym $mod+b exec firefox
 
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id .cargo/bin/pw-volume change "+2.5%"
-bindsym XF86AudioLowerVolume exec --no-startup-id .cargo/bin/pw-volume change "-2.5%"
+bindsym XF86AudioRaiseVolume exec --no-startup-id .cargo/bin/pw-volume change "+0.5%"
+bindsym XF86AudioLowerVolume exec --no-startup-id .cargo/bin/pw-volume change "-0.5%"
 
 #
 # Moving around:
 #
     # Move your focus around
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+    bindsym $mod+n focus left
+    bindsym $mod+e focus right
+    bindsym $mod+i focus up
+    bindsym $mod+o focus down
 
     # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+    bindsym $mod+Left move left
+    bindsym $mod+Down move down
+    bindsym $mod+Up move up
+    bindsym $mod+Right move right
 #
 # Workspaces:
 #
@@ -132,9 +132,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id .cargo/bin/pw-volume change "-
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+c layout stacking
+    bindsym $mod+t layout tabbed
+    bindsym $mod+s layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
