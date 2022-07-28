@@ -15,7 +15,7 @@ vim.keymap.set('n', "<leader><leader>", "<C-^>")
 vim.keymap.set('n', "Y", "y$")
 
 -- use smart paste function (do not overwrite reg on pasting over visual mode)
-vim.keymap.set({'n', 'v'}, "p", func.paste_keep_pasted)
+-- vim.keymap.set({'n', 'v'}, "p", func.paste_keep_pasted) -- disabled until fixed
 
 -- make escape in terminal mode go to normal mode
 -- note this does make us get stuck in terminal

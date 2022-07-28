@@ -22,31 +22,35 @@ local extensions = {
 	["latex"] = { "tex" },
 }
 
--- only works for one line right now
-function M.paste_keep_pasted()
-	local to_paste = vim.fn.getreg('"')
+-- TODO: fixme
+-- -- only works for one line right now
+-- function M.paste_keep_pasted()
+-- 	-- local to_paste = vim.fn.getreg('"')
+-- 	local to_paste = "\nhello thist test"
 
-	print(vim.fn.mode())
-	if vim.fn.mode() ~= "v" then
-		vim.api.nvim_paste(to_paste, false, -1)
-		return
-	end
+-- 	if vim.api.nvim_get_mode() ~= { "v", false } then
+-- 		print("using normal paste handler")
+-- 		print("to paste: "..vim.inspect(to_paste))
+-- 		vim.api.nvim_paste(to_paste, true, -1)
+-- 		return
+-- 	end
 
-	local row_start, col_start, row_end, col_end = util.visual_selection_range()
+-- 	print("using visual mode paste routine")
+-- 	local row_start, col_start, row_end, col_end = util.visual_selection_range()
 
-	if row_start ~= row_end then
-		error("Can not (yet) use paste_keep_pasted() for multiple rows")
-		return
-	end
+-- 	if row_start ~= row_end then
+-- 		error("Can not (yet) use paste_keep_pasted() for multiple rows")
+-- 		return
+-- 	end
 
-	local current = vim.api.nvim_get_current_line()
-	col_start = math.max(col_start - 1, 1)
-	local before = current:sub(1, col_start)
-	local after = current:sub(col_end + 1, -1) -- till end of string
+-- 	local current = vim.api.nvim_get_current_line()
+-- 	col_start = math.max(col_start - 1, 1)
+-- 	local before = current:sub(1, col_start)
+-- 	local after = current:sub(col_end + 1, -1) -- till end of string
 
-	local new = before .. to_paste .. after
-	vim.api.nvim_set_current_line(new)
-end
+-- 	local new = before .. to_paste .. after
+-- 	vim.api.nvim_set_current_line(new)
+-- end
 
 -- idea take from https://www.reddit.com/r/neovim/comments/st1kxs/some_telescope_tips/
 -- Update link in blogpost if this function in moved
