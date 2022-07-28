@@ -37,8 +37,8 @@ return require('packer').startup(function(use)
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 	use "nvim-telescope/telescope-ui-select.nvim"
 	use "folke/which-key.nvim"
-	use "mrjones2014/legendary.nvim"
 	use "ThePrimeagen/harpoon"
+	use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
 
 	-- Text Tools
 	use "junegunn/vim-easy-align"
@@ -62,6 +62,7 @@ return require('packer').startup(function(use)
 
 	-- LSP
 	use "neovim/nvim-lspconfig"
+	use "jose-elias-alvarez/null-ls.nvim"
 
 	-- Completions
 	use "L3MON4D3/LuaSnip"

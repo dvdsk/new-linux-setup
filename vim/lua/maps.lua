@@ -1,40 +1,21 @@
 local func = require("functions")
+local lsp_helpers = require("lsp_helpers")
 
 vim.g.mapleader = " "
 
--- remappings for colemak
--- free up home row keys
-vim.keymap.set('n', 'j', 's')
-vim.keymap.set('n', 'l', 't') -- not needed for v/d/c till as that uses operator mode
-vim.keymap.set('n', 'h', 'n')
--- not freeing 'e' key (part of nest), using m instead as e is more frequent then
--- m
-
--- set movement keys to home row
-vim.keymap.set({'n', 'o'}, 'm', '<Down>')
-vim.keymap.set({'n', 'o'}, 'n', '<Up>')
-vim.keymap.set('n', 's', '<Left>')
-vim.keymap.set('n', 't', '<Right>')
-
-vim.keymap.set('n', 'N', '<PageUp>')
-vim.keymap.set('n', 'M', '<PageDown>')
-vim.keymap.set('n', 'S', '<Home>')
-vim.keymap.set('n', 'T', '<End>')
-
--- unbind normal mode arrow keys to force new `nest` keys
-vim.keymap.set('n', '<Up>', '<nop>')
-vim.keymap.set('n', '<Down>', '<nop>')
-vim.keymap.set('n', '<Left>', '<nop>')
-vim.keymap.set('n', '<Right>', '<nop>')
-
+-- apply "controversial" remaps such as
+-- specific remaps to work without arrow keys on colemak
+-- and switch : and ;
+func.apply_custom_remaps()
 
 -- switch to prev buffer
 vim.keymap.set('n', "<leader><leader>", "<C-^>")
-vim.keymap.set({ 'n', 'v' }, ";", ":", { noremap = true })
-vim.keymap.set({ 'n', 'v' }, ":", ";", { noremap = true })
 
 -- yank till end of line
 vim.keymap.set('n', "Y", "y$")
+
+-- use smart paste function (do not overwrite reg on pasting over visual mode)
+-- vim.keymap.set({'n', 'v'}, "p", func.paste_keep_pasted) -- disabled until fixed
 
 -- make escape in terminal mode go to normal mode
 -- note this does make us get stuck in terminal
@@ -43,6 +24,7 @@ vim.keymap.set('t', "<ESC>", "<C-\\><C-n>")
 
 -- Signature help
 vim.keymap.set({ 'i', 'n' }, "<A-3>", vim.lsp.buf.signature_help)
+
 -- Code navigation
 -- go to definition
 vim.keymap.set('n', "gd", vim.lsp.buf.definition)
@@ -52,6 +34,8 @@ vim.keymap.set('n', "gD", vim.lsp.buf.declaration)
 vim.keymap.set('n', "gi", vim.lsp.buf.implementation)
 -- show hover doc
 vim.keymap.set('n', "k", vim.lsp.buf.hover)
+-- open external docs (rust only)
+vim.keymap.set('n', "<C-k>", lsp_helpers.open_rustdoc)
 -- go to next issue
 vim.keymap.set('n', "<leader>p", vim.diagnostic.goto_prev)
 -- go to next issue
@@ -59,6 +43,11 @@ vim.keymap.set('n', "<leader>n", vim.diagnostic.goto_next)
 -- show issues for the current line
 vim.keymap.set('n', "<leader>l", function() vim.diagnostic.open_float({ scope = "line" }) end)
 
+-- Code actions
+-- extract function/code 
+vim.keymap.set({'n', 'v'}, "gx", vim.lsp.buf.range_code_action)
+-- general code action (impl class, fill match)
+vim.keymap.set('n', "<leader>a", vim.lsp.buf.code_action)
 
 --Lightspeed (movement)
 vim.keymap.set('n', "r", [[<Plug>Lightspeed_s]])
@@ -81,8 +70,6 @@ vim.keymap.set('n', "<A-4>", ":w<CR>")
 vim.keymap.set('n', "<leader>f", vim.lsp.buf.format)
 -- rename token under cursor
 vim.keymap.set('n', "cr", vim.lsp.buf.rename)
--- show lsp code actions
-vim.keymap.set('n', "<leader>a", vim.lsp.buf.code_action)
 
 -- git diff at cursor
 vim.keymap.set('n', "<leader>hp", require 'gitsigns'.preview_hunk)
@@ -109,10 +96,11 @@ vim.keymap.set('n', "gr", builtin.lsp_references)
 --  pick a function definition
 vim.keymap.set('n', "<leader>u", func.func_def_scope)
 
--- lua snip (rest is in cmp) should be fine to replace with keybind using function
--- `go to next snippet`
--- local silent = { noremap = true, silent = true }
--- vim.api.nvim_set_keymap("i", "^[2", "<Plug>luasnip-next-choice<CR>", silent)
+-- make item more public
+vim.keymap.set({'n','i'}, "<A-0>", func.more_pub)
+
+-- change how lsp info is shown
+vim.keymap.set({'n', 'i'}, "<A-8>", func.toggle_diagnostic_lines)
 
 local move_magic = "<C-\\><C-N><C-w>"
 local resize_magic = "<C-\\><C-N><C-w>"

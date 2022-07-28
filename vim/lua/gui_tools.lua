@@ -4,6 +4,8 @@
 	open_on_setup = false,
 }) ]]
 
+require("lsp_lines").setup()
+
 require("telescope").setup({
 	defaults = {
 		vimgrep_arguments = {

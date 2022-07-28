@@ -3,6 +3,11 @@
 --
 local lsp = require("lspconfig")
 
+local null_ls = require("null-ls")
+null_ls.setup({
+	sources = { null_ls.builtins.diagnostics.vale }
+})
+
 local function lua_lsp(lsp, on_attach)
 	local lsp_root = vim.fn.system("echo -n $HOME/.local/share/lua-language-server")
 	local lsp_binary = lsp_root .. "/bin/lua-language-server"
@@ -45,9 +50,8 @@ local function setup(on_attach)
 		settings = {
 			["rust-analyzer"] = {
 				assist = {
-					importMergeBehavior = "last",
+					importMergeBehavior = "module",
 					importGranularity = "module",
-					importPrefix = "by_self",
 				},
 				cargo = {
 					loadOutDirsFromCheck = true,

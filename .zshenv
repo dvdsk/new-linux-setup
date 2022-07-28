@@ -13,7 +13,7 @@ path+="$HOME/.pyenv/bin"
 
 # export to sub-processes (make it inherited by child processes)
 export PATH
-export VISUAL=nvim
+export VISUAL="$HOME/.local/bin/nvim"
 export EDITOR="$VISUAL"
 export GOPATH=$HOME/.go
 
