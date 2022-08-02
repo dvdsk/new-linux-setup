@@ -29,6 +29,7 @@ exec --no-startup-id redshift -l 52.7:5.8
 exec --no-startup-id ~/.local/bin/BreakTimer.AppImage
 exec --no-startup-id ~/.local/bin/rwaybar
 exec --no-startup-id /usr/bin/bash /home/david/.config/sway/wallpaper.sh
+exec --no-startup-id /usr/bin/bash /home/david/.config/sway/swap_alacritty_colors.sh
 
 # exec "
 

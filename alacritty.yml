@@ -148,42 +148,41 @@ font:
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
-
-# Colors (Solarized Light)
+#--## COLORS LIGHT START
+#--## LIGHT (Solarized Light)
+#--#colors:
+#--#  # Default colors
+#--#  primary:
+#--#    background: '0xfdf6e3'
+#--#    foreground: '0x586e75'
+#--#
+#--#  # Normal colors
+#--#  normal:
+#--#    black:   '0x073642'
+#--#    red:     '0xdc322f'
+#--#    green:   '0x859900'
+#--#    yellow:  '0xb58900'
+#--#    blue:    '0x268bd2'
+#--#    magenta: '0xd33682'
+#--#    cyan:    '0x2aa198'
+#--#    white:   '0xeee8d5'
+#--#
+#--#  # Bright colors
+#--#  bright:
+#--#    black:   '0x002b36'
+#--#    red:     '0xcb4b16'
+#--#    green:   '0x586e75'
+#--#    yellow:  '0x657b83'
+#--#    blue:    '0x839496'
+#--#    magenta: '0x6c71c4'
+#--#    cyan:    '0x93a1a1'
+#--#    white:   '0xfdf6e3'
+# COLORS DARK START:
 colors:
-  # Default colors
   primary:
-    background: '0xfdf6e3'
-    foreground: '0x586e75'
-
-  # Normal colors
-  normal:
-    black:   '0x073642'
-    red:     '0xdc322f'
-    green:   '0x859900'
-    yellow:  '0xb58900'
-    blue:    '0x268bd2'
-    magenta: '0xd33682'
-    cyan:    '0x2aa198'
-    white:   '0xeee8d5'
-
-  # Bright colors
-  bright:
-    black:   '0x002b36'
-    red:     '0xcb4b16'
-    green:   '0x586e75'
-    yellow:  '0x657b83'
-    blue:    '0x839496'
-    magenta: '0x6c71c4'
-    cyan:    '0x93a1a1'
-    white:   '0xfdf6e3'
-
-# Colors (Tomorrow Night)
-#colors:
-  # Default colors
-  #primary:
-  #  background: '#1d1f21'
-  #  foreground: '#c5c8c6'
+   background: '#1d1f21'
+   foreground: '#c5c8c6'
+# COLORS DONE
 
     # Bright and dim foreground colors
     #
@@ -365,7 +364,7 @@ colors:
 #selection:
   # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  #semantic_escape_chars: ",│`|:"' ()[]{}<>	"
 
   # When set to `true`, selected text will be copied to the primary clipboard.
   #save_to_clipboard: false
@@ -433,7 +432,7 @@ colors:
 # directory of the parent process will be used.
 #working_directory: None
 
-# Send ESC (\x1b) before characters when alt is pressed.
+# Send ESC () before characters when alt is pressed.
 #alt_send_esc: true
 
 #mouse:
@@ -482,7 +481,7 @@ colors:
   #       Move the vi mode cursor to the beginning of the hint.
   #enabled:
   # - regex: "(mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
-  #           [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+  #           [^--<>"\s{-}\^⟨⟩`]+"
   #   command: xdg-open
   #   post_processing: true
   #   mouse:
@@ -549,7 +548,7 @@ colors:
 #
 #    The `chars` field writes the specified string to the terminal. This makes
 #    it possible to pass escape sequences. To find escape codes for bindings
-#    like `PageUp` (`"\x1b[5~"`), you can run the command `showkey -a` outside
+#    like `PageUp` (`"[5~"`), you can run the command `showkey -a` outside
 #    of tmux. Note that applications use terminfo to map escape sequences back
 #    to keys. It is therefore required to update the terminfo when changing an
 #    escape sequence.
@@ -726,7 +725,7 @@ key_bindings:
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }
-  #- { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
+  #- { key: L,         mods: Control, mode: ~Vi|~Search, chars: ""          }
   #- { key: PageUp,    mods: Shift,   mode: ~Alt,        action: ScrollPageUp,  }
   #- { key: PageDown,  mods: Shift,   mode: ~Alt,        action: ScrollPageDown }
   #- { key: Home,      mods: Shift,   mode: ~Alt,        action: ScrollToTop,   }
@@ -817,7 +816,7 @@ key_bindings:
   #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
 
   # (macOS only)
-  #- { key: K,              mods: Command, mode: ~Vi|~Search, chars: "\x0c"                 }
+  #- { key: K,              mods: Command, mode: ~Vi|~Search, chars: ""                 }
   #- { key: K,              mods: Command, mode: ~Vi|~Search, action: ClearHistory          }
   #- { key: Key0,           mods: Command,                    action: ResetFontSize         }
   #- { key: Equals,         mods: Command,                    action: IncreaseFontSize      }

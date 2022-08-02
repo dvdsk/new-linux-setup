@@ -18,6 +18,7 @@ files=(
 	"sway/config, ~/.config/sway/"
 	"sway/wallpapers/*, ~/.local/share/sway"
 	"sway/wallpaper.sh, ~/.config/sway"
+	"sway/swap_alacritty_colors.sh, ~/.config/sway"
 	"sway/rwaybar.toml, ~/.config/"
 )
 
