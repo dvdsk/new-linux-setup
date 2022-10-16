@@ -50,9 +50,8 @@ vim.keymap.set({'n', 'v'}, "gx", vim.lsp.buf.range_code_action)
 vim.keymap.set('n', "<leader>a", vim.lsp.buf.code_action)
 
 --Lightspeed (movement)
-vim.keymap.set('n', "r", [[<Plug>Lightspeed_s]])
-vim.keymap.set('n', "R", [[<Plug>Lightspeed_S]])
-
+vim.keymap.set('n', "r", [[<Plug>(leap-forward)]])
+vim.keymap.set('n', "R", [[<Plug>(leap-backward)]])
 
 -- Harpoon
 for i = 1, 5, 1 do
