@@ -1,6 +1,6 @@
 # Bars are defined as an array, so you can have more than one
 [[bar]]
-name = "DP-2"
+name = "DP-1"
 size = 25
 side = "top"
 left = ["workspaces"]

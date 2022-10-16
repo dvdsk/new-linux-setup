@@ -76,7 +76,7 @@ output * scale 1.4
     bindsym $mod+Shift+o exec swaynag -t warning -m 'You pressed the shutdown shortcut. Do you really want to shutdown the system?' -B 'Yes, shudown' 'systemctl poweroff'
 #
     # suspend computer
-    bindsym $mod+Shift+s exec swaynag -t warning -m 'You pressed the suspend shortcut. Do you really want to suspend the system?' -B 'Yes, suspend' 'systemctl suspend'
+    bindsym $mod+Shift+s exec 'systemctl suspend'
 #
 # 
 #
