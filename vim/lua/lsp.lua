@@ -40,11 +40,13 @@ end
 -- on attach is not used right now but could be used by other
 -- plugins in the future
 local function setup(on_attach)
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 	lsp.rust_analyzer.setup({
+		-- cmd = { "rustup run stable rust-analyzer" },
+		cmd = { "/home/david/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer" },
+		-- cmd = { "rust-analyzer" },
 		on_attach = on_attach,
 		capabilities = capabilities,
 		settings = {
@@ -85,7 +87,8 @@ local function setup(on_attach)
 		"rst",
 		"rnoweb",
 		"tex",
-		"mail"
+		"mail",
+		"adoc",
 	}
 	})
 	lua_lsp(lsp, on_attach)

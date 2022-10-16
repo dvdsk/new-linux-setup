@@ -19,32 +19,36 @@ local function lsp_name()
 end
 
 local function diff_source()
-  local gitsigns = vim.b.gitsigns_status_dict
-  if gitsigns then
-    return {
-      added = gitsigns.added,
-      modified = gitsigns.changed,
-      removed = gitsigns.removed
-    }
-  end
+	local gitsigns = vim.b.gitsigns_status_dict
+	if gitsigns then
+		return {
+			added = gitsigns.added,
+			modified = gitsigns.changed,
+			removed = gitsigns.removed
+		}
+	end
 end
 
 local lualine_sections = {
 	lualine_a = { "mode" },
-    lualine_b = { {'b:gitsigns_head', icon = ''}, {'diff', source = diff_source, colored=false}, },
-	lualine_c = { {'filename', path = 3, shorting_target = 40 }},
-	lualine_x = { { lsp_name, icon = "  LSP:" }, { "diagnostics", sources = { "nvim_diagnostic" } } },
+	lualine_b = { { 'b:gitsigns_head', icon = '' }, { 'diff', source = diff_source, colored = false }, },
+	lualine_c = { { 'filename', path = 3, shorting_target = 40 } },
+	lualine_x = {
+		{ lsp_name, icon = "  LSP:" },
+		-- { "lsp_progress", display_components = { "lsp_client_name", { "percentage" } } },
+		{ "diagnostics", sources = { "nvim_diagnostic" } },
+	},
 	lualine_y = { "progress" },
 	lualine_z = { "location" },
 }
 
 local lualine_inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-	lualine_c = { {'filename', path = 3, shorting_target = 40 }},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
+	lualine_a = {},
+	lualine_b = {},
+	lualine_c = { { 'filename', path = 3, shorting_target = 40 } },
+	lualine_x = { 'location' },
+	lualine_y = {},
+	lualine_z = {}
 }
 
 function M:lualine(theme)
@@ -57,5 +61,14 @@ function M:lualine(theme)
 
 	})
 end
+
+require("fidget").setup{
+	window = {
+		relative = "win",
+		blend = 20,
+		zindex = nil,
+	}
+
+}
 
 return M
