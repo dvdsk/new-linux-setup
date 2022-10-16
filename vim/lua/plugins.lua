@@ -28,6 +28,7 @@ return require('packer').startup(function(use)
 	use "machakann/vim-highlightedyank"
 	use "lewis6991/gitsigns.nvim"
 	use "nvim-lualine/lualine.nvim"
+	use "arkav/lualine-lsp-progress"
 	use "kyazdani42/nvim-web-devicons"
 	use "mhinz/vim-startify"
 
@@ -39,6 +40,7 @@ return require('packer').startup(function(use)
 	use "folke/which-key.nvim"
 	use "ThePrimeagen/harpoon"
 	use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
+	use "j-hui/fidget.nvim"
 
 	-- Text Tools
 	use "junegunn/vim-easy-align"
@@ -47,7 +49,7 @@ return require('packer').startup(function(use)
 	use "Ron89/thesaurus_query.vim"
 
 	-- Other
-	use "ggandor/lightspeed.nvim"
+	use "ggandor/leap.nvim"
 
 	-- Nouns, Verbs, textobjects
 	use "tpope/vim-surround"
@@ -57,8 +59,9 @@ return require('packer').startup(function(use)
 
 	-- TreeSitter
 	use "nvim-treesitter/nvim-treesitter"
+	use "nvim-treesitter/nvim-treesitter-context"
 	use "nvim-treesitter/nvim-treesitter-textobjects"
-	use "nvim-treesitter/playground"
+	-- use "nvim-treesitter/playground" -- plugin development
 
 	-- LSP
 	use "neovim/nvim-lspconfig"
