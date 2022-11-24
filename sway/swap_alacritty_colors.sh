@@ -59,7 +59,7 @@ while true; do
 	if [[ $now < 06:00 ]] || [[ $now > 21:00 ]]; then
 		set_dark
 		sleep_till 06:00
-	elif [[ $now < 12:00 ]]; then
+	else
 		set_light
 		sleep_till 21:00
 	fi
