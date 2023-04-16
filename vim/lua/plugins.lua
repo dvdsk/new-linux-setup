@@ -64,7 +64,12 @@ return require('packer').startup(function(use)
 	-- use "nvim-treesitter/playground" -- plugin development
 
 	-- LSP
-	use "neovim/nvim-lspconfig"
+	use {
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+		run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+	}
 	use "jose-elias-alvarez/null-ls.nvim"
 
 	-- Completions

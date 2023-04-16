@@ -1,41 +1,20 @@
 -- list of installable lang-servers
 -- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
---
+
+require("mason").setup()
+require("mason-lspconfig").setup {
+	ensure_installed = {
+		"lua_ls", "rust_analyzer",
+		"jsonls", "bashls", "pylsp", "texlab", "ltex"
+	},
+}
+
 local lsp = require("lspconfig")
 
 local null_ls = require("null-ls")
 null_ls.setup({
 	sources = { null_ls.builtins.diagnostics.vale }
 })
-
-local function lua_lsp(lsp, on_attach)
-	local lsp_root = vim.fn.system("echo -n $HOME/.local/share/lua-language-server")
-	local lsp_binary = lsp_root .. "/bin/lua-language-server"
-	lsp.sumneko_lua.setup({
-		on_attach = on_attach,
-		cmd = { lsp_binary, "-E", lsp_root .. "/main.lua" },
-		settings = {
-			Lua = {
-				runtime = {
-					version = "LuaJIT",
-					path = vim.split(package.path, ";"),
-				},
-				diagnostics = {
-					globals = { "vim" }, -- Get the language server to recognize the `vim` global
-				},
-				workspace = {
-					library = { -- Make the server aware of Neovim runtime files
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-					},
-				},
-				telemetry = {
-					enable = false,
-				},
-			},
-		},
-	})
-end
 
 -- on attach is not used right now but could be used by other
 -- plugins in the future
@@ -74,24 +53,26 @@ local function setup(on_attach)
 		}
 	}
 	})
-	lsp.texlab.setup({ on_attach = on_attach }) -- latex
-	lsp.jsonls.setup({ capabilities = capabilities }) --json
-	lsp.bashls.setup({ on_attach = on_attach }) -- bash
-	lsp.ltex.setup({ filetypes = { -- default + `mail`
-		"bib",
-		"gitcommit",
-		"markdown",
-		"org",
-		"plaintext",
-		"text",
-		"rst",
-		"rnoweb",
-		"tex",
-		"mail",
-		"adoc",
-	}
+	lsp.texlab.setup {} -- latex, let meson-lspconfig configure
+	lsp.jsonls.setup {} --json, let meson-lspconfig configure
+	lsp.bashls.setup {} -- bash, let meson-lspconfig configure
+	lsp.ltex.setup({
+		filetypes = { -- default + `mail`
+			"bib",
+			"gitcommit",
+			"markdown",
+			"org",
+			"plaintext",
+			"text",
+			"rst",
+			"rnoweb",
+			"tex",
+			"mail",
+			"adoc",
+		}
 	})
-	lua_lsp(lsp, on_attach)
+	lsp.lua_ls.setup {} -- let meson-lspconfig do everything
+
 	-- needs a compile_commands.json file; easiest to generate
 	-- using bear; `make clean; bear -- make`
 	lsp.clangd.setup({ -- c++ and c
