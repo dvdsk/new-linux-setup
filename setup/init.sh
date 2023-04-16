@@ -13,7 +13,7 @@ get_zsh_plugin_manager() {
 
 install_rust_and_tools() {
 	tools=(
-		"zoxide"     # smart cd
+		"zoxide"      # smart cd
 		"exa"         # ls replacement
 		"bat"         # cat replacement
 		"skim"        # general fuzzy finder
@@ -22,6 +22,7 @@ install_rust_and_tools() {
 		"du-dust"     # folder disk space, use: dust
 		"git-delta"   # diff replacement with syntax highlighting
 		"difftastic"  # diff replacement comparing on syntax
+		"rbtw"        # reboot to windows
 	)
 
 	cargo=$(ensure_cargo)

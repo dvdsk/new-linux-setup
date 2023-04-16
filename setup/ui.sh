@@ -4,7 +4,7 @@ set -e
 source deps.sh
 
 # install sway and launcher
-sudo apt install sway j4-dmenu-desktop redshift
+sudo apt install sway j4-dmenu-desktop redshift lxpolkit
 
 # install bar
 cargo=$(ensure_cargo)
