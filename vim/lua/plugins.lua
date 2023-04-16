@@ -33,7 +33,12 @@ return require('packer').startup(function(use)
 	use "mhinz/vim-startify"
 
 	-- GUI Tools
-	-- awaiting rewrite: "kyazdani42/nvim-tree.lua"
+	use {
+		"nvim-tree/nvim-tree.lua",
+		requires = {
+			"nvim-tree/nvim-web-devicons",
+		}
+	}
 	use "nvim-telescope/telescope.nvim"
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 	use "nvim-telescope/telescope-ui-select.nvim"

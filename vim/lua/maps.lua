@@ -43,6 +43,9 @@ vim.keymap.set('n', "<leader>n", vim.diagnostic.goto_next)
 -- show issues for the current line
 vim.keymap.set('n', "<leader>l", function() vim.diagnostic.open_float({ scope = "line" }) end)
 
+-- toggle file tree
+vim.keymap.set('n', "gt", require("nvim-tree.api").tree.toggle)
+
 -- Code actions
 -- extract function/code 
 -- general code action (impl class, fill match)
