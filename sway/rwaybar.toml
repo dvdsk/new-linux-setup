@@ -1,11 +1,12 @@
 # Bars are defined as an array, so you can have more than one
 [[bar]]
+#You can view the name/make/model/description for your monitors by running RUST_LOG=info rwaybar
 name = "DP-1"
 size = 25
 side = "top"
 left = ["workspaces"]
 center= ["clock"]
-right = ["tray", "pulse-spk"]
+right = ["tray"] # borked: , "pulse-spk"]
 font = "Roboto 14"
 fg = "white"
 bg = "black"

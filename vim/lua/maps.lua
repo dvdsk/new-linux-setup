@@ -45,9 +45,9 @@ vim.keymap.set('n', "<leader>l", function() vim.diagnostic.open_float({ scope = 
 
 -- Code actions
 -- extract function/code 
-vim.keymap.set({'n', 'v'}, "gx", vim.lsp.buf.range_code_action)
 -- general code action (impl class, fill match)
-vim.keymap.set('n', "<leader>a", vim.lsp.buf.code_action)
+vim.keymap.set({'n', 'v'}, "gx", vim.lsp.buf.code_action)
+vim.keymap.set({'n', 'v'}, "<leader>a", vim.lsp.buf.code_action)
 
 --Lightspeed (movement)
 vim.keymap.set('n', "r", [[<Plug>(leap-forward)]])
