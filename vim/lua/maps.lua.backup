@@ -26,11 +26,12 @@ vim.keymap.set('t', "<ESC>", "<C-\\><C-n>")
 vim.keymap.set({ 'i', 'n' }, "<A-3>", vim.lsp.buf.signature_help)
 
 -- Code navigation
--- go to definition of variable type
--- vim.keymap.set('n', "gd", vim.lsp.buf.type_definition)
-vim.keymap.set('n', "gd", lsp_helpers.goto_def)
--- go to definition of variable
-vim.keymap.set('n', "gD", vim.lsp.buf.definition)
+-- go to definition
+vim.keymap.set('n', "gd", vim.lsp.buf.definition)
+-- go to declaration
+vim.keymap.set('n', "gD", vim.lsp.buf.declaration)
+-- go to implementation
+vim.keymap.set('n', "gi", vim.lsp.buf.implementation)
 -- show hover doc
 vim.keymap.set('n', "k", vim.lsp.buf.hover)
 -- open external docs (rust only)
@@ -42,18 +43,16 @@ vim.keymap.set('n', "<leader>n", vim.diagnostic.goto_next)
 -- show issues for the current line
 vim.keymap.set('n', "<leader>l", function() vim.diagnostic.open_float({ scope = "line" }) end)
 
--- toggle file tree
-vim.keymap.set('n', "<leader>t", require("nvim-tree.api").tree.toggle)
-
 -- Code actions
--- extract function/code
+-- extract function/code 
+vim.keymap.set({'n', 'v'}, "gx", vim.lsp.buf.range_code_action)
 -- general code action (impl class, fill match)
-vim.keymap.set({ 'n', 'v' }, "gx", vim.lsp.buf.code_action)
-vim.keymap.set({ 'n', 'v' }, "<leader>a", vim.lsp.buf.code_action)
+vim.keymap.set('n', "<leader>a", vim.lsp.buf.code_action)
 
 --Lightspeed (movement)
-vim.keymap.set('n', "r", [[<Plug>(leap-forward)]])
-vim.keymap.set('n', "R", [[<Plug>(leap-backward)]])
+vim.keymap.set('n', "r", [[<Plug>Lightspeed_s]])
+vim.keymap.set('n', "R", [[<Plug>Lightspeed_S]])
+
 
 -- Harpoon
 for i = 1, 5, 1 do
@@ -67,7 +66,7 @@ vim.keymap.set({ 'n', 'i' }, "<A-6>", func.open_terminal)
 
 -- save button
 vim.keymap.set('n', "<A-4>", ":w<CR>")
--- auto format the current buffer
+-- auto format the curren buffer
 vim.keymap.set('n', "<leader>f", vim.lsp.buf.format)
 -- rename token under cursor
 vim.keymap.set('n', "cr", vim.lsp.buf.rename)
@@ -87,34 +86,21 @@ vim.keymap.set('n', "<leader>r", builtin.live_grep)
 vim.keymap.set('n', "<leader>b", builtin.buffers)
 --  list symbols in the current workspace
 vim.keymap.set('n', "<leader>s", builtin.lsp_workspace_symbols)
-
--- list all lsp:
--- errors, warning and errors, everything
-vim.keymap.set('n', "<leader>e", function() builtin.diagnostics({ severity = 'Error' }) end)
-vim.keymap.set('n', "<leader>w", function() builtin.diagnostics({ severity = 'Warning' }) end)
-vim.keymap.set('n', "<leader>i", function() builtin.diagnostics({ severity = 'Hint' }) end)
-
--- list for current buffer:
--- lsp errors, warning and errors, everything
-vim.keymap.set('n', "<leader>E", function() builtin.diagnostics({ bufnr = 0, severity = 'Error' }) end)
-vim.keymap.set('n', "<leader>W", function() builtin.diagnostics({ bufnr = 0, severity = 'Warning' }) end)
-vim.keymap.set('n', "<leader>I", function() builtin.diagnostics({ bufnr = 0, severity = 'Hint' }) end)
-
+--  list all lsp issues
+vim.keymap.set('n', "<leader>e", builtin.diagnostics)
+-- list lsp issues for current buffer
+vim.keymap.set('n', "<leader>E", function() builtin.diagnostics({ bufnr = 0 }) end)
 -- list lsp references for word under cursor
 vim.keymap.set('n', "gr", builtin.lsp_references)
--- list lsp implementations for word under cursor
-vim.keymap.set('n', "gi", builtin.lsp_implementations)
--- list snippets to edit (go edit snippets)
-vim.keymap.set('n', "ges", function() require("luasnip.loaders").edit_snippet_files() end)
 
 --  pick a function definition
 vim.keymap.set('n', "<leader>u", func.func_def_scope)
 
 -- make item more public
-vim.keymap.set({ 'n', 'i' }, "<A-0>", func.more_pub)
+vim.keymap.set({'n','i'}, "<A-0>", func.more_pub)
 
 -- change how lsp info is shown
-vim.keymap.set({ 'n', 'i' }, "<A-8>", func.toggle_diagnostic_lines)
+vim.keymap.set({'n', 'i'}, "<A-8>", func.toggle_diagnostic_lines)
 
 local move_magic = "<C-\\><C-N><C-w>"
 local resize_magic = "<C-\\><C-N><C-w>"

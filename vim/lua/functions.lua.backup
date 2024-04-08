@@ -114,12 +114,12 @@ end
 
 function M.apply_custom_remaps()
 	-- remappings for colemak
-	-- free up home row keys s,t and n
+	-- free up home row keys
 	vim.keymap.set({ 'n', 'v' }, 'j', 's')
-	-- only needed in visual mode (t there is used for moving)
-	vim.keymap.set({ 'v' }, 'l', 't')
+	vim.keymap.set({ 'n', 'v' }, 'l', 't') -- not needed for v/d/c till as that uses operator mode
 	vim.keymap.set({ 'n', 'v' }, 'h', 'n')
-	-- not freeing 'e' key (part of nest), using m instead as e is more frequent then m
+	-- not freeing 'e' key (part of nest), using m instead as e is more frequent then
+	-- m
 
 	-- set movement keys to home row
 	local modes = { 'n', 'o', 'v' }
@@ -145,7 +145,7 @@ end
 
 function M.undo_custom_remaps()
 	vim.keymap.del({ 'n', 'v' }, 'j')
-	-- vim.keymap.del({ 'n', 'v' }, 'l')
+	vim.keymap.del({ 'n', 'v' }, 'l')
 	vim.keymap.del({ 'n', 'v' }, 'h')
 
 	local modes = { 'n', 'o', 'v' }
@@ -171,7 +171,7 @@ end
 local virtual_lines_on = false
 function M.toggle_diagnostic_lines()
 	virtual_lines_on = not virtual_lines_on
-	vim.diagnostic.config({ virtual_lines = virtual_lines_on })
+	vim.diagnostic.config({virtual_lines = virtual_lines_on})
 
 end
 

@@ -1,9 +1,11 @@
-require("nvim-tree").setup({
-})
+--[[ require("nvim-tree").setup({
+	open_on_tab = false,
+	auto_open = false,
+	open_on_setup = false,
+}) ]]
 
 require("lsp_lines").setup()
 
-local actions = require("telescope.actions")
 require("telescope").setup({
 	defaults = {
 		vimgrep_arguments = {
@@ -14,13 +16,6 @@ require("telescope").setup({
 			"--line-number",
 			"--column",
 			"--smart-case",
-		},
-		mappings = {
-			i = {
-				["<C-h>"] = "which_key",
-				-- if items selected (tab) send only those to qflist
-				["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-			},
 		},
 		prompt_prefix = "> ",
 		selection_caret = "> ",

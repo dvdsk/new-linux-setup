@@ -1,13 +1,12 @@
 -- snippets
 local ls = require("luasnip")
 local types = require "luasnip.util.types"
--- require("luasnip/loaders/from_vscode").lazy_load({ override_priority = 800 }) -- default prio is 1000
+require("luasnip/loaders/from_vscode").lazy_load({ override_priority = 800 }) -- default prio is 1000
 require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/snippets" })
 
 -- Every unspecified option will be set to the default.
-ls.config.setup({
+ls.config.set_config({
 	history = true,
-	enable_autosnippets = true,
 	-- Update more often, :h events for more info.
 	updateevents = "TextChanged,TextChangedI",
 	ext_opts = {
@@ -50,7 +49,7 @@ cmp.setup({
 		sources = cmp.config.sources({
 			{ name = "path" },
 		}, {
-			{ name = "cmdline", max_item_count = 15 },
+			{ name = "cmdline" },
 		}),
 	}),
 

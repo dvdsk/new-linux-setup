@@ -111,7 +111,7 @@ local function test_mod_or_function()
 	if in_test_env() then
 		return sn(nil, fmt([[
 			#[test]
-			fn {}() {{
+			fn {} () {{
 				{}
 			}}
 		]], { i(1, "name"), i(0) }
@@ -121,39 +121,14 @@ local function test_mod_or_function()
 			#[cfg(test)]
 			mod test {{
 				use super::*;
-				
-				#[test]
-				fn {}() {{
-					{}
-				}}
+				{}
 			}}
-		]], { i(1, "name"), i(0) }))
+		]], { i(0) }))
 	end
 end
 
-local function enum_snip(trig, derive)
-	return s({ trig = trig, snippetType = "autosnippet", name = "enum + derive " .. derive },
-		fmt("#[derive(" .. derive .. ")]\n" .. [[
-{}enum {} {{
-	{}
-}}
-]], { c(1, { t(""), t("pub ") }), i(2), i(0) })
-	)
-end
-
-local function err_enum_snip()
-	return s({ trig = "ee", snippetType = "autosnippet", name = "thiserror enum" },
-		fmt([[
-#[derive(Debug, thiserror::Error)]
-pub enum {} {{
-	#[error("{}")]
-	{},
-}}
-]], { i(1), i(0), i(2) }))
-end
-
 local function struct_snip(trig, derive)
-	return s({ trig = trig, snippetType = "autosnippet", name = "struct + derive " .. derive },
+	return s({ trig = trig, name = "struct + derive " .. derive },
 		fmt("#[derive(" .. derive .. ")]\n" .. [[
 {}struct {{
 	{}
@@ -162,54 +137,34 @@ local function struct_snip(trig, derive)
 	)
 end
 
-local function fn_snippets()
-	local vis_options = { ["pc"] = "pub(crate) ", ["ps"] = "pub(super) ", ["p"] = "pub ", [""] = "" }
-	local ret_options = {
-		["o"] = { "-> Option<{}> ", i(3) },
-		["r"] = { "-> {} ", get_result_type(3) },
-		["c"] = { "-> {} ", i(3) },
-		[" "] = { "{}", t("") },
-	}
-	-- todo check if in impl block and add a &self arg in that case
-
-	local snippets = {}
-	for prefix, vis in pairs(vis_options) do
-		for suffix, rets in pairs(ret_options) do
-			local ret = rets[1]
-			local ret_node = rets[2]
-
-			local trigger = prefix .. "fn" .. suffix
-			local fmt_node = fmt(vis .. "fn {}({}) " .. ret .. "{{\n\t{}\n}}",
-				{ i(1), i(2), ret_node, i(0) })
-			local snippet = s({ trig = trigger, snippetType = "autosnippet" }, fmt_node)
-
-			snippets[#snippets + 1] = snippet
-		end
-	end
-	return snippets
-end
-
 return {
-	s({ trig = "ut", snippetType = "autosnippet", name = "unit test" }, {
+	s({ trig = "fno", name = "function returning a option" },
+		fmt([[
+		fn {} ({}) -> Option<{}> {{
+			{}
+		}}
+	]], { i(1, "name"), i(2, "args"), i(3, "rtype"), i(0) })
+	),
+
+	s({ trig = "fnr", name = "function returning a result" },
+		fmt([[
+		fn {} ({}) -> {} {{
+			{}
+		}}
+	]], { i(1, "name"), i(2, "args"), get_result_type(3), i(0) })
+	),
+
+	s({ trig = "ut", name = "unit test" }, {
 		d(1, test_mod_or_function)
 	}),
 
-	s({ trig = "dd ", snippetType = "autosnippet", name = "derive debug" }, t("#[derive(Debug)]")),
-	s({ trig = "ddt", snippetType = "autosnippet", name = "derive debug, thiserror" },
-		t("#[derive(Debug, thiserror::Error)]")),
-	s({ trig = "ddc", snippetType = "autosnippet", name = "derive debug, clone" }, t("#[derive(Debug, Clone)]")),
-	s({ trig = "ddcc", snippetType = "autosnippet", name = "derive debug, clone, copy" },
-		t("#[derive(Debug, Clone, Copy)]")),
-	s({ trig = "dds", snippetType = "autosnippet", name = "derive debug, serialize" },
-		t("#[derive(Debug, Clone, Serialize, Deserialize)]")),
+	s({ trig = "dd", name = "derive debug" }, t("#[derive(Debug)]")),
+	s({ trig = "ddc", name = "derive debug, clone" }, t("#[derive(Debug, Clone)]")),
+	s({ trig = "ddcc", name = "derive debug, clone, copy" }, t("#[derive(Debug, Clone, Copy)]")),
+	s({ trig = "dds", name = "derive debug, serialize" }, t("#[derive(Debug, Clone, Serialize, Deserialize)]")),
 
-	struct_snip("sd ", "Debug"),
+	struct_snip("sd", "Debug"),
 	struct_snip("sdc", "Debug, Clone"),
+	struct_snip("sdcc", "Debug, Clone, Copy"),
 	struct_snip("sds", "Debug, Clone, Serialize, Deserialize"),
-
-	enum_snip("ed ", "Debug"),
-	enum_snip("edc", "Debug, Clone"),
-	enum_snip("eds", "Debug, Clone, Serialize, Deserialize"),
-
-	err_enum_snip(),
-}, fn_snippets()
+}, {}

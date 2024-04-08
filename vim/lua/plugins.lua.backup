@@ -28,27 +28,17 @@ return require('packer').startup(function(use)
 	use "machakann/vim-highlightedyank"
 	use "lewis6991/gitsigns.nvim"
 	use "nvim-lualine/lualine.nvim"
-	use "arkav/lualine-lsp-progress"
 	use "kyazdani42/nvim-web-devicons"
 	use "mhinz/vim-startify"
 
 	-- GUI Tools
-	use {
-		"nvim-tree/nvim-tree.lua",
-		requires = {
-			"nvim-tree/nvim-web-devicons",
-		}
-	}
+	-- awaiting rewrite: "kyazdani42/nvim-tree.lua"
 	use "nvim-telescope/telescope.nvim"
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 	use "nvim-telescope/telescope-ui-select.nvim"
 	use "folke/which-key.nvim"
 	use "ThePrimeagen/harpoon"
 	use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
-	use {
-		"j-hui/fidget.nvim",
-		tag = "legacy"
-	}
 
 	-- Text Tools
 	use "junegunn/vim-easy-align"
@@ -57,7 +47,7 @@ return require('packer').startup(function(use)
 	use "Ron89/thesaurus_query.vim"
 
 	-- Other
-	use "ggandor/leap.nvim"
+	use "ggandor/lightspeed.nvim"
 
 	-- Nouns, Verbs, textobjects
 	use "tpope/vim-surround"
@@ -67,18 +57,12 @@ return require('packer').startup(function(use)
 
 	-- TreeSitter
 	use "nvim-treesitter/nvim-treesitter"
-	use "nvim-treesitter/nvim-treesitter-context"
 	use "nvim-treesitter/nvim-treesitter-textobjects"
-	-- use "nvim-treesitter/playground" -- plugin development
+	use "nvim-treesitter/playground"
 
 	-- LSP
-	use {
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
-		run = ":MasonUpdate" -- :MasonUpdate updates registry contents
-	}
-	-- use "nvimtools/none-ls.nvim"
+	use "neovim/nvim-lspconfig"
+	use "jose-elias-alvarez/null-ls.nvim"
 
 	-- Completions
 	use "L3MON4D3/LuaSnip"

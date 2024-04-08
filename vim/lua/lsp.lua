@@ -5,16 +5,16 @@ require("mason").setup()
 require("mason-lspconfig").setup {
 	ensure_installed = {
 		"lua_ls", "rust_analyzer",
-		"jsonls", "bashls", "pylsp", "texlab", "ltex"
+		"jsonls", "bashls", "pylsp", "texlab", "ltex", "typos_lsp"
 	},
 }
 
 local lsp = require("lspconfig")
 
-local null_ls = require("null-ls")
-null_ls.setup({
-	sources = { null_ls.builtins.diagnostics.vale }
-})
+-- local null_ls = require("null-ls")
+-- null_ls.setup({
+-- 	sources = { null_ls.builtins.diagnostics.vale }
+-- })
 
 -- on attach is not used right now but could be used by other
 -- plugins in the future
@@ -44,26 +44,31 @@ local function setup(on_attach)
 		},
 	})
 
-	lsp.pylsp.setup({ on_attach = on_attach, settings = {
-		pylsp = {
-			plugins = {
-				flake8 = { enabled = true },
-				mypy = { enabled = true }
+	lsp.pylsp.setup({
+		on_attach = on_attach,
+		settings = {
+			pylsp = {
+				plugins = {
+					flake8 = { enabled = true },
+					mypy = { enabled = true }
+				}
 			}
 		}
-	}
 	})
+	lsp.gopls.setup {} -- go lang, let meson-lspconfig configure
 	lsp.texlab.setup {} -- latex, let meson-lspconfig configure
 	lsp.jsonls.setup {} --json, let meson-lspconfig configure
 	lsp.bashls.setup {} -- bash, let meson-lspconfig configure
 	lsp.ltex.setup({
-		filetypes = { -- default + `mail`
+		-- default with `mail` without `markdown` and `text
+		-- those are now done by vale-ls
+		filetypes = {
 			"bib",
 			"gitcommit",
-			"markdown",
+			-- "markdown",
+			-- "text",
 			"org",
 			"plaintext",
-			"text",
 			"rst",
 			"rnoweb",
 			"tex",
@@ -79,6 +84,21 @@ local function setup(on_attach)
 		on_attach = on_attach,
 		filetypes = { "c", "cpp", "hpp", "cc" },
 	})
+	lsp.typos_lsp.setup({
+		filetypes = { "*" },
+	})
+	lsp.vale_ls.setup {
+		init_options = {
+			configPath = "/home/david/.config/vale.ini",
+			-- installVale = true,
+		},
+		root_dir = function () return vim.fn.expand('%:p:h') end,
+		filetypes = {
+			"markdown",
+			"text",
+			"mail",
+		}
+	}
 end
 
 setup()

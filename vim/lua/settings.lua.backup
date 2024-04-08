@@ -9,7 +9,7 @@ o.ignorecase = true --ignore case in search
 o.smartcase = true --except when I put a capital in the query
 o.incsearch = true --highlight all matches:
 o.hlsearch = false --do not keep highlighting search after move
-o.inccommand = "nosplit" -- live substitution
+o.inccommand = "nosplit" -- live subsitution
 o.mouse = "nic" --enable mouse support except for selecting text
 o.spell = false
 o.spelllang = "en_gb"
@@ -28,7 +28,6 @@ o.foldlevel = 1
 o.foldlevelstart = 99
 o.completeopt = "menu,menuone,noselect"
 o.modeline = true -- file annotations can set vim settings
-o.textwidth = 80
 -- for example: `// vim: set ft=json:` sets the filetype for a file without extension
 
 -- gui related
@@ -39,6 +38,13 @@ o.termguicolors = true
 
 -- file specific
 g.tex_flavor = "latex"
+
+local function set_buf_filetype()
+	vim.bo.filetype = "rust"
+end
+
+-- auto commands to set filetype based on unknown extensions
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.ers" }, callback = set_buf_filetype })
 
 -- undo
 local undodir = vim.fn.system("echo -n $HOME/.vimdid")
