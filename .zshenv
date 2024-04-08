@@ -2,9 +2,12 @@
 
 #add dirs to path 
 #This lower-case syntax is using path as an array, yet also affects its upper-case partner equivalent, PATH (to which it is "bound" via typeset).
+
+# prepend these, prefer .cargo over system installed
+path=("$HOME/.cargo/bin" "$path[@]")
+
 path+="$HOME/bin"
 path+="$HOME/.go/bin"
-path+="$HOME/.cargo/bin"
 path+="$HOME/.local/bin"
 
 path+=('/snap/bin/')
@@ -29,9 +32,10 @@ alias pip="pip3" #prevents accidentally using pip for python2
 alias open="xdg-open" 
 alias v="nvim"
 alias m="neomutt"
-
-alias ctrlc="xclip -selection c"
-alias ctrlv="xclip -selection c -o"
+# make cargo use the mold linker
+alias cargo='mold -run cargo'
+alias ctrlc="xclip -selection clipboard"
+alias ctrlv="xclip -selection clipboard -o"
 alias rootvim="echo use sudoedit instead" # works thanks to VISUAL
 alias strip="tr '[\t][\n]' ' ' | tr -s '[:blank:]'" # remove newlines and indents
 alias cnom="cargo c 2>&1 | grep --after-context=25" # cargo nom, eat compiler output till string argument found

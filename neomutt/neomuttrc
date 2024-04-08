@@ -54,7 +54,7 @@ set message_cachedir= "~/.local/share/neomutt/mcache"
 # General settings
 #
 #
-set new_mail_command="notify-send 'New Email' '%n new messages, %u unread.' &"
+# set new_mail_command="notify-send 'New Email' '%n new messages, %u unread.' &"
 set signature = "~/.config/neomutt/signature.txt"
 set abort_noattach = "ask-yes"
 set abort_noattach_regex = "\\<(bijgevoegd|bijlage|attached|attachment)\\>"
