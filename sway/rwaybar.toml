@@ -10,6 +10,8 @@ right = ["tray"] # borked: , "pulse-spk"]
 font = "Roboto 14"
 fg = "white"
 bg = "black"
+bg-alpha = 0.1
+tooltips = { bg = "gray" }
 
 [fonts]
 # Named fonts are tried first, then all other fonts are searched for missing glyphs

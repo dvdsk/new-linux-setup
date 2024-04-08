@@ -60,10 +60,20 @@ function wallpaper_work {
 	fi
 }
 
+function dark_mode_at_night {
+	local now=`date +%H:%M`
+	if [[ $now < 06:00 ]] || [[ $now > 21:00 ]]; then
+		gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+	else 
+		gsettings set org.gnome.desktop.interface color-scheme 'default'
+	fi
+}
+
 while true; do
 	if [[ `whoami` == "work" ]]; then
 		wallpaper_work
 	else
+		dark_mode_at_night
 		wallpaper
 	fi
 done
