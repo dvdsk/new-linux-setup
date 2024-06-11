@@ -67,7 +67,7 @@ return require('packer').startup(function(use)
 
 	-- TreeSitter
 	use "nvim-treesitter/nvim-treesitter"
-	use "nvim-treesitter/nvim-treesitter-context"
+	-- use "nvim-treesitter/nvim-treesitter-context" buggy
 	use "nvim-treesitter/nvim-treesitter-textobjects"
 	-- use "nvim-treesitter/playground" -- plugin development
 
@@ -93,8 +93,10 @@ return require('packer').startup(function(use)
 	use "saadparwaiz1/cmp_luasnip"
 
 	-- Debugger
+	use "nvim-neotest/nvim-nio"
 	use "mfussenegger/nvim-dap"
     use "theHamsta/nvim-dap-virtual-text"
 	use "rcarriga/nvim-dap-ui"
-	use "jbyuki/one-small-step-for-vimkind"
+	-- for using dap to debug running nvim plugins:
+	-- use "jbyuki/one-small-step-for-vimkind"
 end)

@@ -74,3 +74,4 @@ fi
 
 alias luamake=/tmp/lua-language-server/3rd/luamake/luamake
 set -o vi
+. "$HOME/.cargo/env"

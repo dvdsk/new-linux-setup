@@ -34,6 +34,7 @@ o.textwidth = 80
 -- gui related
 wo.number = true
 wo.relativenumber = true
+o.signcolumn = "yes:1"
 o.laststatus = 2
 o.termguicolors = true
 

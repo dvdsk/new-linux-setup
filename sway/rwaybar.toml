@@ -4,9 +4,9 @@
 name = "DP-1"
 size = 25
 side = "top"
-left = ["workspaces"]
+left = ["workspaces", "break-enforcer"]
 center= ["clock"]
-right = ["tray"] # borked: , "pulse-spk"]
+right = ["volume", "tray"]
 font = "Roboto 14"
 fg = "white"
 bg = "black"
@@ -37,6 +37,28 @@ format = "{time}"
 # different sizes without duplicating all your items just to change one value
 font = "{bar.the-clock-font}"
 margin = "0 10"
+
+[volume]
+type = "pipewire"
+source = { type = 'pipewire', target = 'default.audio.sink' }
+margin = "0 10"
+
+
+
+[break-enforcer-cmd]
+type = "exec-json"
+command = "/usr/bin/break-enforcer status -j -u 1s"
+# This script outputs lines like '{"msg": "break in 5m"}'
+
+[break-enforcer]
+format = "{break-enforcer-cmd.msg}"
+margin = "0 10"
+
+# [break-enforcer]
+# type = "read-file"
+# path = "/var/run/break_enforcer/status.txt"
+# poll = 1
+# margin = "0 10"
 
 ## WORKSPACE
 [sway-workspace]
@@ -90,16 +112,3 @@ format = "]"
 
 [workspaces-repr.pre-float]
 format = " + "
-
-## Volume
-[pulse-spk]
-padding = "0 10 0 10"
-type = 'pulse'
-target = 'sink'
-# Instead of the default, you can specify a particular sink:
-# target = 'sink:alsa_output.pci-0000_00_1f.3.analog-stereo'
-# "pactl list" will show the available names
-
-[pulse-mic]
-type = 'pulse'
-target = 'source'

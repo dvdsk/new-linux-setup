@@ -86,6 +86,10 @@ local function setup(on_attach)
 	})
 	lsp.typos_lsp.setup({
 		filetypes = { "*" },
+		config = "~/.config/nvim/typos.toml",
+		init_options = {
+			diagnosticSeverity = "Warning"
+		}
 	})
 	lsp.vale_ls.setup {
 		init_options = {

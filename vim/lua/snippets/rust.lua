@@ -5,10 +5,8 @@ local s = ls.snippet
 local sn = ls.snippet_node
 local t = ls.text_node
 local i = ls.insert_node
-local f = ls.function_node
 local c = ls.choice_node
 local d = ls.dynamic_node
-local r = ls.restore_node
 
 local fmt = require("luasnip.extras.fmt").fmt
 
@@ -17,13 +15,21 @@ local function is_relevant_import(node, name)
 		return false
 	end
 
-	local path_text = vim.treesitter.query.get_node_text(node);
+	local path_text = vim.treesitter.get_node_text(node, 0);
 	return string.find(path_text, name)
 end
 
 local function search_level(start_node, name)
-	if is_relevant_import(start_node, name) then
-		return true
+	-- we can skip checking the current node,
+	-- it does not make sense to need to know the import
+	-- on the same line as the import
+
+	if start_node:type() == "source_file" then
+		for child, _ in start_node:iter_children() do
+			if is_relevant_import(child, name) then
+				return true
+			end
+		end
 	end
 
 	local node = start_node:prev_sibling()
@@ -62,13 +68,11 @@ end
 
 local function get_result_type(position)
 	return d(position, function()
-		local nodes = {}
 		if has_import("Result") then
-			nodes[1] = sn(nil, fmt([[Result<{}>]], { i(0, "()") }))
+			return sn(nil, fmt([[Result<{}>]], { i(0, "()") }))
+		else
+			return sn(nil, fmt([[Result<{},{}>]], { i(1, "()"), i(0, "()") }))
 		end
-
-		nodes[#nodes + 1] = sn(nil, fmt([[Result<{},{}>]], { i(1, "()"), i(0, "()") }))
-		return sn(nil, c(1, nodes))
 	end, {})
 end
 
@@ -142,11 +146,22 @@ local function enum_snip(trig, derive)
 end
 
 local function err_enum_snip()
-	return s({ trig = "ee", snippetType = "autosnippet", name = "thiserror enum" },
+	return s({ trig = "xtee", snippetType = "autosnippet", name = "thiserror enum" },
 		fmt([[
 #[derive(Debug, thiserror::Error)]
 pub enum {} {{
 	#[error("{}")]
+	{},
+}}
+]], { i(1), i(0), i(2) }))
+end
+
+local function err_struct_snip()
+	return s({ trig = "xtes", snippetType = "autosnippet", name = "thiserror enum" },
+		fmt([[
+#[derive(Debug, thiserror::Error)]
+#[error("{}")]
+pub struct {} {{
 	{},
 }}
 ]], { i(1), i(0), i(2) }))
@@ -163,7 +178,12 @@ local function struct_snip(trig, derive)
 end
 
 local function fn_snippets()
-	local vis_options = { ["pc"] = "pub(crate) ", ["ps"] = "pub(super) ", ["p"] = "pub ", [""] = "" }
+	local vis_options = {
+		["pc"] = "pub(crate) ",
+		["ps"] = "pub(super) ",
+		["p"] = "pub ",
+		[""] = ""
+	}
 	local ret_options = {
 		["o"] = { "-> Option<{}> ", i(3) },
 		["r"] = { "-> {} ", get_result_type(3) },
@@ -179,8 +199,8 @@ local function fn_snippets()
 			local ret_node = rets[2]
 
 			local trigger = prefix .. "fn" .. suffix
-			local fmt_node = fmt(vis .. "fn {}({}) " .. ret .. "{{\n\t{}\n}}",
-				{ i(1), i(2), ret_node, i(0) })
+			local fmt_str = vis .. "fn {}({}) " .. ret .. "{{\n\t{}\n}}"
+			local fmt_node = fmt(fmt_str, { i(1), i(2), vim.deepcopy(ret_node), i(0) })
 			local snippet = s({ trig = trigger, snippetType = "autosnippet" }, fmt_node)
 
 			snippets[#snippets + 1] = snippet
@@ -190,7 +210,7 @@ local function fn_snippets()
 end
 
 return {
-	s({ trig = "ut", snippetType = "autosnippet", name = "unit test" }, {
+	s({ trig = "xut", snippetType = "autosnippet", name = "unit test" }, {
 		d(1, test_mod_or_function)
 	}),
 
@@ -212,4 +232,5 @@ return {
 	enum_snip("eds", "Debug, Clone, Serialize, Deserialize"),
 
 	err_enum_snip(),
+	err_struct_snip(),
 }, fn_snippets()

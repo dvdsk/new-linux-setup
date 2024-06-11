@@ -34,6 +34,12 @@ function theme:set_dark()
 end
 
 function theme:set()
+	local f = io.open("/tmp/darkmode", "r")
+	if f ~= nil then
+		self:set_dark()
+		return
+	end
+
 	local hour = os.date("*t").hour
 	if hour >= 5 and hour < 21 then
 		self:set_light()

@@ -46,8 +46,13 @@ local function add_greek_alphabet_snips(list)
 	end
 end
 
+local function date_snippet()
+	return s({trig="date"}, f(function() return os.date("%Y-%m-%d") end))
+end
+
 local snips = {}
 add_greek_alphabet_snips(snips)
+snips[#snips+1] = date_snippet()
 require("snippets/helpers_all/todo")(snips)
 
 return snips, {}
