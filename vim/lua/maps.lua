@@ -26,11 +26,10 @@ vim.keymap.set('t', "<ESC>", "<C-\\><C-n>")
 vim.keymap.set({ 'i', 'n' }, "<A-3>", vim.lsp.buf.signature_help)
 
 -- Code navigation
--- go to definition of variable type
--- vim.keymap.set('n', "gd", vim.lsp.buf.type_definition)
-vim.keymap.set('n', "gd", lsp_helpers.goto_def)
+-- go to definition of variable tyPe
+vim.keymap.set('n', "gp", lsp_helpers.goto_def)
 -- go to definition of variable
-vim.keymap.set('n', "gD", vim.lsp.buf.definition)
+vim.keymap.set('n', "gd", vim.lsp.buf.definition)
 -- show hover doc
 vim.keymap.set('n', "k", vim.lsp.buf.hover)
 -- open external docs (rust only)

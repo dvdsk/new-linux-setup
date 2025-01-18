@@ -198,7 +198,7 @@ local function fn_snippets()
 			local ret = rets[1]
 			local ret_node = rets[2]
 
-			local trigger = prefix .. "fn" .. suffix
+			local trigger = "x" .. prefix .. "fn" .. suffix
 			local fmt_str = vis .. "fn {}({}) " .. ret .. "{{\n\t{}\n}}"
 			local fmt_node = fmt(fmt_str, { i(1), i(2), vim.deepcopy(ret_node), i(0) })
 			local snippet = s({ trig = trigger, snippetType = "autosnippet" }, fmt_node)
@@ -222,6 +222,10 @@ return {
 		t("#[derive(Debug, Clone, Copy)]")),
 	s({ trig = "dds", snippetType = "autosnippet", name = "derive debug, serialize" },
 		t("#[derive(Debug, Clone, Serialize, Deserialize)]")),
+
+	s({ trig = "xcf", snippetType = "autosnippet", name = "config feature" }, {
+		t("#[cfg(feature = \""), i(0), t("\")]")
+	}),
 
 	struct_snip("sd ", "Debug"),
 	struct_snip("sdc", "Debug, Clone"),

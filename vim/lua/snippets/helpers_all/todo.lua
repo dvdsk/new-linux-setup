@@ -103,6 +103,8 @@ local function todo_snippet(context, aliases, opts)
 	context.name = context.name or (alias_string .. ' comment')
 	context.dscr = context.dscr or (alias_string .. ' comment with a signature-mark')
 	context.docstring = context.docstring or (' {1:' .. alias_string .. '}: {3} <{2:mark}>{0} ')
+	context.snippetType = "autosnippet"
+	context.trig = "x" .. context.trig
 
 	local comment_node = todo_snippet_nodes(aliases, opts)
 	return s(context, comment_node, opts)

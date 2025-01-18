@@ -4,8 +4,8 @@
 require("mason").setup()
 require("mason-lspconfig").setup {
 	ensure_installed = {
-		"lua_ls", "rust_analyzer",
-		"jsonls", "bashls", "pylsp", "texlab", "ltex", "typos_lsp"
+		"lua_ls", "rust_analyzer", "texlab", "ltex" -- , "harper_ls", commented out to use git version
+		-- "pylsp", "bashls",
 	},
 }
 
@@ -84,24 +84,16 @@ local function setup(on_attach)
 		on_attach = on_attach,
 		filetypes = { "c", "cpp", "hpp", "cc" },
 	})
-	lsp.typos_lsp.setup({
-		filetypes = { "*" },
-		config = "~/.config/nvim/typos.toml",
-		init_options = {
-			diagnosticSeverity = "Warning"
-		}
-	})
-	lsp.vale_ls.setup {
-		init_options = {
-			configPath = "/home/david/.config/vale.ini",
-			-- installVale = true,
+	lsp.harper_ls.setup {
+		settings = {
+			["harper-ls"] = {
+				userDictPath = "~/.config/nvim/harper_dict.txt",
+				diagnosticSeverity = "hint",
+				linters = {
+					sentence_capitalization = false,
+				},
+			}
 		},
-		root_dir = function () return vim.fn.expand('%:p:h') end,
-		filetypes = {
-			"markdown",
-			"text",
-			"mail",
-		}
 	}
 end
 

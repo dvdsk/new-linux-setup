@@ -27,11 +27,11 @@ dap.configurations.rust = {
 		chip = "STM32F401CCUx",
 		coreConfigs = {
 			{
-				programBinary = "target/thumbv7em-none-eabihf/release/min_example_i2c_write_hang"
+				programBinary = "target/thumbv7em-none-eabihf/release/bed-sensors"
 			},
 		},
 		program = function()
-			return "target/thumbv7em-none-eabihf/release/min_example_i2c_write_hang"
+			return "target/thumbv7em-none-eabihf/release/bed-sensors"
 		end,
 		cwd = '${workspaceFolder}',
 		host = function()
