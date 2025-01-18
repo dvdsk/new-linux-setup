@@ -23,7 +23,7 @@ local select = {
 -- }
 
 require("nvim-treesitter.configs").setup {
-	ensure_installed = { "c", "rust", "python", "bash", "lua", "latex", "bibtex", "toml", "json", "cpp", "query" },
+	ensure_installed = { "c", "rust", "python", "bash", "lua", "toml", "json", "cpp", "query" },
 	highlight = { enable = true },
 	indent = { enable = false },
 	playground = {

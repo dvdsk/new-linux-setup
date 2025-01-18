@@ -65,11 +65,11 @@ return require('packer').startup(function(use)
 	use "kana/vim-textobj-user"
 	use "kana/vim-textobj-indent"
 
-	-- Tree-sitter
+	-- TreeSitter
 	use "nvim-treesitter/nvim-treesitter"
-	-- Use "nvim-treesitter/nvim-treesitter-context" buggy
+	-- use "nvim-treesitter/nvim-treesitter-context" buggy
 	use "nvim-treesitter/nvim-treesitter-textobjects"
-	-- Use "nvim-treesitter/playground" -- plugin development
+	-- use "nvim-treesitter/playground" -- plugin development
 
 	-- LSP
 	use {
