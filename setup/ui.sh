@@ -29,3 +29,8 @@ if ! which break-enforcer; then
 	./break-enforcer install -w 15m -b 5m -l 30s -t
 	rm break-enforcer
 fi
+curl -L https://github.com/evavh/break-enforcer-s/releases/latest/download/break-enforcer_x86_64 --output break-enforcer
+chmod +x break-enforcer
+sudo ./break-enforcer wizard
+sudo ./break-enforcer install -w 15m -b 7m -l 30s -t
+rm break-enforcer
