@@ -1,12 +1,12 @@
 # Bars are defined as an array, so you can have more than one
 [[bar]]
 #You can view the name/make/model/description for your monitors by running RUST_LOG=info rwaybar
-name = "DP-1"
+name = "DP-2"
 size = 25
 side = "top"
 left = ["workspaces", "break-enforcer"]
 center= ["clock"]
-right = ["volume", "tray"]
+right = ["co2", "pm2_5", "temperature", "humidity", "anki", "tray"]
 font = "Roboto 14"
 fg = "white"
 bg = "black"
@@ -43,8 +43,6 @@ type = "pipewire"
 source = { type = 'pipewire', target = 'default.audio.sink' }
 margin = "0 10"
 
-
-
 [break-enforcer-cmd]
 type = "exec-json"
 command = "/usr/bin/break-enforcer status -j -u 1s"
@@ -54,11 +52,33 @@ command = "/usr/bin/break-enforcer status -j -u 1s"
 format = "{break-enforcer-cmd.msg}"
 margin = "0 10"
 
-# [break-enforcer]
-# type = "read-file"
-# path = "/var/run/break_enforcer/status.txt"
-# poll = 1
-# margin = "0 10"
+[reading-cmd]
+type = "exec-json"
+command = "ha-text-widget --server 192.168.1.43:1235 --json lb-pm2 lb-temp lb-hum lb-co2"
+
+[temperature]
+format = "{reading-cmd.lb-temp}{reading-cmd.lb-temp-unit}"
+margin = "0 10"
+
+[humidity]
+format = "{reading-cmd.lb-hum}{reading-cmd.lb-hum-unit}"
+margin = "0 10"
+
+[pm2_5]
+format = "{reading-cmd.lb-pm2}{reading-cmd.lb-pm2-unit}"
+margin = "0 10"
+
+[co2]
+format = "{reading-cmd.lb-co2}{reading-cmd.lb-co2-unit}"
+margin = "0 10"
+
+[anki-cmd]
+type = "exec-json"
+command = "anki-widget --json --path /home/david/.var/app/net.ankiweb.Anki/data/Anki2 continuous"
+
+[anki]
+format = "{anki-cmd.due}/{anki-cmd.new}"
+margin = "0 10"
 
 ## WORKSPACE
 [sway-workspace]
