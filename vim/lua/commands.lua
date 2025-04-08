@@ -17,3 +17,15 @@ vim.api.nvim_create_user_command(
 	func.apply_custom_remaps,
 	{ desc = "redo custom remappings" }
 )
+
+vim.api.nvim_create_user_command(
+	"LspCodeAction",
+	func.lsp_code_action_by_prefix,
+	{ nargs = 1,
+	  desc = "perform the lsp code action that matches the provided prefix",
+	  complete = function(_, _, _)
+		  return func.lst_list_code_actions()
+	  end,
+      
+    }
+)

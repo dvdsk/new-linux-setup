@@ -172,7 +172,88 @@ local virtual_lines_on = false
 function M.toggle_diagnostic_lines()
 	virtual_lines_on = not virtual_lines_on
 	vim.diagnostic.config({ virtual_lines = virtual_lines_on })
+end
 
+-- opts is a table with a field fargs that has the arguments to the command
+-- the first should be the required_prefix
+function M.lsp_code_action_by_prefix(opts)
+	local required_prefix = string.lower(opts.fargs[1])
+	if required_prefix == nil or #required_prefix == 0 then
+		print("CODE ACTION PREFIX IS NOT ALLOWED TO BE EMPTY, PASS ONE IN PLEASE")
+		return
+	end
+	vim.lsp.buf.code_action({
+		apply = true, -- If there is only one remaining action after filtering perform it
+		filter = function(action)
+			return string.lower(action.title:sub(1, #required_prefix)) == required_prefix
+		end,
+	})
+end
+
+function get_cached_code_actions()
+	local cache = vim.b["cached_code_actions"]
+	if cache == nil then
+		return nil
+	end
+
+	local line = vim.api.nvim_get_current_line()
+	local cache_line = cache[line]
+	if cache_line == nil then
+		return nil
+	end
+
+	local time_now = os.time(os.date("!*t"))
+	local cache_updated_at = cache_line.unix_time
+	if time_now - cache_updated_at > 180 then
+		return nil
+	else
+		return cache_line.code_actions
+	end
+end
+
+function update_cached_code_actions(code_actions)
+	local cache = vim.b["cached_code_actions"]
+	if vim.b["cached_code_actions"] == nil then
+		vim.b["cached_code_actions"] = {}
+	end
+
+	local line = vim.api.nvim_get_current_line()
+	vim.b["cached_code_actions"][line] = {
+		unix_time = os.time(os.date("!*t")),
+		code_actions = code_actions,
+	}
+end
+
+function M.lst_list_code_actions()
+	local cached = get_cached_code_actions()
+	if cached ~= nil then
+		return cached
+	end
+
+	local bufnr = vim.api.nvim_get_current_buf()
+
+	local actions = {}
+	for _, client in pairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+		local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
+		params.context = {
+			triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Invoked,
+			diagnostics = vim.lsp.diagnostic.get_line_diagnostics(),
+		}
+		local res = client:request_sync("textDocument/codeAction", params, 1000, 0)
+		table.insert(actions, res)
+	end
+
+	local output = {}
+	for _, action in pairs(actions) do
+		if action.result ~= nil then
+			for _, result in pairs(action.result) do
+				table.insert(output, result.title)
+			end
+		end
+	end
+
+	update_cached_code_actions(output)
+	return output
 end
 
 return M
