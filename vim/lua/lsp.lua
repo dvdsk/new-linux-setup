@@ -4,12 +4,12 @@
 require("mason").setup()
 require("mason-lspconfig").setup {
 	ensure_installed = {
-		"lua_ls", "rust_analyzer", "texlab", "ltex" -- , "harper_ls", commented out to use git version
+		"lua_ls", "rust_analyzer", "texlab", "ltex", "harper_ls",
 		-- "pylsp", "bashls",
 	},
 }
 
-local lsp = require("lspconfig")
+local lsp = vim.lsp
 
 -- local null_ls = require("null-ls")
 -- null_ls.setup({
@@ -22,7 +22,7 @@ local function setup(on_attach)
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-	lsp.rust_analyzer.setup({
+	lsp.config('rust_analyzer', {
 		-- cmd = { "rustup run stable rust-analyzer" },
 		cmd = { "/home/david/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer" },
 		-- cmd = { "rust-analyzer" },
@@ -44,7 +44,7 @@ local function setup(on_attach)
 		},
 	})
 
-	lsp.pylsp.setup({
+	lsp.config('pylsp', {
 		on_attach = on_attach,
 		settings = {
 			pylsp = {
@@ -55,11 +55,11 @@ local function setup(on_attach)
 			}
 		}
 	})
-	lsp.gopls.setup {} -- go lang, let meson-lspconfig configure
-	lsp.texlab.setup {} -- latex, let meson-lspconfig configure
-	lsp.jsonls.setup {} --json, let meson-lspconfig configure
-	lsp.bashls.setup {} -- bash, let meson-lspconfig configure
-	lsp.ltex.setup({
+	lsp.config('gopls', {}) -- go lang, let meson-lspconfig configure
+	lsp.config('texlab', {}) -- latex, let meson-lspconfig configure
+	lsp.config('jsonls', {}) --json, let meson-lspconfig configure
+	lsp.config('bashls', {}) -- bash, let meson-lspconfig configure
+	lsp.config('ltex', {
 		-- default with `mail` without `markdown` and `text
 		-- those are now done by vale-ls
 		filetypes = {
@@ -76,15 +76,15 @@ local function setup(on_attach)
 			"adoc",
 		}
 	})
-	lsp.lua_ls.setup {} -- let meson-lspconfig do everything
+	lsp.config('lua_ls', {}) -- let meson-lspconfig do everything
 
 	-- needs a compile_commands.json file; easiest to generate
 	-- using bear; `make clean; bear -- make`
-	lsp.clangd.setup({ -- c++ and c
+	lsp.config('clangd', { -- c++ and c
 		on_attach = on_attach,
 		filetypes = { "c", "cpp", "hpp", "cc" },
 	})
-	lsp.harper_ls.setup {
+	lsp.config('harper_ls', {
 		settings = {
 			["harper-ls"] = {
 				userDictPath = "~/.config/nvim/harper_dict.txt",
@@ -94,7 +94,7 @@ local function setup(on_attach)
 				},
 			}
 		},
-	}
+	})
 end
 
 setup()

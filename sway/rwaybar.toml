@@ -57,15 +57,15 @@ type = "exec-json"
 command = "ha-text-widget --server 192.168.1.43:1235 --json lb-pm2 lb-temp lb-hum lb-co2"
 
 [temperature]
-format = "{reading-cmd.lb-temp}{reading-cmd.lb-temp-unit}"
+format = "{reading-cmd.lb-temp:.2}{reading-cmd.lb-temp-unit}"
 margin = "0 10"
 
 [humidity]
-format = "{reading-cmd.lb-hum}{reading-cmd.lb-hum-unit}"
+format = "{reading-cmd.lb-hum:.2}{reading-cmd.lb-hum-unit}"
 margin = "0 10"
 
 [pm2_5]
-format = "{reading-cmd.lb-pm2}{reading-cmd.lb-pm2-unit}"
+format = "{reading-cmd.lb-pm2:.1}{reading-cmd.lb-pm2-unit}"
 margin = "0 10"
 
 [co2]

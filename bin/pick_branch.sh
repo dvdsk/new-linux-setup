@@ -21,6 +21,8 @@ branch_list() {
 
 branches=$(git branch -r | grep -v HEAD)
 list=$(branch_list "$branches")
-choice=$(echo "$list" | sk --ansi | xargs | cut -d " " -f 4)
+choice=$(echo "$list" | sk --ansi)
+# for some reason this has to be a seperate step
+choice=$(echo $choice | cut -d " " -f 4)
 
 git checkout $choice
