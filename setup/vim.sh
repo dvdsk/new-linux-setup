@@ -18,8 +18,8 @@ if [ ! -d $(dirname $NVIM) ]; then
 fi
 
 rm $NVIM || true # if there is no existing install thats fine
-wget "https://github.com/neovim/neovim/releases/download/stable/nvim.appimage" \
-	--output-document $NVIM
+RELEASE="https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-linux-x86_64.appimage"
+wget $RELEASE --output-document $NVIM
 chmod +x $NVIM
 ln -f $NVIM $(dirname $NVIM)/nvim
 
