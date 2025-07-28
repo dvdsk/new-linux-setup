@@ -65,20 +65,18 @@ return require('packer').startup(function(use)
 	use "kana/vim-textobj-user"
 	use "kana/vim-textobj-indent"
 
-	-- TreeSitter
+	-- Tree-sitter
 	use "nvim-treesitter/nvim-treesitter"
-	-- use "nvim-treesitter/nvim-treesitter-context" buggy
+	use "nvim-treesitter/nvim-treesitter-context" 
 	use "nvim-treesitter/nvim-treesitter-textobjects"
-	-- use "nvim-treesitter/playground" -- plugin development
+	-- Use "nvim-treesitter/playground" -- plugin development
 
 	-- LSP
 	use {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
 		run = ":MasonUpdate" -- :MasonUpdate updates registry contents
 	}
-	-- use "nvimtools/none-ls.nvim"
 
 	-- Completions
 	use "L3MON4D3/LuaSnip"

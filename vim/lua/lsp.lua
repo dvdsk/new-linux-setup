@@ -1,32 +1,17 @@
--- list of installable lang-servers
--- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
-
 require("mason").setup()
 require("mason-lspconfig").setup {
-	ensure_installed = {
-		"lua_ls", "rust_analyzer", "texlab", "ltex", "harper_ls",
-		-- "pylsp", "bashls",
-	},
+	ensure_installed = { "lua_ls", "harper_ls" },
 }
 
-local lsp = vim.lsp
-
--- local null_ls = require("null-ls")
--- null_ls.setup({
--- 	sources = { null_ls.builtins.diagnostics.vale }
--- })
-
--- on attach is not used right now but could be used by other
--- plugins in the future
-local function setup(on_attach)
+local function config_and_enable()
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-	lsp.config('rust_analyzer', {
+	vim.lsp.config('rust-analyzer', {
 		-- cmd = { "rustup run stable rust-analyzer" },
 		cmd = { "/home/david/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer" },
-		-- cmd = { "rust-analyzer" },
-		on_attach = on_attach,
+		root_markers = { 'Cargo.toml' },
+		filetypes = { 'rust' },
 		capabilities = capabilities,
 		settings = {
 			["rust-analyzer"] = {
@@ -43,58 +28,84 @@ local function setup(on_attach)
 			},
 		},
 	})
-
-	lsp.config('pylsp', {
-		on_attach = on_attach,
-		settings = {
-			pylsp = {
-				plugins = {
-					flake8 = { enabled = true },
-					mypy = { enabled = true }
-				}
-			}
-		}
-	})
-	lsp.config('gopls', {}) -- go lang, let meson-lspconfig configure
-	lsp.config('texlab', {}) -- latex, let meson-lspconfig configure
-	lsp.config('jsonls', {}) --json, let meson-lspconfig configure
-	lsp.config('bashls', {}) -- bash, let meson-lspconfig configure
-	lsp.config('ltex', {
-		-- default with `mail` without `markdown` and `text
-		-- those are now done by vale-ls
-		filetypes = {
-			"bib",
-			"gitcommit",
-			-- "markdown",
-			-- "text",
-			"org",
-			"plaintext",
-			"rst",
-			"rnoweb",
-			"tex",
-			"mail",
-			"adoc",
-		}
-	})
-	lsp.config('lua_ls', {}) -- let meson-lspconfig do everything
-
-	-- needs a compile_commands.json file; easiest to generate
-	-- using bear; `make clean; bear -- make`
-	lsp.config('clangd', { -- c++ and c
-		on_attach = on_attach,
-		filetypes = { "c", "cpp", "hpp", "cc" },
-	})
-	lsp.config('harper_ls', {
-		settings = {
-			["harper-ls"] = {
-				userDictPath = "~/.config/nvim/harper_dict.txt",
-				diagnosticSeverity = "hint",
-				linters = {
-					sentence_capitalization = false,
-				},
-			}
-		},
-	})
+	vim.lsp.enable({'rust-analyzer'})
 end
 
-setup()
+config_and_enable()
+
+M = {}
+
+function M.setup_rustc_dev()
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+	local workspace = vim.fs.root(0, 'x.py')
+	if workspace == nil then 
+		print("ERROR: could not find rust compiler/std workspace")
+		return 
+	end
+
+	-- stop all lsps (and thus rust-analyzer)
+	vim.lsp.stop_client(vim.lsp.get_clients())
+	vim.lsp.start({
+		name = 'rust-analyzer',
+		cmd = {"/home/david/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer"},
+		capabilities = capabilities,
+		settings = {
+			["rust-analyzer"] = {
+				check = {
+					invocationStrategy = "once",
+					overrideCommand = {
+						"python3",
+						"x.py",
+						"check",
+						"--json-output"
+					},
+				},
+				linkedProjects = {
+					"Cargo.toml",
+					"compiler/rustc_codegen_cranelift/Cargo.toml",
+					"compiler/rustc_codegen_gcc/Cargo.toml",
+					"library/Cargo.toml",
+					"src/bootstrap/Cargo.toml",
+					"src/tools/rust-analyzer/Cargo.toml"
+				},
+				rustfmt = {
+					overrideCommand = {
+						workspace .. "/build/host/rustfmt/bin/rustfmt",
+						"--edition=2024"
+					}
+				},
+				procMacro = {
+					server = workspace .. "/build/host/stage0/libexec/rust-analyzer-proc-macro-srv",
+					enable = true,
+				},
+				cargo = {
+					buildScripts = {
+						enable = true,
+						invocationStrategy = "once",
+						overrideCommand = {
+							"python3",
+							"x.py",
+							"check",
+							"--json-output"
+						}
+					},
+					sysrootSrc = "./library",
+					extraEnv = {
+						RUSTC_BOOTSTRAP = "1",
+					},
+				},
+				server = {
+					extraEnv = {
+						RUSTC_TOOLCHAIN = "nightly",
+					}
+				}
+			},
+		},
+	})
+	print("done")
+	-- local settings = vim.lsp.get_clients({ name = "rust_analyzer" })
+	-- print(vim.inspect(settings))
+end
+
+return M
