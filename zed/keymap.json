@@ -1,0 +1,69 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  // Controversial  remaps
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual || vim_mode == operator)",
+    "bindings": {
+      // remapping for colemak
+      "s": "vim::Left",
+      "t": "vim::Right",
+      "n": "vim::Up",
+      "m": "vim::Down",
+
+      "S": "vim::StartOfLine",
+      "T": "vim::EndOfLine",
+      "N": "vim::PageUp",
+      "M": "vim::PageDown",
+
+      "j": "vim::Substitute",
+      "h": "vim::MoveToNextMatch",
+
+      // I  dislike pressing shift
+      ";": "command_palette::Toggle",
+      ";": ["workspace::SendKeystrokes", ":"]
+    }
+  },
+  // Code navigation
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "gp": "editor::GoToDefinition",
+      "gd": "editor::GoToTypeDefinition",
+      "k": "editor::Hover",
+      "space n": "editor::GoToDiagnostic",
+      "space p": "editor::GoToPreviousDiagnostic"
+    }
+  },
+
+  // Code actions
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "g x": "editor::ToggleCodeActions",
+      "space a": "editor::ToggleCodeActions",
+      "space f": "editor::Format",
+      "c r": "editor::Rename"
+    }
+  },
+
+  // Telescope
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // "j k": ["workspace::SendKeystrokes", "escape"]
+      "space o": "file_finder::Toggle"
+    }
+  }
+]
