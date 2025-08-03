@@ -2,7 +2,8 @@
 
 files=( 
 	"Templates/*, ~/Templates"
-	"bin/*.sh, ~/bin"
+	"bin/*, ~/bin"
+	"zed/*, ~/.config/zed"
 	"vim/init.lua, ~/.config/nvim" 
 	"vim/lua/*.lua, ~/.config/nvim/lua" 
 	"vim/lua/snippets/*.lua, ~/.config/nvim/lua/snippets" 
