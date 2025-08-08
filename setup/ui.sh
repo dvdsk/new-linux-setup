@@ -16,7 +16,7 @@ fi
 
 if ! which kickoff-dot-desktop; then
 	sudo apt install libxkbcommon-dev
-	$cargo install --git https://github.com/j0ru/kickoff-dot-desktop
+	$cargo install --locked --git https://github.com/j0ru/kickoff-dot-desktop
 fi
 
 if ! which kickoff; then
@@ -32,5 +32,10 @@ if ! which break-enforcer; then
 fi
 
 if ! which  ha-text-widget; then
-	cargo install --git https://github.com/dvdsk/HomeAutomation ha-text-widget
+	cargo install --locked --git https://github.com/dvdsk/HomeAutomation ha-text-widget
+fi
+
+if ! which  anki-widget; then
+	sudo apt install protobuf-compiler
+	cargo install --locked --git https://github.com/evavh/anki-widget anki-widget
 fi
