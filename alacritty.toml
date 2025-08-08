@@ -1,0 +1,9 @@
+[general]
+import = ["~/.config/alacritty/themes/themes/solarized_light.toml"]
+
+[font]
+size = 18
+normal = { family = "CaskaydiaCovePL Nerd Font", style = "regular" }
+bold = { family = "CaskaydiaCovePL Nerd Font", style = "bold" }
+italic = { family = "CaskaydiaCovePL Nerd Font", style = "italic" }
+bold_italic = { family = "CaskaydiaCovePL Nerd Font", style = "bold_italic" }
