@@ -26,39 +26,22 @@ set_as_desktop_terminal_app() {
 source fonts.sh
 install_fonts
 
-# move config in place
-CONFIGPATH=~/.config/alacritty/alacritty.yml
+# install themes
+if [ -d $HOME/.config/alacritty/themes ]; then
+    git pull
+else
+    mkdir -p ~/.config/alacritty/themes
+    git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+fi
+
+# # move config in place
+CONFIGPATH=~/.config/alacritty/alacritty.toml
 mkdir -p $(dirname $CONFIGPATH)
-[ -f $CONFIGPATH ] || cp ../alacritty.yml $CONFIGPATH
+[ -f $CONFIGPATH ] || cp ../alacritty.toml $CONFIGPATH
 
-# try installing via ppa
-# echo "trying to install using apt, this needs sudo."\
-#      "It is okay to skip this step with Ctrl+C then "\
-#      "this will install locally"
-
-# sudo add-apt-repository ppa:mmstick76/alacritty && \ # needed on ubuntu
 sudo apt-get install alacritty \
 	&& set_as_default \
 	&& set_as_desktop_terminal_app \
 	&& echo "installed alacritty" \
 	&& exit 0 \
 	|| true
-
-
-# TODO wip no way to get around some apt dependencies for now
-# if ! command -v cargo; then
-# 	echo "need rustup/cargo installed, exiting"
-# 	exit 0
-# fi
-
-# TEMP=/tmp/alacritty
-# mkdir -p $TEMP
-# git clone git@github.com:alacritty/alacritty.git
-
-# cd $TEMP/alacritty
-# cargo build --release
-# mv target/release/alacritty ~/bin/alacritty
-
-# cp extra/logo/alacritty-term.svg ~/.local/share/applications/
-# cp extra/linux/Alacritty.desktop ~/.local/share/applications/
-# #TODO setup terminfo without sudo?
