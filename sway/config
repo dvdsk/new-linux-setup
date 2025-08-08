@@ -27,13 +27,11 @@ set $term alacritty
 
 # Redshift
 exec --no-startup-id dunst
-# exec --no-startup-id /usr/bin/bash /home/david/bin/notify_lock.sh
-# exec --no-startup-id neomutt
 exec --no-startup-id redshift -l 52.7:5.8
 exec --no-startup-id ~/.cargo/bin/rwaybar
-exec --no-startup-id /usr/bin/bash /home/david/.config/sway/wallpaper.sh
-exec --no-startup-id /usr/bin/bash /home/david/.config/sway/swap_alacritty_colors.sh
-exec --no-startup-id /usr/bin/bash /home/david/bin/set_audio.sh
+exec --no-startup-id /usr/bin/bash ~/.config/sway/wallpaper.sh
+exec --no-startup-id /usr/bin/bash ~/.config/sway/swap_alacritty_colors.sh
+exec --no-startup-id /usr/bin/bash ~/bin/set_audio.sh
 
 # run a polkit auth agent 
 # (allows gui apps to ask for more permissions)
@@ -65,8 +63,7 @@ output * scale 1.4
     bindsym $mod+q kill
 
     # Start your launcher
-    bindsym $mod+d exec /usr/bin/bash /home/david/bin/launch_app.sh
-    # bindsym $mod+d exec flatpak list --app --columns=name --columns=application | tail -n +2 | sed 's/\t\(.\+\)/ = flatpak run \1/' | cat - <(kickoff-dot-desktop) | kickoff --from-stdin
+    bindsym $mod+d exec /usr/bin/bash ~/bin/launch_app.sh
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -97,9 +94,8 @@ output * scale 1.4
 	# start firefox
 	bindsym $mod+b exec firefox
 
-
-bindsym XF86AudioRaiseVolume exec --no-startup-id .cargo/bin/pw-volume change "+2.5%"
-bindsym XF86AudioLowerVolume exec --no-startup-id .cargo/bin/pw-volume change "-2.5%"
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 2.5%+ --limit 1.0
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 2.5%- --limit 1.0
 
 #
 # Moving around:
