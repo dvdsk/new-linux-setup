@@ -27,7 +27,7 @@ if ! which break-enforcer; then
 	curl -L https://github.com/evavh/break-enforcer/releases/latest/download/break-enforcer_x86_64 --output break-enforcer
 	chmod +x break-enforcer
 	sudo ./break-enforcer wizard
-	sudo ./break-enforcer install -w 25m -b 5m -l 30s -t
+	sudo ./break-enforcer install -w 25m -b 5m -l 30s -t -a audio
 	rm break-enforcer
 fi
 
