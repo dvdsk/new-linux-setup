@@ -14,11 +14,22 @@
   },
   // Controversial  remaps
   {
+    "context": "",
+    "bindings": {
+      "h": "editor::FindNextMatch"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual)",
+    "bindings": {
+      "t": "vim::Right"
+    }
+  },
+  {
     "context": "Editor && (vim_mode == normal || vim_mode == visual || vim_mode == operator)",
     "bindings": {
       // remapping for colemak
       "s": "vim::Left",
-      "t": "vim::Right",
       "n": "vim::Up",
       "m": "vim::Down",
 
@@ -37,13 +48,16 @@
   },
   // Code navigation
   {
-    "context": "Editor && vim_mode == normal",
+    "context": "Editor && vim_mode == normal || vim_mode == operator",
     "bindings": {
-      "gp": "editor::GoToDefinition",
-      "gd": "editor::GoToTypeDefinition",
+      "g p": "editor::GoToDefinition",
+      "g d": "editor::GoToTypeDefinition",
+      "g r": "editor::FindAllReferences",
+      "g i": "editor::GoToImplementation",
       "k": "editor::Hover",
       "space n": "editor::GoToDiagnostic",
-      "space p": "editor::GoToPreviousDiagnostic"
+      "space p": "editor::GoToPreviousDiagnostic",
+      "space space": ["workspace::SendKeystrokes", "ctrl-tab enter"]
     }
   },
 
@@ -53,7 +67,12 @@
     "bindings": {
       "g x": "editor::ToggleCodeActions",
       "space a": "editor::ToggleCodeActions",
-      "space f": "editor::Format",
+      "space f": "editor::Format"
+    }
+  },
+  {
+    "context": "Editor && vim_mode && vim_operator == c",
+    "bindings": {
       "c r": "editor::Rename"
     }
   },
@@ -63,7 +82,9 @@
     "context": "Editor && vim_mode == normal",
     "bindings": {
       // "j k": ["workspace::SendKeystrokes", "escape"]
-      "space o": "file_finder::Toggle"
+      "space o": "file_finder::Toggle",
+      "space r": "pane::DeploySearch",
+      "space b": "tab_switcher::Toggle"
     }
   }
 ]
