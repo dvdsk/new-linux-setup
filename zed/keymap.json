@@ -12,13 +12,36 @@
       // "shift shift": "file_finder::Toggle"
     }
   },
-  // Controversial  remaps
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual)",
+    "bindings": {
+      "t": "vim::Right",
+      "s": "vim::Left"
+    }
+  },
+  // navigate between splits
+  // {
+  //   // TODO FIGURE OUT THIS BOOLEAN LOGIC
+  //   "context": "Pane && !(Editor && (vim_mode == normal))",
+  //   "bindings": {
+  //     "ctrl-n": "workspace::ActivatePaneUp",
+  //     "ctrl-m": "workspace::ActivatePaneDown",
+  //     "ctrl-e": "workspace::ActivatePaneLeft",
+  //     "ctrl-i": "workspace::ActivatePaneRight"
+  //   }
+  // },
+  {
+    "context": "!(Editor && vim_mode == insert)",
+    "bindings": {
+      ";": "command_palette::Toggle",
+      "g f": "workspace::FollowNextCollaborator",
+      "space b": "tab_switcher::ToggleAll"
+    }
+  },
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual || vim_mode == operator)",
     "bindings": {
       // remapping for colemak
-      "s": "vim::Left",
-      "t": "vim::Right",
       "n": "vim::Up",
       "m": "vim::Down",
 
@@ -31,19 +54,31 @@
       "h": "vim::MoveToNextMatch",
 
       // I  dislike pressing shift
-      ";": "command_palette::Toggle",
+      // ";": "command_palette::Toggle",
       ";": ["workspace::SendKeystrokes", ":"]
     }
   },
   // Code navigation
   {
-    "context": "Editor && vim_mode == normal",
+    "context": "Editor && vim_mode == normal || vim_mode == operator",
     "bindings": {
-      "gp": "editor::GoToDefinition",
-      "gd": "editor::GoToTypeDefinition",
+      "g d": "editor::GoToDefinition",
+      "g t": "editor::GoToTypeDefinition",
+      "g r": "editor::FindAllReferences",
+      "g i": "editor::GoToImplementation",
       "k": "editor::Hover",
+      "g x": "pane::CloseActiveItem",
       "space n": "editor::GoToDiagnostic",
-      "space p": "editor::GoToPreviousDiagnostic"
+      "space p": "editor::GoToPreviousDiagnostic",
+      "space e": "diagnostics::Deploy",
+      "space l": "outline::Toggle"
+    }
+  },
+  // Code navigation
+  {
+    "context": "VimControl && !menu || ChangesList || EmptyPane || SharedScreen || MarkdownPreview || KeyContextView || Welcome || Diagnostics || ThemePreview || KeymapEditor",
+    "bindings": {
+      "space space": ["workspace::SendKeystrokes", "ctrl-tab enter"]
     }
   },
 
@@ -51,19 +86,51 @@
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
-      "g x": "editor::ToggleCodeActions",
+      "g a": "editor::ToggleCodeActions",
       "space a": "editor::ToggleCodeActions",
       "space f": "editor::Format",
-      "c r": "editor::Rename"
+      "g f": "workspace::FollowNextCollaborator"
+    }
+  },
+
+  {
+    "context": "Editor && vim_mode == operator && vim_operator == c",
+    "bindings": {
+      "r": "editor::Rename" // is triggers on cr
     }
   },
 
   // Telescope
   {
-    "context": "Editor && vim_mode == normal",
+    "context": "!Editor || Editor && vim_mode == normal",
     "bindings": {
       // "j k": ["workspace::SendKeystrokes", "escape"]
-      "space o": "file_finder::Toggle"
+      "space o": "file_finder::Toggle",
+      "space r": "pane::DeploySearch"
+    }
+  },
+  // Close project search
+  {
+    "context": "ProjectSearchBar || KeyContextView",
+    "bindings": {
+      "g x": "pane::CloseActiveItem"
+    }
+  },
+  // navigate through project search
+  {
+    "context": "multibuffer",
+    "bindings": {
+      "down": "search::SelectNextMatch",
+      "up": "search::SelectPreviousMatch"
+    }
+  },
+  // store locations
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "g b": "vim::PushMark",
+      "space m": "vim::ToggleMarksView"
+      // "g m": "vim::SelectRegister"
     }
   }
 ]
