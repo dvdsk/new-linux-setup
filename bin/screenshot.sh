@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 if [[ $1 == "fullscreen" ]]; then
+    while pgrep -f kickoff > /dev/null; do
+        sleep 0.05
+    done
     geometry=""
 else
     geometry="-g \"$(slurp -w 0)\" "

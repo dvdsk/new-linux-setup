@@ -7,6 +7,14 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent": {
+    "always_allow_tool_actions": true,
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4"
+    },
+    "default_profile": "write"
+  },
   "minimap": {
     "show": "never"
   },
@@ -14,6 +22,10 @@
     "show": false,
     "show_nav_history_buttons": false,
     "show_tab_bar_buttons": false
+  },
+  "preview_tabs": {
+    "enabled": false,
+    "enable_preview_from_code_navigation": true
   },
   "ui_font_family": "CaskaydiaCovePL Nerd Font",
   "base_keymap": "SublimeText",
@@ -34,7 +46,7 @@
   "theme": {
     "mode": "system",
     "light": "Solarized Light",
-    "dark": "Gruvbox Light"
+    "dark": "Gruvbox Dark Soft"
   },
   "auto_install_extensions": {
     "rust-analyzer": true
@@ -43,5 +55,8 @@
   "vim": {
     "toggle_relative_line_numbers": true
   },
-  "cursor_blink": false
+  "cursor_blink": false,
+  "audio": {
+    "experimental.rodio_audio": true
+  }
 }

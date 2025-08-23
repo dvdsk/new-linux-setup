@@ -5,7 +5,8 @@ set -e
 export PATH="$PATH:$HOME/.cargo/bin"
 
 flatpaks=$(flatpak list --app --columns=name --columns=application | tail -n +1 | sed 's/\t\(.\+\)/ = flatpak run \1/') 
-snaps=$(snap list | awk '($1 != "Name") {print $1 "= snap run " $1;}')
+# Snap sometimes hangs for seconds, just dont list snaps in that case
+snaps=$(timeout 0.1 snap list | awk '($1 != "Name") {print $1 "= snap run " $1;}' || true)
 desktops=$(kickoff-dot-desktop)
 screenshot="\
 	Area to clipboard = ~/bin/screenshot.sh area clipboard

@@ -94,6 +94,9 @@ output * scale 1.4
 	# start firefox
 	bindsym $mod+b exec firefox
 
+	# stop recording
+	bindsym $mod+x exec /usr/bin/bash ~/bin/record_screen.sh stop
+
 bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 2.5%+ --limit 1.0
 bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 2.5%- --limit 1.0
 
